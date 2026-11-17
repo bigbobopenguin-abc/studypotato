@@ -47,6 +47,13 @@
 <!-- ================= PLAN ================= -->
 <section id="plan" data-group="Start here" data-num="00" data-short="Exam plan" data-noprogress>
   <h2><span class="tn">00</span>Two-week plan</h2>
+  <h3>How the topics fit together</h3>
+  <p class="sub">Tap a topic to jump to it. Topics you mark as revised turn green.</p>
+  <div class="tmap-stage"><span class="lab">Prepare the text</span><div class="tmap"><a href="#n2">Pre-processing<small>clean & tokenise</small></a><span class="arr">→</span><a href="#n3">POS & HMM<small>tag each word</small></a><span class="arr">→</span><a href="#n4">NER & chunking<small>names & phrases</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Turn words into numbers</span><div class="tmap"><a href="#n5">Vectorisation<small>one-hot → embeddings</small></a><span class="arr">→</span><a href="#n6">TDM / TTM<small>counts & cosine</small></a><span class="arr">→</span><a href="#n7">TF-IDF & PPMI<small>smarter counts</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Classify the text</span><div class="tmap"><a href="#n8">Naive Bayes<small>count & multiply</small></a><span class="arr">→</span><a href="#n9">Logistic regression<small>weights & sigmoid</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Deep learning models</span><div class="tmap"><a href="#n10">CNN<small>filters & pooling</small></a><span class="arr">→</span><a href="#n11">Transformer<small>self-attention</small></a></div></div>
+
   <div class="trap"><div class="k">No equations given in the test for</div>
     <ul><li><b>Hidden Markov Model</b> (emission, transition, multiply along the path)</li>
     <li><b>Naive Bayes</b> (prior × likelihoods, add-1 smoothing)</li>
@@ -73,6 +80,7 @@
 <!-- ================= 1 INTRO ================= -->
 <section id="n1" data-group="Topics" data-num="1" data-short="Intro to NLP">
   <h2><span class="tn">Topic 1</span>Introduction to NLP</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">NLP is about getting computers to read, understand and write human language.</p><dl><dt>Remember</dt><dd><ul><li>NLP = AI that understands, interprets and generates human language</li><li>2013 Word2Vec: words become vectors that capture meaning</li><li>2017 Transformers: the basis of BERT, GPT and today's chatbots</li><li>Uses: healthcare records, fraud detection, review analysis, translation, chatbots, sentiment analysis</li></ul></dd><dt>Think of it as</dt><dd>Teaching a very fast but very literal foreign student your language: first how to split sentences into words, then grammar, then meaning.</dd><dt>In the test</dt><dd><ul><li>Name the key milestones (Word2Vec 2013, Transformers 2017)</li><li>Give real uses of NLP (healthcare, finance, reviews, translation)</li></ul></dd></dl></div>
   <p><b>Natural Language Processing (NLP)</b> is the part of AI that lets computers understand, interpret and generate human language.</p>
   <ul class="timeline">
     <li><b>1950s</b>NLP begins</li>
@@ -89,11 +97,14 @@
   </table></div>
   <h3>The big picture pipeline</h3>
   <p>Raw text → clean and tokenise → understand grammar (POS, chunking, NER) → turn into numbers (one-hot, BoW, TDM/TTM, TF-IDF/PPMI, embeddings) → model (Naive Bayes, logistic regression, CNN, Transformer) → compare or classify.</p>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n1-1" data-answer="1"><p class="qtext">Which year did the Transformer architecture appear?</p><ol class="choices"><li>2013</li><li>2017</li><li>1950</li><li>2020</li></ol><p class="explain">“Attention is all you need”, 2017. Word2Vec was 2013.</p></div><div class="mcq" id="qc-n1-2" data-answer="2"><p class="qtext">Checking whether a review sounds positive or negative is called:</p><ol class="choices"><li>Translation</li><li>Tokenisation</li><li>Sentiment analysis</li><li>Chunking</li></ol><p class="explain">Sentiment analysis works out the attitude of a text.</p></div></div>
 </section>
 
 <!-- ================= 2 PREPROCESS ================= -->
 <section id="n2" data-group="Topics" data-num="2" data-short="Pre-processing & tokens">
   <h2><span class="tn">Topic 2</span>Text Pre-processing and Tokenisation</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Before a computer can work with text, we clean it and chop it into small pieces called tokens.</p><dl><dt>Remember</dt><dd><ul><li>Tokenisation splits text into tokens; all unique tokens = the vocabulary</li><li>Word tokens can't handle OOV (unseen) words</li><li>Character tokens: tiny vocabulary, but very long sequences</li><li>Subword tokens (BPE) handle new words with a small vocabulary</li><li>BPE repeatedly merges the most frequent adjacent pair</li><li>Stop-word removal deletes common words (the, is, and)</li><li><b>Stemming removes affixes</b> (prefixes and suffixes) by rule to get the stem, which may not be a real word: flies → fli</li><li><b>Lemmatisation returns the lemma</b> (dictionary base form) using vocabulary and grammar, always a real word: flies → fly</li></ul></dd><dt>Think of it as</dt><dd>Like prepping vegetables before cooking: wash (remove noise), peel (stop words), and cut into pieces (tokens). How small you cut them is the tokenisation choice.</dd><dt>In the test</dt><dd><ul><li>Compare word, character, subword and sentence tokenisation</li><li>Run BPE merges by hand</li><li>Tell stemming from lemmatisation from an example</li></ul></dd></dl></div>
   <ul>
     <li><b>Pre-processing</b> = cleaning messy text before a model uses it.</li>
     <li><b>Tokenisation</b> = splitting text into pieces called <b>tokens</b>. All unique tokens make up the <b>vocabulary</b>.</li>
@@ -113,15 +124,18 @@
   <div class="tbl"><table>
     <tr><th>Step</th><th>What it does</th><th>Example</th></tr>
     <tr><td><b>Stop-word removal</b></td><td>Removes common filler words with little meaning</td><td>the, and, is, a</td></tr>
-    <tr><td><b>Stemming</b></td><td>Crudely chops endings; result may <b>not</b> be a real word</td><td>running → run, flies → fli, cities → citi</td></tr>
-    <tr><td><b>Lemmatisation</b></td><td>Returns the dictionary form (<b>lemma</b>); always a real word</td><td>flies → fly, cities → city, mice → mouse</td></tr>
+    <tr><td><b>Stemming</b></td><td>Removes <b>affixes</b> (prefixes and suffixes) by rule to get the stem; result may <b>not</b> be a real word</td><td>running → run, flies → fli, cities → citi</td></tr>
+    <tr><td><b>Lemmatisation</b></td><td>Returns the dictionary base form (<b>lemma</b>) using vocabulary and grammar; always a real word</td><td>flies → fly, cities → city, mice → mouse</td></tr>
   </table></div>
   <div class="trap"><div class="k">Memory hook</div><p>Stemming is a rough haircut; lemmatisation is a proper barber. If the result isn't a dictionary word, it was stemming.</p></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n2-1" data-answer="1"><p class="qtext">Which tokenisation never meets an unknown token but gives very long sequences?</p><ol class="choices"><li>Word</li><li>Character</li><li>Sentence</li><li>Subword</li></ol><p class="explain">Every word is made of known characters, but sequences get long.</p></div><div class="mcq" id="qc-n2-2" data-answer="1"><p class="qtext">“cities” → “city” is:</p><ol class="choices"><li>Stemming</li><li>Lemmatisation</li><li>BPE</li><li>Stop-word removal</li></ol><p class="explain">The result is a real dictionary word, so it's lemmatisation.</p></div></div>
 </section>
 
 <!-- ================= 3 POS / HMM ================= -->
 <section id="n3" data-group="Topics" data-num="3" data-short="POS tagging & HMM">
   <h2><span class="tn">Topic 3</span>Part-of-Speech Tagging and HMM</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">POS tagging labels each word as noun, verb and so on. An HMM picks the labels by asking two questions: how likely is this word for this tag, and how likely is this tag to follow the last one?</p><dl><dt>Remember</dt><dd><ul><li>POS tagging assigns a grammatical category (noun, verb…) to each word</li><li>It resolves ambiguity: book (noun) vs book (verb)</li><li>Emission = P(word | tag) = count(word as tag) ÷ count(tag)</li><li>Transition = P(tag₂ | tag₁) = count(tag₁ → tag₂) ÷ all transitions out of tag₁</li><li>Path score = multiply all transitions and emissions, &lt;S&gt; to &lt;E&gt;; the highest wins</li><li>Statistical (HMM) is simple; neural (RNN, LSTM, Transformer) understands context better</li></ul></dd><dt>Think of it as</dt><dd>Guessing someone's mood from their words. Each word gives a clue (emission), and moods tend to follow each other in patterns (transition). You multiply the clues to score each guess.</dd><dt>In the test</dt><dd><ul><li>Build emission and transition tables from a small corpus</li><li>Multiply along a tag path to score it (no formula given!)</li><li>Explain why one zero makes the whole path 0</li></ul></dd></dl></div>
   <ul>
     <li><b>POS tagging</b> labels every word with its grammatical role (noun, verb, adjective…).</li>
     <li>It resolves ambiguity: "book" can be a noun or a verb; "Washington" can be a person or a place.</li>
@@ -178,11 +192,14 @@
     <li>Treat "Will" and "will" as the same word.</li>
     <li>Don't forget the <code>&lt;S&gt;</code> and <code>&lt;E&gt;</code> transitions.</li>
   </ul></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n3-1" data-answer="2"><p class="qtext">In the example corpus, P(can | M) is:</p><ol class="choices"><li>1/9</li><li>3/4</li><li>1/4</li><li>1</li></ol><p class="explain">“can” is a modal once out of 4 modals.</p></div><div class="mcq" id="qc-n3-2" data-answer="1"><p class="qtext">If any emission or transition in a path is 0, the path's probability is:</p><ol class="choices"><li>Unchanged</li><li>0</li><li>1</li><li>Halved</li></ol><p class="explain">Multiplying by zero gives zero.</p></div></div>
 </section>
 
 <!-- ================= 4 NER ================= -->
 <section id="n4" data-group="Topics" data-num="4" data-short="NER & chunking">
   <h2><span class="tn">Topic 4</span>Named Entity Recognition and Chunking</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">NER finds names of people, places, organisations and dates. Chunking glues tagged words into phrases like “the big red ball”.</p><dl><dt>Remember</dt><dd><ul><li>NER identifies and classifies named entities: person, organisation, location, date</li><li>Chunking groups POS-tagged words into phrases (shallow parsing)</li><li>Pipeline: text → tokenise → POS tag → chunk</li><li>NP: {&lt;DT&gt;?&lt;JJ&gt;*&lt;NN&gt;}: ? = optional, * = zero or more</li></ul></dd><dt>Think of it as</dt><dd>NER is a highlighter for proper names. Chunking is like grouping Lego bricks into small sub-assemblies before building the model.</dd><dt>In the test</dt><dd><ul><li>Name the 4 entity types with examples</li><li>Read the pattern {<DT>?<JJ>*<NN>} and find noun-phrase chunks in a tagged sentence</li></ul></dd></dl></div>
   <h3>NER</h3>
   <p>Finds and labels the proper names in text.</p>
   <div class="tbl"><table>
@@ -205,11 +222,14 @@
 <div class="ln">The/DT graceful/JJ gazelle/NN leaped/VBD through/IN the/DT savanna/NN
 NP chunks: [The graceful gazelle]  and  [the savanna]</div></div>
   <div class="widget" data-widget="chunk"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n4-1" data-answer="2"><p class="qtext">In {<DT>?<JJ>*<NN>}, what does * mean?</p><ol class="choices"><li>Exactly one</li><li>Optional</li><li>Zero or more</li><li>One or more</li></ol><p class="explain">* = any number, including none. ? = optional (0 or 1).</p></div><div class="mcq" id="qc-n4-2" data-answer="2"><p class="qtext">“United Nations” is which entity type?</p><ol class="choices"><li>Person</li><li>Location</li><li>Organisation</li><li>Date</li></ol><p class="explain">International bodies are organisations.</p></div></div>
 </section>
 
 <!-- ================= 5 SEMANTICS ================= -->
 <section id="n5" data-group="Topics" data-num="5" data-short="Semantics & vectorisation">
   <h2><span class="tn">Topic 5</span>Word Semantics and Text Vectorisation</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Computers only understand numbers, so every word must become a list of numbers (a vector). Simple methods count words; modern ones learn vectors where similar words end up close together.</p><dl><dt>Remember</dt><dd><ul><li>Text vectorisation converts text into numerical vectors</li><li>One-hot: a single 1 at the word's index, the rest 0</li><li>Bag of Words: word counts, word order ignored</li><li>One-hot and BoW: sparse, no meaning, can't handle OOV</li><li>Embeddings are short, dense and learned; similar words have similar vectors</li><li>Skip-gram: positive = real neighbours, negative = random words; P(+) = σ(w·c)</li><li>Small window → syntactic similarity; large window → topical similarity</li></ul></dd><dt>Think of it as</dt><dd>One-hot is like giving every word its own locker number: unique but meaningless. Embeddings are like a map: words with similar meaning live in the same neighbourhood.</dd><dt>In the test</dt><dd><ul><li>List the 3 problems of one-hot and bag of words</li><li>Explain positive vs negative samples in skip-gram</li><li>Compute P(+) = σ(w·c)</li></ul></dd></dl></div>
   <div class="tbl"><table>
     <tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
     <tr><td>Lemma</td><td>Dictionary form; one lemma can have several senses</td><td>mouse (animal / device)</td></tr>
@@ -249,11 +269,14 @@ P(+) = 1/(1 + e^−2.5) = 0.924     P(−) = 1 − 0.924 = 0.076</div></div>
     <li>Evaluation: <b>extrinsic</b> (performance on real NLP tasks) and <b>intrinsic</b> (compare with human similarity ratings, e.g. <b>WordSim-353</b>: 353 pairs rated 0–10; (plane, car) = 5.77).</li>
     <li><b>GloVe</b>: vectors from global co-occurrence statistics, no labelled data. <b>FastText</b>: Facebook AI library for embeddings and text classification (uses subwords, so it handles OOV words).</li>
   </ul>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n5-1" data-answer="1"><p class="qtext">With one-hot vectors, the similarity of “cat” and “kitten” is:</p><ol class="choices"><li>High</li><li>0 (they look unrelated)</li><li>Negative</li><li>1</li></ol><p class="explain">Different positions, so the dot product is 0.</p></div><div class="mcq" id="qc-n5-2" data-answer="1"><p class="qtext">w·c = 0. What is P(+ | w, c)?</p><ol class="choices"><li>0</li><li>0.5</li><li>1</li><li>0.27</li></ol><p class="explain">σ(0) = 1/(1 + 1) = 0.5.</p></div></div>
 </section>
 
 <!-- ================= 6 TDM TTM ================= -->
 <section id="n6" data-group="Topics" data-num="6" data-short="TDM, TTM & cosine">
   <h2><span class="tn">Topic 6</span>Term-Document and Term-Term Matrices</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Count how often words appear in documents (TDM) or near each other (TTM), then compare the rows. Cosine similarity measures how alike two count lists are, ignoring how big they are.</p><dl><dt>Remember</dt><dd><ul><li>TDM: rows = terms, columns = documents (column = document vector)</li><li>TTM: |V| × |V| co-occurrence counts within a window (about ±4 words)</li><li>The dot product favours frequent words; cosine normalises by vector length</li><li>cos = v·w ÷ (|v| × |w|): 1 = very similar, 0 = unrelated</li></ul></dd><dt>Think of it as</dt><dd>Two shopping lists: one family buys 2 apples and 1 bread, another buys 20 apples and 10 bread. Different sizes, same taste. Cosine says they're identical (1.0).</dd><dt>In the test</dt><dd><ul><li>Read a document or word vector off a TDM</li><li>Compute a dot product, vector lengths and cosine</li></ul></dd></dl></div>
   <p>Both are <b>co-occurrence matrices</b> (tables of counts).</p>
   <h3>Term-Document Matrix (TDM)</h3>
   <ul><li>Rows = words, columns = documents; each cell = count of the word in the document.</li>
@@ -293,11 +316,14 @@ cherry·information = 2210 + 31,856 + 6650 = 40,716
 cos(cherry, information) = 40,716 / (442.08 × 5187.6) = 0.018   → unrelated</div></div>
   <div class="trap"><div class="k">Correction</div><p>My earlier summary said cos(cherry, information) = 0.081. The correct value from these counts is <b>0.018</b> (the digits were swapped). Check against your lecture slide.</p></div>
   <div class="widget" data-widget="cosine"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n6-1" data-answer="1"><p class="qtext">In a term-document matrix, a row is a:</p><ol class="choices"><li>Document vector</li><li>Word vector</li><li>Window</li><li>Class</li></ol><p class="explain">Rows are words; columns are documents.</p></div><div class="mcq" id="qc-n6-2" data-answer="1"><p class="qtext">cos([1,0],[0,1]) =</p><ol class="choices"><li>1</li><li>0</li><li>0.5</li><li>−1</li></ol><p class="explain">The dot product is 0, so cosine is 0.</p></div></div>
 </section>
 
 <!-- ================= 7 TFIDF PPMI ================= -->
 <section id="n7" data-group="Topics" data-num="7" data-short="TF-IDF & PPMI">
   <h2><span class="tn">Topic 7</span>TF-IDF and PPMI</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Raw counts make boring words like “the” look important. TF-IDF rewards words that are common in one document but rare elsewhere. PPMI rewards word pairs that appear together more than chance.</p><dl><dt>Remember</dt><dd><ul><li>TF-IDF weights a TDM; PPMI weights a TTM</li><li>TF = log₁₀(count + 1); IDF = log₁₀(N ÷ df)</li><li>A word in every document has IDF = 0</li><li>PPMI = max(log₂[P(w,c) ÷ (P(w)P(c))], 0): negatives become 0</li><li>Centroid = average of the word vectors in a document</li></ul></dd><dt>Think of it as</dt><dd>TF-IDF: “Romeo” in a Shakespeare play is a giveaway clue; “sweet” is everywhere, so it tells you nothing. PPMI: “peanut butter” and “jelly” show up together far more than luck would explain.</dd><dt>In the test</dt><dd><ul><li>Compute TF, IDF and TF-IDF (log₁₀)</li><li>Compute PPMI (log₂) and turn negatives into 0</li><li>Say which goes with TDM and which with TTM</li></ul></dd></dl></div>
   <p>Raw counts overrate frequent but uninformative words ("the", "good"). Both methods re-weight counts.</p>
   <div class="tbl"><table><tr><th></th><th>Used with</th><th>Asks</th></tr>
     <tr><td><b>TF-IDF</b></td><td>TDM (words × documents)</td><td>Is this word frequent here but rare elsewhere?</td></tr>
@@ -327,11 +353,14 @@ PPMI = log₂(0.3399 / (0.6575 × 0.4842)) = log₂(0.3399 / 0.3184) = log₂(1.
   <div class="f"><div class="k">Centroid (document vector)</div>
     <div class="eq">d = (w₁ + w₂ + … + wₖ) / k</div>
     <p>Average of the document's word vectors. Example: [1, 3] and [3, 5] → [2, 4].</p></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n7-1" data-answer="0"><p class="qtext">A word with count 0 in a document has TF =</p><ol class="choices"><li>0</li><li>1</li><li>log₁₀(0)</li><li>Undefined</li></ol><p class="explain">log₁₀(0 + 1) = log₁₀(1) = 0.</p></div><div class="mcq" id="qc-n7-2" data-answer="1"><p class="qtext">P(w,c) is exactly P(w)P(c). PMI =</p><ol class="choices"><li>1</li><li>0</li><li>−1</li><li>∞</li></ol><p class="explain">log₂(1) = 0: they co-occur exactly as often as chance predicts.</p></div></div>
 </section>
 
 <!-- ================= 8 NAIVE BAYES ================= -->
 <section id="n8" data-group="Topics" data-num="8" data-short="Naive Bayes">
   <h2><span class="tn">Topic 8</span>Naive Bayes</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Naive Bayes guesses a category by asking: for each class, how often did each word appear in training? Multiply those chances with how common the class is, and pick the bigger score.</p><dl><dt>Remember</dt><dd><ul><li>Naive Bayes is a probabilistic classifier based on Bayes' theorem</li><li>Naive assumption: words are independent of each other (given the class)</li><li>Bag of words: word order ignored, only frequency counts</li><li>Prior = documents in class ÷ total documents</li><li>Laplace (add-1) smoothing: (count + 1) ÷ (words in class + vocabulary size), so no zero probabilities</li><li>Ignore P(text): it's the same for every class</li><li>Precision = TP ÷ (TP + FP); recall = TP ÷ (TP + FN)</li></ul></dd><dt>Think of it as</dt><dd>A detective with a tally sheet: “disappointed” was mostly in negative reviews, “impressive” mostly in positive ones. Combine the clues, factor in how many reviews of each type there were, and decide.</dd><dt>In the test</dt><dd><ul><li>Compute priors and add-1 smoothed word probabilities (no formula given!)</li><li>Multiply and compare the two class scores</li><li>Read precision and recall from a confusion matrix</li></ul></dd></dl></div>
   <h3>Text classification</h3>
   <ul>
     <li><b>Text classification</b> groups text into categories (spam vs non-spam). Models learn from <b>labelled examples</b>.</li>
@@ -409,11 +438,14 @@ Negative: 2/5 × 1.48 × 10⁻⁴ = 5.93 × 10⁻⁵   → POSITIVE</div></div>
 Accuracy = 85/100 = 0.85    Precision = 40/45 = 0.889
 Recall = 40/50 = 0.80       F1 = 2(0.889)(0.80)/(1.689) = 0.842</div></div>
   <div class="widget" data-widget="confusion"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n8-1" data-answer="1"><p class="qtext">Positive class: 10 words, vocabulary 19, “plot” appears once. P(plot | Positive) =</p><ol class="choices"><li>1/10</li><li>2/29</li><li>1/29</li><li>2/19</li></ol><p class="explain">(1 + 1)/(10 + 19) = 2/29.</p></div><div class="mcq" id="qc-n8-2" data-answer="1"><p class="qtext">Why can we drop P(text) when comparing classes?</p><ol class="choices"><li>It is always 1</li><li>It is the same for every class</li><li>It is always 0</li><li>Laplace smoothing removes it</li></ol><p class="explain">Dividing both scores by the same number doesn't change which is bigger.</p></div></div>
 </section>
 
 <!-- ================= 9 LOGISTIC REGRESSION ================= -->
 <section id="n9" data-group="Topics" data-num="9" data-short="Logistic regression">
   <h2><span class="tn">Topic 9</span>Binary Logistic Regression</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Logistic regression gives every word a weight (positive words +, negative words −), adds them up with a bias, and squashes the total into a probability with the sigmoid.</p><dl><dt>Remember</dt><dd><ul><li>Binary logistic regression predicts 0 or 1 from a feature vector x</li><li>Features can be word counts, word embeddings or N-grams</li><li>z = w·x + b; σ(z) = 1 ÷ (1 + e^−z) gives a probability from 0 to 1</li><li>Class 1 if σ(z) &gt; 0.5 (same as z &gt; 0)</li><li>Positive words get positive weights; negative words get negative weights</li><li>Naive Bayes is generative; logistic regression is discriminative</li></ul></dd><dt>Think of it as</dt><dd>A judge with a scorecard: “loved” +0.28, “disappointed” −0.33. Add up the points for the words in the review plus a starting score (bias). Above 50% after squashing means positive.</dd><dt>In the test</dt><dd><ul><li>Compute z = w·x + b from given weights</li><li>Apply σ(z) = 1/(1 + e^−z) and use the 0.5 threshold</li><li>Contrast it with Naive Bayes</li></ul></dd></dl></div>
   <ul>
     <li>Predicts a <b>binary output (0 or 1)</b> from a feature vector <b>x = [x₁, …, xₖ]</b>.</li>
     <li>Features can be <b>word counts</b>, <b>word embeddings</b> or <b>N-grams</b>.</li>
@@ -468,11 +500,14 @@ Recall = 40/50 = 0.80       F1 = 2(0.889)(0.80)/(1.689) = 0.842</div></div>
     <tr><td>Training</td><td>Counting</td><td>Learn weights and bias by gradient descent</td></tr>
     <tr><td>Output</td><td>Compare class scores</td><td>σ(z) &gt; 0.5 → class 1</td></tr>
   </table></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n9-1" data-answer="1"><p class="qtext">z = −0.2. The class is:</p><ol class="choices"><li>1 (positive)</li><li>0 (negative)</li><li>Can't tell</li><li>0.5</li></ol><p class="explain">σ(−0.2) = 0.45 < 0.5. Any z < 0 gives class 0.</p></div><div class="mcq" id="qc-n9-2" data-answer="1"><p class="qtext">A review with no known words gets z equal to:</p><ol class="choices"><li>0</li><li>The bias b</li><li>1</li><li>The sum of all weights</li></ol><p class="explain">All x are 0, so only b remains (0.325 in the slides, which gives positive).</p></div></div>
 </section>
 
 <!-- ================= 10 CNN ================= -->
 <section id="n10" data-group="Topics" data-num="10" data-short="CNN">
   <h2><span class="tn">Topic 10</span>Convolutional Neural Network</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">A CNN slides a small grid of numbers (a filter) over its input and records how well each patch matches. That makes a feature map, which pooling then shrinks.</p><dl><dt>Remember</dt><dd><ul><li>A CNN has two parts: feature extraction and classification</li><li>Repeated operations: convolution → activation → pooling</li><li>Convolution: the kernel slides over the input, taking a dot product at each position, which gives a feature map</li><li>Filter size = receptive field; stride = step size; both are hyperparameters</li><li>ReLU sets negatives to 0</li><li>Pooling reduces the feature map size (max or average)</li><li>Dropout randomly disables neurons to reduce overfitting</li><li>Flatten → fully connected layers → output</li></ul></dd><dt>Think of it as</dt><dd>Running a stencil over a page and noting how much ink shows through at each position. Pooling is then summarising each 2×2 block by its strongest (max) or average value.</dd><dt>In the test</dt><dd><ul><li>Compute a feature map by hand (no formula given!)</li><li>Do max and average pooling with a given stride</li><li>Explain ReLU, dropout and the fully connected part</li></ul></dd></dl></div>
   <ul>
     <li>A deep network designed for visual data (image classification, face recognition, object detection), also used for NLP: <b>text classification, sentiment analysis</b>.</li>
     <li>Two parts: <b>feature extraction</b> (convolution, activation, pooling, repeated) and <b>classification</b> (fully connected network).</li>
@@ -518,11 +553,14 @@ Bottom-left {3,2,1,2}: max 3, avg 2             Bottom-right {1,0,3,4}: max 4, a
     <li><b>Dropout</b> randomly disables neurons during training so the model generalises better.</li>
     <li>The feature maps are <b>flattened</b> into a 1D vector and fed to a <b>fully connected</b> network. The number of hidden layers is a hyperparameter.</li>
   </ul>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n10-1" data-answer="1"><p class="qtext">A 6×6 input with a 3×3 filter at stride 1 gives an output of size:</p><ol class="choices"><li>3×3</li><li>4×4</li><li>6×6</li><li>2×2</li></ol><p class="explain">(6 − 3)/1 + 1 = 4.</p></div><div class="mcq" id="qc-n10-2" data-answer="1"><p class="qtext">Max pooling of {1, 5, 2, 0} gives:</p><ol class="choices"><li>2</li><li>5</li><li>8</li><li>0</li></ol><p class="explain">Max keeps the largest value.</p></div></div>
 </section>
 
 <!-- ================= 11 TRANSFORMER ================= -->
 <section id="n11" data-group="Topics" data-num="11" data-short="Transformers">
   <h2><span class="tn">Topic 11</span>Transformer Architecture</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">A Transformer reads all words at once. With self-attention, every word looks at every other word and decides how much each one matters for understanding it.</p><dl><dt>Remember</dt><dd><ul><li>The original Transformer is encoder–decoder (translation)</li><li>Encoder-only (BERT): classification, NER. Decoder-only (GPT): text generation. Encoder–decoder (T5, BART): translation, summarisation</li><li>Processes all tokens in parallel; captures long-range relationships</li><li>Q = XW_Q, K = XW_K, V = XW_V</li><li>Attention = softmax(QKᵀ ÷ √d_k) V</li><li>Score = query · key → softmax → weighted sum of values</li></ul></dd><dt>Think of it as</dt><dd>In a group chat, to understand one message you glance back at the earlier messages that matter most. The query is your question, the keys are the message headlines, and the values are their content.</dd><dt>In the test</dt><dd><ul><li>Match encoder, decoder and encoder–decoder to BERT, GPT and T5</li><li>Compute Q, K, V, the scores, softmax and the weighted sum by hand</li></ul></dd></dl></div>
   <ul>
     <li>Original Transformer ("Attention is all you need", Vaswani et al., 2017): <b>encoder–decoder</b>, built for <b>translation</b>.</li>
     <li><b>Encoder</b>: turns input tokens into contextual embedding vectors. <b>Decoder</b>: uses the encoder's output to generate output tokens <b>one at a time</b>.</li>
@@ -568,6 +606,8 @@ exact: [1.94, 6.68, 1.60]</div></div>
     <li>Say whether you rounded the softmax. The slides round to 1 decimal place and drop very small weights to 0 (0.063 → 0), which is why their y₁ = [2.0, 7.0, 1.5] differs from the exact [1.94, 6.68, 1.60].</li>
   </ul></div>
   <div class="widget" data-widget="attention"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-n11-1" data-answer="2"><p class="qtext">Which Transformer type is best for translation?</p><ol class="choices"><li>Encoder-only</li><li>Decoder-only</li><li>Encoder–decoder</li><li>None</li></ol><p class="explain">Sequence to sequence: T5, BART, and the original Transformer.</p></div><div class="mcq" id="qc-n11-2" data-answer="1"><p class="qtext">The attention scores for a token come from:</p><ol class="choices"><li>Its value · other values</li><li>Its query · every key</li><li>Its key · other queries</li><li>The softmax of the values</li></ol><p class="explain">score = q · k, then softmax, then the weighted sum of values.</p></div></div>
 </section>
 
 <!-- ================= CHEAT ================= -->
@@ -652,6 +692,7 @@ exact: [1.94, 6.68, 1.60]</div></div>
 </main>
 </div>
 <script src="../../assets/modules.js"></script>
+<script src="glossary.js"></script>
 <script src="../../assets/site.js"></script>
 <script src="../../assets/widgets-core.js"></script>
 <script src="widgets.js"></script>

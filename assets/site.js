@@ -33,6 +33,20 @@
   if (!mod) return; // home page stops here
   const K = name => "sp:" + mod + ":" + name;
   const main = $("main");
+
+  /* ---------- glossary section (built from window.GLOSSARY) ---------- */
+  const GL = window.GLOSSARY || null;
+  if (GL && !$("#glossary")) {
+    const sec = document.createElement("section");
+    sec.id = "glossary"; sec.dataset.group = "Revise"; sec.dataset.num = "Aa"; sec.dataset.short = "Glossary"; sec.setAttribute("data-noprogress", "");
+    const keys = Object.keys(GL).sort((a, b) => a.localeCompare(b));
+    sec.innerHTML = '<h2><span class="tn">Aa</span>Glossary</h2><p class="sub">Every underlined word in the notes is here. Tap one in the notes to see its meaning without leaving the page.</p><input class="gfilter" id="gfilter" type="search" placeholder="Filter terms" aria-label="Filter glossary"><div class="glist">' +
+      keys.map(k => '<div data-k="' + k.toLowerCase() + '"><b>' + k + "</b><p>" + GL[k] + "</p></div>").join("") + "</div>";
+    const before = $("#practice") || null;
+    main.insertBefore(sec, before);
+    $("#gfilter", sec).addEventListener("input", e => { const q = e.target.value.toLowerCase(); $$(".glist > div", sec).forEach(d => d.hidden = q && !d.textContent.toLowerCase().includes(q)); });
+  }
+
   const sections = $$("main > section[id]");
   const tracked = sections.filter(s => !s.hasAttribute("data-noprogress"));
   store.set(K("total"), tracked.length);
@@ -70,6 +84,7 @@
       const b = $(".donebtn", s); if (b) { b.setAttribute("aria-pressed", on); b.textContent = on ? "✓ Revised" : "Mark revised"; }
       const m = $('a[data-id="' + s.id + '"] .done-mark', rail); if (m) m.hidden = !on;
     });
+    $$('.tmap a[href^="#"]').forEach(a => a.classList.toggle("done", done.has(a.getAttribute("href").slice(1))));
     const n = tracked.filter(s => done.has(s.id)).length;
     $("#progN").textContent = n;
     $("#progBar").style.width = (tracked.length ? 100 * n / tracked.length : 0) + "%";
@@ -163,6 +178,91 @@
   });
   setRecall(store.get("sp:recall", false));
 
+  /* ---------- step-through worked examples ---------- */
+  $$(".ex").forEach(ex => {
+    const ln = $(".ln", ex); if (!ln) return;
+    const parts = ln.innerHTML.replace(/^\n+|\n+$/g, "").split("\n");
+    if (parts.length < 3) return;
+    ln.innerHTML = parts.map(p => '<span class="stp">' + (p || "&nbsp;") + "</span>").join("");
+    const steps = $$(".stp", ln);
+    const bar = document.createElement("div"); bar.className = "stepbar";
+    bar.innerHTML = '<button type="button" class="go">Step through</button>';
+    ex.appendChild(bar);
+    let shown = -1;
+    const paint = () => {
+      steps.forEach((s, i) => { s.classList.toggle("hide", i > shown); s.classList.toggle("new", i === shown); });
+      if (shown < 0 || shown >= steps.length - 1) {
+        ex.classList.remove("stepping");
+        steps.forEach(s => s.classList.remove("hide"));
+        bar.innerHTML = '<button type="button" class="go">' + (shown >= steps.length - 1 ? "Step through again" : "Step through") + "</button>";
+      } else {
+        bar.innerHTML = '<button type="button" class="next primary">Next step (' + (shown + 1) + " / " + steps.length + ')</button><button type="button" class="all">Show all</button>';
+      }
+    };
+    bar.addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.classList.contains("go")) { shown = 0; ex.classList.add("stepping"); }
+      else if (b.classList.contains("next")) shown++;
+      else if (b.classList.contains("all")) shown = steps.length - 1;
+      paint();
+      if (b.classList.contains("next") || b.classList.contains("go")) $(".stepbar .next", ex)?.focus();
+    });
+  });
+
+  /* ---------- glossary terms in the notes ---------- */
+  if (GL) {
+    const terms = Object.keys(GL).sort((a, b) => b.length - a.length);
+    const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp("(^|[^A-Za-z0-9])(" + terms.map(escRe).join("|") + ")(?![A-Za-z0-9])", "i");
+    const lookup = {}; terms.forEach(t => lookup[t.toLowerCase()] = t);
+    const skip = "h1,h2,h3,h4,code,pre,.widget,.mcq,summary,button,a,.tn,.k,.ln,.eq,.glist,#glossary,.plain .ph,.tmap,.scorebar,script,style,mark,.chip";
+    sections.forEach(sec => {
+      if (sec.id === "glossary") return;
+      const seen = new Set();
+      const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement.closest(skip) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+      const nodes = []; let n; while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(node => {
+        let txt = node.nodeValue, m, frag = null, guard = 0;
+        while ((m = re.exec(txt)) && guard++ < 6) {
+          const key = lookup[m[2].toLowerCase()];
+          const at = m.index + m[1].length;
+          if (seen.has(key)) { // only the first use per section; keep scanning after this match
+            frag = frag || document.createDocumentFragment();
+            frag.appendChild(document.createTextNode(txt.slice(0, at + m[2].length))); txt = txt.slice(at + m[2].length); continue;
+          }
+          seen.add(key);
+          frag = frag || document.createDocumentFragment();
+          frag.appendChild(document.createTextNode(txt.slice(0, at)));
+          const b = document.createElement("button"); b.type = "button"; b.className = "term"; b.dataset.term = key; b.textContent = m[2];
+          frag.appendChild(b); txt = txt.slice(at + m[2].length);
+        }
+        if (frag) { frag.appendChild(document.createTextNode(txt)); node.replaceWith(frag); }
+      });
+    });
+    let pop = null;
+    const close = () => { pop?.remove(); pop = null; };
+    const open = btn => {
+      close();
+      const k = btn.dataset.term;
+      pop = document.createElement("div"); pop.className = "gpop"; pop.setAttribute("role", "tooltip");
+      pop.innerHTML = "<b>" + k + "</b>" + GL[k];
+      document.body.appendChild(pop);
+      const r = btn.getBoundingClientRect(), pw = pop.offsetWidth;
+      let left = r.left + scrollX + r.width / 2 - pw / 2;
+      left = Math.max(16 + scrollX, Math.min(left, scrollX + document.documentElement.clientWidth - pw - 16));
+      pop.style.left = left + "px"; pop.style.top = (r.bottom + scrollY + 8) + "px";
+    };
+    const hover = () => matchMedia("(hover:hover)").matches;
+    document.addEventListener("click", e => {
+      const t = e.target.closest("button.term");
+      if (t) { if (pop && pop.dataset.for === t.dataset.term && !hover()) close(); else { open(t); pop.dataset.for = t.dataset.term; } }
+      else if (!e.target.closest(".gpop")) close();
+    });
+    document.addEventListener("mouseover", e => { const t = e.target.closest("button.term"); if (t && hover() && (!pop || pop.dataset.for !== t.dataset.term)) { open(t); pop.dataset.for = t.dataset.term; } });
+    document.addEventListener("mouseout", e => { if (e.target.closest("button.term") && hover()) close(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  }
+
   /* ---------- MCQs ---------- */
   const mcqState = store.get(K("mcq"), {});
   const mcqs = $$(".mcq");
@@ -209,10 +309,11 @@
   function score() {
     if (!sb) return;
     let right = 0, answered = 0;
-    mcqs.forEach(q => { const v = mcqState[q.dataset.qid]; if (v !== undefined) { answered++; if (v === Number(q.dataset.answer)) right++; } });
+    const scored = mcqs.filter(q => !q.closest(".quick"));
+    scored.forEach(q => { const v = mcqState[q.dataset.qid]; if (v !== undefined) { answered++; if (v === Number(q.dataset.answer)) right++; } });
     const got = selfs.filter(d => selfState[d.dataset.qid] === "y").length;
     const miss = selfs.filter(d => selfState[d.dataset.qid] === "n").length;
-    $("#mcqScore", sb).textContent = right + " / " + answered + " correct (" + mcqs.length + " MCQs)";
+    $("#mcqScore", sb).textContent = right + " / " + answered + " correct (" + scored.length + " MCQs)";
     $("#selfScore", sb).textContent = got + " got it · " + miss + " to review (" + selfs.length + " questions)";
   }
   $("#onlyMissed")?.addEventListener("click", e => {

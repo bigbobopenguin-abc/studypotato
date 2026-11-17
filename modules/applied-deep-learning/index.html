@@ -47,6 +47,13 @@
 <!-- ============ PLAN ============ -->
 <section id="plan" data-group="Start here" data-num="00" data-short="Exam plan" data-noprogress>
   <h2><span class="tn">00</span>Three-week plan</h2>
+  <h3>How the topics fit together</h3>
+  <p class="sub">Tap a topic to jump to it. Topics you mark as revised turn green.</p>
+  <div class="tmap-stage"><span class="lab">The big picture</span><div class="tmap"><a href="#t1">Intro to DL<small>what & why</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">How one network learns</span><div class="tmap"><a href="#t21">Neurons & layers<small>the parts</small></a><span class="arr">→</span><a href="#t22">Build in Python<small>the training loop</small></a><span class="arr">→</span><a href="#t23">Activations<small>the bend</small></a><span class="arr">→</span><a href="#t24">Loss<small>how wrong?</small></a><span class="arr">→</span><a href="#t25">Backprop & optimizers<small>how to improve</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Build it in code</span><div class="tmap"><a href="#t3">Keras<small>6 steps</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Networks for images</span><div class="tmap"><a href="#t41">CNN ideas<small>why filters</small></a><span class="arr">→</span><a href="#t42">CNN layers<small>conv, pad, pool</small></a><span class="arr">→</span><a href="#t43">Image classifier<small>put it together</small></a></div></div>
+
   <p class="sub">With computation questions in a 60-minute paper, speed on the calculator matters as much as the theory.</p>
   <div class="plan">
     <div><h4>Week 1 · Theory</h4><ul>
@@ -69,6 +76,7 @@
 <!-- ============ TOPIC 1 ============ -->
 <section id="t1" data-group="Topics" data-num="1" data-short="Intro to DL">
   <h2><span class="tn">Topic 1</span>Introduction to Deep Learning</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Deep learning is machine learning with big neural networks that find the useful features in raw data by themselves.</p><dl><dt>Remember</dt><dd><ul><li>DL is a subset of ML, which is a subset of AI</li><li>DL does automated feature extraction; classical ML needs manual feature extraction</li><li>3 driving forces: computing power, algorithm power, data availability</li><li>Pros: feature learning, complex problems, improves with more data</li><li>Cons: weak on small data, hard to interpret, high computation cost</li></ul></dd><dt>Think of it as</dt><dd>Classical ML is a chef following your recipe (you pick the features). Deep learning is a chef who tastes thousands of dishes and works out the recipe alone. It needs lots of food (data) and a big kitchen (GPU).</dd><dt>In the test</dt><dd><ul><li>Place DL inside AI and ML</li><li>Name the 3 driving forces</li><li>List advantages, disadvantages and frameworks</li></ul></dd></dl></div>
   <h3>What deep learning is</h3>
   <ul>
     <li>Nesting: <b>AI ⊃ Machine Learning ⊃ Deep Learning ⊃ Gen AI</b>.</li>
@@ -116,11 +124,14 @@
   </table></div>
   <h3>Future trends</h3>
   <p>Continued AI advances · more automation (manufacturing, healthcare, transport, finance) · human–AI collaboration · <b>explainability and transparency</b> (critical in healthcare/finance) · quantum computing · AI-dedicated hardware.</p>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t1-1" data-answer="2"><p class="qtext">Which is NOT one of the three driving forces of DL?</p><ol class="choices"><li>Computing power</li><li>Data availability</li><li>Interpretability</li><li>Algorithm power</li></ol><p class="explain">Interpretability is a weakness of DL, not a driver.</p></div><div class="mcq" id="qc-t1-2" data-answer="1"><p class="qtext">In deep learning, feature extraction is:</p><ol class="choices"><li>Done by a human expert</li><li>Automated by the network</li><li>Skipped</li><li>Done after training</li></ol><p class="explain">That's the main difference from classical ML.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 2.1 ============ -->
 <section id="t21" data-group="Topics" data-num="2.1" data-short="NN fundamentals">
   <h2><span class="tn">Topic 2.1</span>Fundamentals of Neural Networks</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">A neuron multiplies each input by a weight, adds them up with a bias, and passes the total through an activation function. Stack many of these in layers and you have a neural network.</p><dl><dt>Remember</dt><dd><ul><li>Neuron: y = f(Σ wᵢxᵢ + b)</li><li>Input layer does no computation; hidden layers transform; output layer gives the result</li><li>Deep = 2 or more hidden layers</li><li>Capacity = depth, width, connectivity, number of parameters</li><li>Forward propagation predicts; backward propagation trains</li></ul></dd><dt>Think of it as</dt><dd>A neuron is a voter: each input is an opinion, the weight is how much it trusts that opinion, and the bias is its own leaning. The activation decides whether it speaks up.</dd><dt>In the test</dt><dd><ul><li>Compute one neuron's output</li><li>Name the layers and say what each does</li><li>Count parameters: inputs × neurons + neurons</li></ul></dd></dl></div>
   <h3>Biological vs artificial neuron</h3>
   <div class="tbl"><table>
     <tr><th>Biological</th><th>Artificial</th></tr>
@@ -159,11 +170,14 @@ Sigmoid: y = 1/(1+e^−1.3) = 0.786      ReLU: y = max(0, 1.3) = 1.3</div></div>
   <div class="f"><div class="k">Parameters in a Dense layer</div>
     <div class="eq">params = (inputs × neurons) + neurons</div>
     <p>One weight per connection, one bias per neuron. Practical 2 MNIST net 784 → 20 → 10: (784×20+20) + (20×10+10) = 15,700 + 210 = <b>15,910</b>.</p></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t21-1" data-answer="1"><p class="qtext">A network with 1 hidden layer is:</p><ol class="choices"><li>Deep</li><li>Not deep</li><li>Convolutional</li><li>Recurrent</li></ol><p class="explain">Deep means 2 or more hidden layers.</p></div><div class="mcq" id="qc-t21-2" data-answer="2"><p class="qtext">Dense(10) on 5 inputs has how many parameters?</p><ol class="choices"><li>50</li><li>55</li><li>60</li><li>15</li></ol><p class="explain">5 × 10 weights + 10 biases = 60.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 2.2 ============ -->
 <section id="t22" data-group="Topics" data-num="2.2" data-short="Build NN in Python">
   <h2><span class="tn">Topic 2.2</span>Build a Neural Network using Python</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Building a network from scratch is a loop: predict (forward), measure the error (loss), work out which way to nudge each weight (backward), nudge them (gradient descent), and repeat.</p><dl><dt>Remember</dt><dd><ul><li>7 steps: prepare data → define & compile → train → evaluate → optimize → predict → save/deploy</li><li>Single-layer NN: input and output layer only</li><li>W shape = (neurons in this layer) × (neurons in previous layer)</li><li>Gradients have the same shape as the weights they update</li></ul></dd><dt>Think of it as</dt><dd>Learning to throw darts: throw, see how far off you were, adjust your arm a little in the right direction, throw again.</dd><dt>In the test</dt><dd><ul><li>List the 7 general steps</li><li>Do one single-layer update w + η(t − p)x</li><li>Give the shapes of W1, b1, W2, b2</li></ul></dd></dl></div>
   <h3>General steps of building an ANN (7 steps)</h3>
   <div class="tbl"><table>
     <tr><th>Step</th><th>What happens</th></tr>
@@ -234,11 +248,14 @@ The correct class gets a negative error, so its weights are pushed up.</div></di
     <li>Training = <b>forward propagation</b> → <b>backward propagation</b> → <b>optimization</b> (gradient descent), repeated.</li>
     <li>Be able to state the shape of inputs, outputs, weights, intermediate variables (Z, A) and derivatives.</li>
   </ul>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t22-1" data-answer="1"><p class="qtext">In the MNIST two-layer net, W1 has shape:</p><ol class="choices"><li>784 × 20</li><li>20 × 784</li><li>20 × 10</li><li>10 × 784</li></ol><p class="explain">(neurons in this layer) × (neurons in previous layer).</p></div><div class="mcq" id="qc-t22-2" data-answer="0"><p class="qtext">Single-layer update: t = 1, p = 0.8, x = 2, η = 0.1. Change in w?</p><ol class="choices"><li>+0.04</li><li>−0.04</li><li>+0.2</li><li>0</li></ol><p class="explain">η(t − p)x = 0.1 × 0.2 × 2 = 0.04.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 2.3 ============ -->
 <section id="t23" data-group="Topics" data-num="2.3" data-short="Activations">
   <h2><span class="tn">Topic 2.3</span>Activation Functions</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">An activation function bends the neuron's output so the network can learn curves, not just straight lines. Pick ReLU for hidden layers and choose the output one by task.</p><dl><dt>Remember</dt><dd><ul><li>Activation functions add non-linearity</li><li>Sigmoid (0 to 1), f′ = f(1 − f); tanh (−1 to 1), f′ = 1 − f²</li><li>ReLU = max(0, x): the default for hidden layers</li><li>Sigmoid/tanh → vanishing gradient; ReLU → dying ReLU (fix: Leaky ReLU)</li><li>Output: regression → linear, binary → sigmoid, multi-class → softmax</li></ul></dd><dt>Think of it as</dt><dd>A dimmer switch on each neuron. Without it, stacking layers is like stacking straight rulers: you still only get a straight line.</dd><dt>In the test</dt><dd><ul><li>Write each function, its range and its derivative</li><li>Explain vanishing gradient and dying ReLU</li><li>Pick the output activation for regression, binary and multi-class</li></ul></dd></dl></div>
   <h3>Purposes</h3>
   <ol>
     <li><b>Firing decision</b>: like a switch, decides if a neuron fires (only relevant neurons fire).</li>
@@ -294,11 +311,14 @@ sigmoid(0) = 0.5, sigmoid(1) = 0.731, sigmoid(−1) = 0.269, tanh(1) = 0.762</di
     <tr><td>Binary classification</td><td><b>1</b></td><td><b>Sigmoid</b></td><td><b>Binary cross-entropy</b></td></tr>
     <tr><td>Multi-class classification</td><td>1 per class</td><td><b>Softmax</b> + one-hot labels</td><td><b>Categorical cross-entropy</b></td></tr>
   </table></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t23-1" data-answer="1"><p class="qtext">ReLU(−3) =</p><ol class="choices"><li>−3</li><li>0</li><li>3</li><li>0.05</li></ol><p class="explain">max(0, −3) = 0.</p></div><div class="mcq" id="qc-t23-2" data-answer="2"><p class="qtext">Output activation for predicting house prices:</p><ol class="choices"><li>Sigmoid</li><li>Softmax</li><li>Linear</li><li>ReLU only</li></ol><p class="explain">Regression uses a linear output.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 2.4 ============ -->
 <section id="t24" data-group="Topics" data-num="2.4" data-short="Loss functions">
   <h2><span class="tn">Topic 2.4</span>Loss Functions</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">The loss is a single number saying how wrong the predictions are. Training means making it smaller. Use MSE for numbers and cross-entropy for classes.</p><dl><dt>Remember</dt><dd><ul><li>The loss measures the error between predicted and true values; training minimises it</li><li>Regression → MSE; binary → binary cross-entropy; multi-class → categorical cross-entropy</li><li>Cross-entropy heavily penalises confident wrong predictions</li><li>MSE with sigmoid gives a non-convex loss (local minima)</li></ul></dd><dt>Think of it as</dt><dd>A golf score: lower is better. Cross-entropy is a strict referee who gives a huge penalty for being confidently wrong.</dd><dt>In the test</dt><dd><ul><li>Compute MSE</li><li>Compute binary cross-entropy with log₁₀ like the slides</li><li>Explain why MSE is a bad choice for classification</li></ul></dd></dl></div>
   <ul>
     <li>Loss = error between predicted and true output: <b>high for bad</b> predictions, <b>low for good</b>.</li>
     <li>Training aims to <b>minimise the loss</b> by iteratively adjusting weights. This is called <b>optimisation</b>, usually via gradient descent.</li>
@@ -340,11 +360,14 @@ Loss = −[log(0.775) + log(1−0.116) + log(1−0.039) + log(1−0.070)]
     <li>MSE with sigmoid outputs gives a <b>non-convex</b> cost with many local minima, so gradient descent may get stuck in a local minimum instead of the global one.</li>
     <li>Cross-entropy, because of the log curve, <b>heavily penalises confident wrong predictions</b>, which gives faster convergence for classification.</li>
   </ul>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t24-1" data-answer="0"><p class="qtext">Prediction 0.9 for true class 1. Is this loss small or large?</p><ol class="choices"><li>Small</li><li>Large</li><li>Zero</li><li>Infinite</li></ol><p class="explain">−log₁₀(0.9) = 0.046, small: correct and confident.</p></div><div class="mcq" id="qc-t24-2" data-answer="2"><p class="qtext">Which loss goes with softmax and one-hot labels?</p><ol class="choices"><li>MSE</li><li>Binary cross-entropy</li><li>Categorical cross-entropy</li><li>MAE</li></ol><p class="explain">Multi-class → categorical cross-entropy.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 2.5 ============ -->
 <section id="t25" data-group="Topics" data-num="2.5" data-short="Backprop & optimizers">
   <h2><span class="tn">Topic 2.5</span>Backpropagation &amp; Optimizers</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Backpropagation uses the chain rule to find how much each weight caused the error. The optimizer then moves each weight a small step (the learning rate) downhill.</p><dl><dt>Remember</dt><dd><ul><li>Backpropagation = chain rule + gradient descent, from output back to input</li><li>Update: w = w − η × ∂E/∂w (move opposite the gradient)</li><li>Learning rate too big → overshoots; too small → slow</li><li>Momentum escapes local minima; Adagrad gives per-weight rates; RMSprop uses a moving average; Adam combines them (default)</li><li>Stochastic = 1 sample, batch = all samples, mini-batch = small groups</li></ul></dd><dt>Think of it as</dt><dd>Walking down a foggy hill: feel the slope under your feet (gradient), take a step downhill (learning rate). Momentum is a rolling ball that can roll over small dips.</dd><dt>In the test</dt><dd><ul><li>Do one backprop update with the chain rule</li><li>Compute learning-rate decay and momentum</li><li>Compare SGD, Adagrad, RMSprop and Adam, and stochastic vs batch vs mini-batch</li></ul></dd></dl></div>
   <h3>Backpropagation</h3>
   <ul>
     <li>Also called <b>reverse-mode differentiation</b>; invented in the 1970s.</li>
@@ -444,11 +467,14 @@ r₅ = 0.0(0.4) + 1.0(0.1) = 0.10   → constant from here</div></div>
 Leftover options: drop it, or fill up with randomly chosen samples
 (Keras by default runs the partial batch → 8 steps per epoch)</div></div>
   <div class="trap"><div class="k">Terms</div><p><b>Epoch</b> = one full pass over all training data. <b>Iteration/step</b> = one weight update (one batch). Steps per epoch = ⌈samples / batch size⌉.</p></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t25-1" data-answer="1"><p class="qtext">If the gradient is positive, the weight should:</p><ol class="choices"><li>Increase</li><li>Decrease</li><li>Stay the same</li><li>Reset</li></ol><p class="explain">Move opposite the gradient: w − η × (positive) gets smaller.</p></div><div class="mcq" id="qc-t25-2" data-answer="2"><p class="qtext">Which updates weights after every single example?</p><ol class="choices"><li>Batch</li><li>Mini-batch</li><li>Stochastic</li><li>Adam</li></ol><p class="explain">Stochastic (online) uses one sample per update.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 3 ============ -->
 <section id="t3" data-group="Topics" data-num="3" data-short="Keras">
   <h2><span class="tn">Topic 3</span>Neural Networks with Keras</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Keras lets you build a network in a few lines: stack layers, compile with a loss and an optimizer, fit to data, evaluate.</p><dl><dt>Remember</dt><dd><ul><li>Keras is a high-level API running on TensorFlow</li><li>Sequential = stacked layers; Functional = multiple inputs/outputs, branches, shared layers</li><li>Steps: define input → hidden layers → output layer → compile → fit → evaluate/save</li><li>Flatten turns (None, H, W, C) into (None, H×W×C); None = batch size</li></ul></dd><dt>Think of it as</dt><dd>LEGO instructions: Sequential is stacking bricks in one tower. The Functional API lets you branch and join towers.</dd><dt>In the test</dt><dd><ul><li>List the 6 Keras steps with the matching code</li><li>Choose Sequential or Functional</li><li>Work out Flatten and Dense shapes</li></ul></dd></dl></div>
   <ul>
     <li>Keras = high-level Python API on top of <b>TensorFlow</b>; user-friendly, modular, extensible; fast prototyping; supports ANN, CNN, RNN; runs on CPU, GPU, TPU.</li>
     <li>Backend stack: Keras → TensorFlow → CUDA, cuDNN → Nvidia driver → GPU. Historically supported Theano and CNTK; <b>today only TensorFlow</b>. Uses Eigen for CPU.</li>
@@ -494,11 +520,14 @@ model = keras.models.Model(inputs=inp, outputs=out)</code></pre>
     <tr><td>Others</td><td>Embedding, Dropout, Normalization, Regularization, Attention, Reshaping, Merging</td></tr>
   </table></div>
   <div class="trap"><div class="k">Loss strings</div><p><code>'mse'</code> for regression · <code>'binary_crossentropy'</code> for sigmoid binary output · <code>'categorical_crossentropy'</code> for one-hot softmax output (<code>'sparse_categorical_crossentropy'</code> if labels stay as integers).</p></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t3-1" data-answer="1"><p class="qtext">Which API supports two inputs into one model?</p><ol class="choices"><li>Sequential</li><li>Functional</li><li>Both equally</li><li>Neither</li></ol><p class="explain">Functional handles multiple inputs, branches and shared layers.</p></div><div class="mcq" id="qc-t3-2" data-answer="0"><p class="qtext">Flatten on (None, 7, 7, 32) gives:</p><ol class="choices"><li>(None, 1568)</li><li>(None, 224)</li><li>(None, 7, 224)</li><li>(None, 46)</li></ol><p class="explain">7 × 7 × 32 = 1568.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 4.1 ============ -->
 <section id="t41" data-group="Topics" data-num="4.1" data-short="CNN fundamentals">
   <h2><span class="tn">Topic 4.1</span>Fundamentals of CNN</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">A CNN looks at small patches of an image with filters, so it keeps the spatial layout that a normal network loses when it flattens the image.</p><dl><dt>Remember</dt><dd><ul><li>ANNs flatten images and lose spatial relationships</li><li>Greyscale = H × W; colour = H × W × 3 (RGB), values 0–255</li><li>Image attributes: spatial correlation, translation invariance, hierarchy of features</li><li>CNN: conv → pool (repeat) → flatten → dense → output</li><li>Filter values are learned weights</li></ul></dd><dt>Think of it as</dt><dd>Reading a page through a small magnifying glass you slide around. You spot edges first, then shapes, then whole objects.</dd><dt>In the test</dt><dd><ul><li>Explain why ANNs struggle with images</li><li>Describe how images are stored (H × W × channels)</li><li>Name the 3 image attributes and the CNN layers in order</li></ul></dd></dl></div>
   <h3>How humans recognise objects (CNN's inspiration)</h3>
   <p>Detect simple features first (edges, curves, corners, colour boundaries) → focus on connected colour blocks, ignore blank space → combine into parts (eyes, wheels) → group and count parts → match to known objects. Recognition is <b>hierarchical</b>.</p>
   <h3>Limitation of ANN for images</h3>
@@ -538,11 +567,14 @@ model = keras.models.Model(inputs=inp, outputs=out)</code></pre>
     <li><b>2015</b>ResNet (Kaiming He, Microsoft Research): residual blocks</li>
   </ul>
   <p>ImageNet (ILSVRC): 1000 classes, 1,281,167 training, 50,000 validation, 100,000 test images. Computer vision tasks: image classification, segmentation and object detection.</p>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t41-1" data-answer="1"><p class="qtext">A colour image is stored as:</p><ol class="choices"><li>H × W</li><li>H × W × 3</li><li>W × H × 1</li><li>A 1D vector</li></ol><p class="explain">Height × width × RGB channels.</p></div><div class="mcq" id="qc-t41-2" data-answer="1"><p class="qtext">In a CNN, filter values are:</p><ol class="choices"><li>Hand-tuned</li><li>Learned during training</li><li>Always Sobel</li><li>Random forever</li></ol><p class="explain">They're the weights the network learns.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 4.2 ============ -->
 <section id="t42" data-group="Topics" data-num="4.2" data-short="CNN layers">
   <h2><span class="tn">Topic 4.2</span>CNN Layers</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Convolution slides a filter over the image and records a score at each spot. Padding keeps the size; pooling shrinks it. The filters are the weights that get learned.</p><dl><dt>Remember</dt><dd><ul><li>Convolution slides a filter and sums element-wise products to make a feature map</li><li>Output size = ⌊(N − F + 2P)/S⌋ + 1</li><li>Conv params = F × F × C_in × K + K</li><li>Padding 'same' keeps the size; 'valid' means no padding</li><li>Pooling has no parameters; max keeps the biggest value, average takes the mean</li><li>GAP turns h × w × d into 1 × 1 × d</li></ul></dd><dt>Think of it as</dt><dd>A stencil moved across a picture, noting how well each patch matches. Pooling summarises each 2×2 block by its strongest signal.</dd><dt>In the test</dt><dd><ul><li>Compute a convolution output by hand</li><li>Use ⌊(N − F + 2P)/S⌋ + 1 for output size</li><li>Count parameters: F × F × C × K + K</li><li>Do max and average pooling</li></ul></dd></dl></div>
   <h3>Convolutional layer</h3>
   <ul>
     <li>Convolution = <b>slide a filter across the image</b>, multiply element-wise, and sum. Each filter is a feature detector and produces one <b>feature map</b>.</li>
@@ -664,11 +696,14 @@ model.add(Dense(10, activation='softmax'))</code></pre>
   <div class="widget" data-widget="shapes"></div>
   <h3>CNN for video</h3>
   <p>Spatio-temporal deep learning: run the CNN on each frame, then model the sequence with an <b>RNN</b>.</p>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t42-1" data-answer="1"><p class="qtext">32×32 input, 5×5 filter, stride 1, no padding. Output size?</p><ol class="choices"><li>27</li><li>28</li><li>30</li><li>32</li></ol><p class="explain">(32 − 5)/1 + 1 = 28.</p></div><div class="mcq" id="qc-t42-2" data-answer="2"><p class="qtext">How many learnable parameters does a pooling layer have?</p><ol class="choices"><li>Many</li><li>One per window</li><li>None</li><li>Equal to the filters</li></ol><p class="explain">Pooling has no weights.</p></div></div>
 </section>
 
 <!-- ============ TOPIC 4.3 ============ -->
 <section id="t43" data-group="Topics" data-num="4.3" data-short="CNN image classification">
   <h2><span class="tn">Topic 4.3</span>CNN for Image Classification</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Putting it together: load images in batches with ImageDataGenerator, stack conv and pool layers, flatten, add dense layers, and train.</p><dl><dt>Remember</dt><dd><ul><li>ImageDataGenerator loads image batches with rescaling and augmentation</li><li>class_mode: categorical (one-hot), binary, sparse (integers), None</li><li>Binary CNN output: Dense(1, sigmoid) + binary_crossentropy</li><li>Shallow feature maps are detailed; deep ones are abstract</li></ul></dd><dt>Think of it as</dt><dd>An assembly line: images come in on a conveyor (generator), get inspected by layers, and a final judge (sigmoid or softmax) decides the label.</dd><dt>In the test</dt><dd><ul><li>Pick class_mode for a dataset</li><li>Trace output shapes through a CNN</li><li>Explain what feature maps show at shallow vs deep layers</li></ul></dd></dl></div>
   <h3>Datasets used</h3>
   <ul><li><b>Cats_Dogs</b>: 3000 images: 2000 training, 1000 validation.</li>
   <li><b>Hymenoptera</b> (ants vs bees): 396 images: 243 training, 153 validation.</li>
@@ -706,6 +741,8 @@ history = model.fit(train_gen, epochs=10, validation_data=val_gen)</code></pre>
   <h3>From-scratch practicals (NumPy)</h3>
   <ul><li><b>Single-layer NN</b>: weighted sum <code>x@w + b</code> → sigmoid → cross-entropy (log₁₀) → update <code>w = w + η(target − prediction)x</code>; predict class 1 if output &gt; 0.5.</li>
   <li><b>Two-layer NN on MNIST</b>: 784 → 20 (ReLU) → 10 (softmax). W1 is 20×784, b1 20×1, W2 10×20, b2 10×1. Forward: Z1 = W1·X + b1, A1 = ReLU(Z1), Z2 = W2·A1 + b2, A2 = softmax(Z2). Backward: dZ2 = A2 − one_hot(y), dW2 = (1/m) dZ2·A1ᵀ, dZ1 = W2ᵀ·dZ2 × ReLU′(Z1). Update W = W − α·dW with α = 0.1.</li></ul>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-t43-1" data-answer="1"><p class="qtext">For a 3-class flower dataset with one-hot labels, class_mode is:</p><ol class="choices"><li>binary</li><li>categorical</li><li>sparse</li><li>None</li></ol><p class="explain">categorical = one-hot labels.</p></div><div class="mcq" id="qc-t43-2" data-answer="1"><p class="qtext">Deeper feature maps are usually:</p><ol class="choices"><li>More detailed</li><li>More abstract and less interpretable</li><li>Identical to the input</li><li>Always bigger</li></ol><p class="explain">Early maps show edges; deep ones show abstract features.</p></div></div>
 </section>
 
 <!-- ============ CHEAT SHEET ============ -->
@@ -784,6 +821,7 @@ history = model.fit(train_gen, epochs=10, validation_data=val_gen)</code></pre>
 </main>
 </div>
 <script src="../../assets/modules.js"></script>
+<script src="glossary.js"></script>
 <script src="../../assets/site.js"></script>
 <script src="widgets.js"></script>
 <script>

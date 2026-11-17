@@ -316,7 +316,7 @@
     ["1", "What did Word2Vec (2013) introduce?", "Dense word vectors that capture meaning"],
     ["2", "Word vs character vs subword tokens", "Word: OOV problem, big vocabulary · Character: tiny vocabulary, long sequences · Subword: best of both"],
     ["2", "BPE in one line", "Start from characters; repeatedly merge the most frequent adjacent pair"],
-    ["2", "Stemming vs lemmatisation", "Stemming chops endings (flies → fli); lemmatisation gives the dictionary form (flies → fly)"],
+    ["2", "Stemming vs lemmatisation", "Stemming removes affixes to get the stem (flies → fli); lemmatisation returns the lemma, the dictionary form (flies → fly)"],
     ["3", "Emission probability", "P(word | tag) = count(word as tag) / count(tag)"],
     ["3", "Transition probability", "P(tag₂ | tag₁) = count(tag₁ → tag₂) / transitions out of tag₁"],
     ["3", "HMM path score", "Multiply every transition and emission from <S> to <E>; highest wins"],

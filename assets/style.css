@@ -239,3 +239,52 @@ canvas.plot{width:100%;max-width:640px;height:auto;aspect-ratio:16/10;display:bl
   details.q{break-inside:avoid}
   body.recall .ex .ln{filter:none}
 }
+
+/* ---------- plain-English box ---------- */
+.plain{display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0 18px}
+.plain .ph{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:800;font-size:15px;color:var(--accent)}
+.plain .ph svg{width:18px;height:18px}
+.plain .one{font-size:18px;font-weight:600;line-height:1.45;margin:0;max-width:none}
+.plain dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:4px 0 0}
+.plain dt{font-family:var(--f-display);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px;font-weight:700}
+.plain dd{margin:0}
+.plain ul{margin:0;padding-left:18px}
+@media (max-width:560px){.plain dl{grid-template-columns:minmax(0,1fr)}.plain dt{padding-top:6px}}
+
+/* ---------- topic map ---------- */
+.tmap{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
+.tmap a{display:inline-flex;flex-direction:column;gap:1px;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14.5px;font-weight:600;transition:border-color .15s,transform .15s}
+.tmap a small{font-weight:400;color:var(--muted);font-size:12.5px}
+.tmap a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tmap a.done{border-color:var(--ok);background:var(--ok-soft)}
+.tmap .arr{color:var(--muted);font-size:18px}
+.tmap-stage{display:grid;gap:6px;margin:10px 0}
+.tmap-stage .lab{font-family:var(--f-display);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+/* ---------- step-through examples ---------- */
+.ex .stepbar{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}
+.ex .stepbar button{border:1px solid var(--ok);background:transparent;color:var(--ok);border-radius:999px;padding:2px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.ex .stepbar button.primary{background:var(--ok);color:var(--surface)}
+.ex .ln .stp{display:block}
+.ex .ln .stp.hide{visibility:hidden;height:0;overflow:hidden}
+.ex .ln .stp.new{animation:stpin .35s ease}
+@keyframes stpin{from{background:color-mix(in srgb,var(--ok) 25%,transparent)}to{background:transparent}}
+body.recall .ex.stepping .ln{filter:none;cursor:auto;user-select:auto}
+body.recall .ex.stepping::after{content:none}
+
+/* ---------- glossary terms ---------- */
+button.term{all:unset;cursor:help;border-bottom:1.5px dotted var(--accent);color:inherit}
+button.term:hover,button.term:focus-visible{background:var(--accent-soft);border-radius:2px}
+.gpop{position:absolute;z-index:40;max-width:min(320px,calc(100vw - 32px));background:var(--fg);color:var(--bg);border-radius:8px;padding:10px 12px;font-size:14.5px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.gpop b{display:block;font-family:var(--f-display);margin-bottom:2px}
+.gpop a{color:inherit;font-size:13px}
+.glist{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px;margin:12px 0}
+.glist div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:0}
+.glist b{font-family:var(--f-display)}
+.glist p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.gfilter{height:36px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:0 10px;width:min(360px,100%)}
+
+/* ---------- quick check ---------- */
+.quick{border-top:1px dashed var(--line);margin-top:26px;padding-top:6px}
+.quick > .k{color:var(--accent);margin-top:10px}
+.quick .mcq{margin:8px 0}
