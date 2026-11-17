@@ -8,7 +8,7 @@ window.MODULES = [
     code: "EGT214",
     title: "Applied Deep Learning",
     desc: "Neural networks, activations, loss functions, backprop and optimizers, Keras, and CNNs.",
-    exam: "2026-12-08",
+    exam: "2026-12-11",
     color: "#2457d6", hot: "#ea6a1f",
     topics: [
       ["t1", "1", "Intro to DL"], ["t21", "2.1", "NN fundamentals"], ["t22", "2.2", "Build NN in Python"],
@@ -21,7 +21,7 @@ window.MODULES = [
     code: "NLP",
     title: "Natural Language Processing",
     desc: "Tokenisation, POS tagging and HMM, NER, vectorisation, TF-IDF and PPMI, Naive Bayes, logistic regression, CNN and Transformers.",
-    exam: "2026-12-01",
+    exam: "2026-11-30",
     color: "#0b8174", hot: "#d9466f",
     topics: [
       ["n1", "1", "Intro to NLP"], ["n2", "2", "Pre-processing & tokens"], ["n3", "3", "POS tagging & HMM"],
