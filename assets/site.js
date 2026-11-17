@@ -32,6 +32,8 @@
   const mod = document.body.dataset.module;
   if (!mod) return; // home page stops here
   const K = name => "sp:" + mod + ":" + name;
+  const emit = (n, d) => document.dispatchEvent(new CustomEvent(n, { detail: d }));
+
   const main = $("main");
 
   /* ---------- glossary section (built from window.GLOSSARY) ---------- */
@@ -92,7 +94,7 @@
   tracked.forEach(s => {
     const b = document.createElement("button");
     b.className = "donebtn"; b.type = "button";
-    b.addEventListener("click", () => { done.has(s.id) ? done.delete(s.id) : done.add(s.id); store.set(K("done"), [...done]); renderDone(); });
+    b.addEventListener("click", () => { const on = !done.has(s.id); on ? done.add(s.id) : done.delete(s.id); store.set(K("done"), [...done]); renderDone(); emit("sp:done", { id: s.id, on, title: s.dataset.short || s.id, count: tracked.filter(x => done.has(x.id)).length, total: tracked.length }); });
     $("h2", s).appendChild(b);
   });
   renderDone();
@@ -103,6 +105,7 @@
     entries.forEach(en => {
       if (en.isIntersecting) {
         links.forEach(a => a.classList.toggle("active", a.dataset.id === en.target.id));
+        if (!en.target.hasAttribute("data-noprogress")) store.set("sp:last", { mod, id: en.target.id, title: en.target.dataset.short || en.target.id, page: document.title.split(" · ")[0], t: Date.now() });
       }
     });
   }, { rootMargin: "-30% 0px -60% 0px" });
@@ -202,7 +205,7 @@
     bar.addEventListener("click", e => {
       const b = e.target.closest("button"); if (!b) return;
       if (b.classList.contains("go")) { shown = 0; ex.classList.add("stepping"); }
-      else if (b.classList.contains("next")) shown++;
+      else if (b.classList.contains("next")) { shown++; if (shown >= steps.length - 1) emit("sp:step", {}); }
       else if (b.classList.contains("all")) shown = steps.length - 1;
       paint();
       if (b.classList.contains("next") || b.classList.contains("go")) $(".stepbar .next", ex)?.focus();
@@ -271,6 +274,7 @@
     const items = $$(".choices > li", q);
     const ans = Number(q.dataset.answer);
     const exp = $(".explain", q); if (exp) exp.hidden = true;
+    q.spData = { text: ($(".qtext", q) || {}).innerHTML || "", opts: items.map(li => li.innerHTML), ans, exp: exp ? exp.innerHTML : "" };
     const buttons = items.map((li, i) => {
       const b = document.createElement("button"); b.type = "button";
       b.innerHTML = '<span class="l">' + "abcdefg"[i] + "</span><span>" + li.innerHTML + "</span>";
@@ -280,7 +284,7 @@
       buttons.forEach((b, i) => { b.disabled = true; if (i === ans) b.classList.add("right"); if (i === choice && i !== ans) b.classList.add("wrong"); });
       if (exp) { exp.hidden = false; exp.insertAdjacentHTML("afterbegin", choice === ans ? "<b style='color:var(--ok)'>Correct.</b> " : "<b style='color:var(--bad)'>Not quite.</b> "); }
     }
-    buttons.forEach((b, i) => b.addEventListener("click", () => { mcqState[id] = i; store.set(K("mcq"), mcqState); show(i); score(); }));
+    buttons.forEach((b, i) => b.addEventListener("click", () => { mcqState[id] = i; store.set(K("mcq"), mcqState); show(i); score(); emit("sp:mcq", { correct: i === ans, quick: !!q.closest(".quick"), el: q }); }));
     if (id in mcqState) show(mcqState[id]);
     q.dataset.qid = id;
   });
@@ -300,7 +304,7 @@
       y.setAttribute("aria-pressed", v === "y"); n.setAttribute("aria-pressed", v === "n");
       d.classList.toggle("got", v === "y"); d.classList.toggle("miss", v === "n");
     }
-    y.addEventListener("click", () => { selfState[id] = selfState[id] === "y" ? undefined : "y"; store.set(K("self"), selfState); paint(); score(); });
+    y.addEventListener("click", () => { selfState[id] = selfState[id] === "y" ? undefined : "y"; store.set(K("self"), selfState); paint(); score(); if (selfState[id] === "y") emit("sp:self", { id }); });
     n.addEventListener("click", () => { selfState[id] = selfState[id] === "n" ? undefined : "n"; store.set(K("self"), selfState); paint(); score(); });
     paint();
   });

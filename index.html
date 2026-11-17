@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>studypotato</title>
-<meta name="description" content="Interactive revision notes for my modules.">
+<meta name="description" content="Interactive revision notes with quizzes, calculators, flashcards, XP and streaks.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -18,29 +18,69 @@
 </div></div>
 <div class="home gutter">
   <header class="hero">
-    <div class="eyebrow">Revision notes</div>
-    <h1>studypotato</h1>
-    <p>Notes for each module, with worked examples, calculators to check your working, quizzes and flashcards. Progress is saved in this browser.</p>
+    <div>
+      <div class="eyebrow" id="greet">Hello</div>
+      <h1 id="rank">studypotato</h1>
+      <p id="pitch">Learn a topic, test yourself, earn XP and level up your potato. Keep your streak alive by studying a little every day.</p>
+    </div>
+    <div id="heroPotato"></div>
   </header>
+
+  <div class="statrow" id="stats"></div>
+  <div id="cont"></div>
+
+  <h2 class="sec">Your modules</h2>
+  <p class="sub">Study the notes, or jump straight into a 60-second Speed Round.</p>
   <div class="cards" id="cards"></div>
-  <p class="foot">Pick a module to start. Inside a module, press <code>/</code> to search, and turn on <b>Recall</b> to hide worked answers until you tap them.</p>
+
+  <h2 class="sec">Trophy case</h2>
+  <p class="sub" id="bcount"></p>
+  <div class="badges" id="badges"></div>
+
+  <p class="foot">Your XP, streak and progress are saved in this browser only. Inside a module, press <code>/</code> to search and turn on <b>Recall</b> to hide worked answers until you tap them.</p>
 </div>
 <script src="assets/modules.js"></script>
 <script src="assets/site.js"></script>
+<script src="assets/game.js"></script>
 <script>
 (function () {
-  var S = window.SP.store, el = document.getElementById("cards");
-  var html = (window.MODULES || []).map(function (m) {
-    var done = (S.get("sp:" + m.slug + ":done", []) || []).length, total = S.get("sp:" + m.slug + ":total", 0) || 0;
-    var pct = total ? Math.round(100 * Math.min(done, total) / total) : 0;
-    var days = "";
-    if (m.exam) { var d = Math.ceil((new Date(m.exam + "T09:00:00") - new Date()) / 864e5); days = d < 0 ? "Exam done" : d === 0 ? "<b>Exam today</b>" : "<b>" + d + "</b> day" + (d === 1 ? "" : "s") + " to exam"; }
-    return '<a class="mcard" href="modules/' + m.slug + '/"><span class="code">' + m.code + '</span><h3>' + m.title + '</h3><p>' + m.desc + '</p>' +
-      '<div class="bar" aria-label="' + pct + '% revised"><span style="width:' + pct + '%"></span></div>' +
-      '<div class="meta"><span>' + (total ? "<b>" + Math.min(done, total) + "/" + total + "</b> topics revised" : "Not started") + '</span><span>' + days + '</span></div></a>';
-  }).join("");
-  html += '<div class="mcard soon"><span class="code">Coming soon</span><h3>More modules</h3><p>Send the slides for another module and it gets its own page here.</p></div>';
-  el.innerHTML = html;
+  var S = window.SP.store, P = window.SPG, $ = function (s) { return document.querySelector(s); };
+  function render() {
+    var G = P.get(), lv = P.levelOf(G.xp), L = P.LEVELS;
+    var h = new Date().getHours();
+    $("#greet").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " · Level " + (lv + 1);
+    $("#rank").textContent = G.xp ? L[lv][1] : "Welcome to studypotato";
+    $("#heroPotato").innerHTML = P.potato(lv >= 4 ? "cool" : "happy", 132);
+    var cur = L[lv][0], nxt = L[lv + 1], pct = nxt ? Math.round(100 * (G.xp - cur) / (nxt[0] - cur)) : 100;
+    var d = new Date(), key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    var td = G.days[key] || 0, gp = Math.min(100, Math.round(100 * td / P.DAILY_GOAL));
+    var alive = G.lastDay && (new Date(key + "T12:00:00") - new Date(G.lastDay + "T12:00:00")) / 864e5 <= 1;
+    var streak = alive ? G.streak : 0;
+    $("#stats").innerHTML =
+      '<button class="stat" type="button" data-p><span class="ring" style="--p:' + pct + '"></span><span><b>' + G.xp + ' XP</b><small>' + (nxt ? (nxt[0] - G.xp) + " to " + nxt[1] : "Max level") + "</small></span></button>" +
+      '<button class="stat" type="button" data-p><span class="ic" style="background:var(--hot-soft);color:' + (streak ? "var(--hot)" : "var(--muted)") + '">' + P.FLAME + "</span><span><b>" + streak + " day" + (streak === 1 ? "" : "s") + "</b><small>" + (streak ? "streak, keep it going" : "start a streak today") + "</small></span></button>" +
+      '<button class="stat" type="button" data-p><span class="ring" style="--p:' + gp + '"></span><span><b>' + td + " / " + P.DAILY_GOAL + "</b><small>" + (gp >= 100 ? "daily goal done!" : "XP toward today's goal") + "</small></span></button>";
+    document.querySelectorAll("[data-p]").forEach(function (b) { b.addEventListener("click", P.openProfile); });
+
+    var last = S.get("sp:last", null), mods = window.MODULES || [];
+    var lm = last && mods.find(function (m) { return m.slug === last.mod; });
+    $("#cont").innerHTML = lm ? '<a class="continue" href="modules/' + lm.slug + '/#' + last.id + '"><span><small>Continue where you left off</small><b>' + last.title + "</b><small>" + lm.title + '</small></span><span class="go"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></a>' : "";
+
+    $("#cards").innerHTML = mods.map(function (m) {
+      var done = (S.get("sp:" + m.slug + ":done", []) || []).length, total = S.get("sp:" + m.slug + ":total", 0) || 0;
+      var p = total ? Math.round(100 * Math.min(done, total) / total) : 0;
+      var best = (S.get("sp:speedbest", {}) || {})[m.slug] || 0;
+      var days = "";
+      if (m.exam) { var dd = Math.ceil((new Date(m.exam + "T09:00:00") - new Date()) / 864e5); days = dd < 0 ? "Exam done" : dd === 0 ? "<b>Exam today</b>" : "<b>" + dd + "</b> day" + (dd === 1 ? "" : "s") + " to the test"; }
+      return '<div class="mcard" style="--mc:' + (m.color || "var(--accent)") + ";--mh:" + (m.hot || "var(--hot)") + '"><div class="band"><span class="code">' + m.code + '</span><span class="ring" style="--p:' + p + '"><i>' + p + '%</i></span></div><div class="inner"><h3>' + m.title + "</h3><p>" + m.desc + '</p><div class="meta"><span>' + (total ? "<b>" + Math.min(done, total) + "/" + total + "</b> topics revised" : "Not started yet") + (best ? " · best Speed Round <b>" + best + "</b>" : "") + "</span><span>" + days + '</span></div><div class="acts"><a class="pri-l" href="modules/' + m.slug + '/"><span class="pri">Study notes</span></a><a href="modules/' + m.slug + '/#play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Speed Round</span></a></div></div></div>';
+    }).join("") + '<div class="mcard soon"><span class="code">Coming soon</span><h3>More modules</h3><p>Send the slides for another module and it gets its own page here.</p></div>';
+
+    var got = Object.keys(G.badges).length;
+    $("#bcount").textContent = got + " of " + P.BADGES.length + " badges unlocked. Earn more by answering questions, revising topics and keeping your streak.";
+    $("#badges").innerHTML = P.BADGES.map(function (b) { return '<div class="bdg' + (G.badges[b[0]] ? " got" : "") + '" title="' + b[2] + '"><span class="bi">' + P.BADGE_ICON + "</span><b>" + b[1] + "</b><small>" + b[2] + "</small></div>"; }).join("");
+  }
+  render();
+  setTimeout(render, 1300);
 })();
 </script>
 </body>
