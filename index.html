@@ -10,29 +10,36 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
+<body class="homepage">
 <div class="topbar"><div class="topbar-in gutter">
   <a class="brand" href="./"><span class="dot"></span><span>studypotato</span></a>
   <span class="spacer"></span>
   <button class="iconbtn" id="themeBtn" type="button" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
 </div></div>
 <div class="home gutter">
-  <header class="hero">
-    <div>
-      <div class="eyebrow" id="greet">Revision notes</div>
-      <h1>studypotato</h1>
-      <p>Notes for each module, explained in plain English, with step-by-step worked examples, calculators to check your working, quick checks, flashcards and a 60-second Speed Round quiz.</p>
+  <header class="hero2">
+    <div class="h-text">
+      <div class="h-eyebrow" id="greet">Revision notes</div>
+      <h1>What are we<br>studying today?</h1>
+      <p>Plain-English notes, step-by-step worked examples, calculators to check your working, quick checks and a 60-second Speed Round.</p>
     </div>
-    <div id="heroPotato"></div>
+    <div class="h-side">
+      <div id="heroPotato" class="h-potato"></div>
+      <div class="h-tests" id="tests"></div>
+    </div>
   </header>
 
   <div id="cont"></div>
 
-  <h2 class="sec">Your modules</h2>
-  <p class="sub">Study the notes, or test yourself with a Speed Round.</p>
-  <div class="cards" id="cards"></div>
+  <div class="sechead"><h2>Your modules</h2><span class="sub" id="modsub"></span></div>
+  <div class="mods" id="mods"></div>
 
-  <p class="foot">Your progress is saved in this browser only. Inside a module, press <code>/</code> to search and turn on <b>Recall</b> to hide worked answers until you tap them.</p>
+  <div class="addmod">
+    <span class="plus">+</span>
+    <div><b>Add another module</b><p>Send the lecture slides and it gets its own page here, with the same notes, calculators and quizzes.</p></div>
+  </div>
+
+  <p class="foot">Progress is saved in this browser only. Inside a module, press <code>/</code> to search, and turn on <b>Recall</b> to hide worked answers until you tap them.</p>
 </div>
 <script src="assets/modules.js"></script>
 <script src="assets/site.js"></script>
@@ -40,22 +47,49 @@
 <script>
 (function () {
   var S = window.SP.store, $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
   var h = new Date().getHours();
-  $("#greet").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " · revision notes";
-  $("#heroPotato").innerHTML = window.SPS.potato("happy", 132);
+  $("#greet").textContent = h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
+  $("#heroPotato").innerHTML = window.SPS.potato("happy", 92);
 
-  var last = S.get("sp:last", null), mods = window.MODULES || [];
+  var daysTo = function (d) { return d ? Math.ceil((new Date(d + "T09:00:00") - new Date()) / 864e5) : null; };
+  var mods = (window.MODULES || []).slice().sort(function (a, b) { return (daysTo(a.exam) ?? 999) - (daysTo(b.exam) ?? 999); });
+
+  // upcoming tests in the hero
+  $("#tests").innerHTML = '<span class="h-lab">Upcoming tests</span>' + mods.filter(function (m) { var d = daysTo(m.exam); return d !== null && d >= 0; }).map(function (m) {
+    var d = daysTo(m.exam);
+    return '<a class="h-test" href="modules/' + m.slug + '/" style="--mc:' + m.color + '"><span class="dot"></span><span class="nm">' + esc(m.title) + '</span><b>' + (d === 0 ? "today" : d + "d") + "</b></a>";
+  }).join("");
+
+  // continue
+  var last = S.get("sp:last", null);
   var lm = last && mods.find(function (m) { return m.slug === last.mod; });
-  $("#cont").innerHTML = lm ? '<a class="continue" href="modules/' + lm.slug + '/#' + last.id + '"><span><small>Continue where you left off</small><b>' + last.title + "</b><small>" + lm.title + '</small></span><span class="go"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></a>' : "";
+  $("#cont").innerHTML = lm ? '<a class="continue2" href="modules/' + lm.slug + '/#' + last.id + '" style="--mc:' + lm.color + '"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="tx"><small>Continue where you left off</small><b>' + esc(last.title) + "</b></span><span class=\"md\">" + esc(lm.title) + "</span></a>" : "";
 
-  $("#cards").innerHTML = mods.map(function (m) {
-    var done = (S.get("sp:" + m.slug + ":done", []) || []).length, total = S.get("sp:" + m.slug + ":total", 0) || 0;
-    var p = total ? Math.round(100 * Math.min(done, total) / total) : 0;
-    var best = (S.get("sp:speedbest", {}) || {})[m.slug] || 0;
-    var days = "";
-    if (m.exam) { var dd = Math.ceil((new Date(m.exam + "T09:00:00") - new Date()) / 864e5); days = dd < 0 ? "Test done" : dd === 0 ? "<b>Test today</b>" : "<b>" + dd + "</b> day" + (dd === 1 ? "" : "s") + " to the test"; }
-    return '<div class="mcard" style="--mc:' + (m.color || "var(--accent)") + ";--mh:" + (m.hot || "var(--hot)") + '"><div class="band"><span class="code">' + m.code + '</span><span class="ring" style="--p:' + p + '"><i>' + p + '%</i></span></div><div class="inner"><h3>' + m.title + "</h3><p>" + m.desc + '</p><div class="meta"><span>' + (total ? "<b>" + Math.min(done, total) + "/" + total + "</b> topics revised" : "Not started yet") + (best ? " · best Speed Round <b>" + best + "</b>" : "") + "</span><span>" + days + '</span></div><div class="acts"><a href="modules/' + m.slug + '/"><span class="pri">Study notes</span></a><a href="modules/' + m.slug + '/#play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Speed Round</span></a></div></div></div>';
-  }).join("") + '<div class="mcard soon"><span class="code">Coming soon</span><h3>More modules</h3><p>Send the slides for another module and it gets its own page here.</p></div>';
+  var allDone = 0, allTotal = 0;
+  $("#mods").innerHTML = mods.map(function (m) {
+    var done = S.get("sp:" + m.slug + ":done", []) || [], T = m.topics || [];
+    var n = T.filter(function (t) { return done.indexOf(t[0]) >= 0; }).length;
+    allDone += n; allTotal += T.length;
+    var left = T.filter(function (t) { return done.indexOf(t[0]) < 0; });
+    var d = daysTo(m.exam), best = (S.get("sp:speedbest", {}) || {})[m.slug] || 0;
+    var pace;
+    if (!left.length) pace = "All topics revised. Keep practising with the Speed Round.";
+    else if (d === null) pace = left.length + " topics to go.";
+    else if (d <= 0) pace = "Test day: skim the formula sheet and do a Speed Round.";
+    else if (left.length >= d) pace = "About <b>" + Math.ceil(left.length / d) + " topic" + (Math.ceil(left.length / d) > 1 ? "s" : "") + " a day</b> to finish before the test.";
+    else { var every = Math.floor(d / left.length); pace = every <= 1 ? "About <b>1 topic a day</b> to finish before the test." : "About <b>1 topic every " + every + " days</b> to finish before the test."; }
+    var segs = T.map(function (t) { var on = done.indexOf(t[0]) >= 0; return '<a href="modules/' + m.slug + "/#" + t[0] + '" class="seg' + (on ? " on" : "") + '" title="' + t[1] + " " + esc(t[2]) + (on ? " (revised)" : "") + '"></a>'; }).join("");
+    var next = left.slice(0, 3).map(function (t) { return '<a class="nx" href="modules/' + m.slug + "/#" + t[0] + '"><span class="n">' + t[1] + "</span>" + esc(t[2]) + "</a>"; }).join("");
+    return '<article class="mod" style="--mc:' + m.color + '">' +
+      '<a class="mtop" href="modules/' + m.slug + '/"><span class="mt"><span class="code">' + esc(m.code) + "</span><h3>" + esc(m.title) + "</h3><p>" + esc(m.desc) + "</p></span>" +
+      (d !== null && d >= 0 ? '<span class="cd"><b>' + d + "</b><small>day" + (d === 1 ? "" : "s") + " left</small></span>" : "") + "</a>" +
+      '<div class="mbody"><div class="prog"><span><b>' + n + " of " + T.length + "</b> topics revised</span>" + (best ? "<span>Best Speed Round <b>" + best + "</b></span>" : "") + '</div><div class="segs">' + segs + "</div>" +
+      '<p class="pace">' + pace + "</p>" +
+      (next ? '<div class="nexts"><span class="lab">Up next</span>' + next + "</div>" : "") +
+      '<div class="acts2"><a class="b1" href="modules/' + m.slug + '/">Open notes</a><a class="b2" href="modules/' + m.slug + '/#play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Speed Round</a><a class="b3" href="modules/' + m.slug + '/#cheat">Formula sheet</a></div></div></article>';
+  }).join("");
+  $("#modsub").textContent = allTotal ? allDone + " of " + allTotal + " topics revised overall" : "";
 })();
 </script>
 </body>
