@@ -29,5 +29,18 @@ window.MODULES = [
       ["n7", "7", "TF-IDF & PPMI"], ["n8", "8", "Naive Bayes"], ["n9", "9", "Logistic regression"],
       ["n10", "10", "CNN"], ["n11", "11", "Transformers"]
     ]
+  },
+  {
+    slug: "eg2a55",
+    code: "EG2A55",
+    title: "Product Design & Life Cycle",
+    desc: "Manufacturing processes, the process selection matrix, PLC, PLM, LCM and PLM software (Part, BOM, Revision, Costing, ECO).",
+    exam: "",
+    color: "#2f7a3a", hot: "#c8780a",
+    topics: [
+      ["m1", "1.1", "Manufacturing vs production"], ["m2", "1.2", "The six process categories"], ["m3", "1.3", "Selection factors"],
+      ["m4", "2", "Process selection matrix"], ["m5", "3.1", "Product Life Cycle (PLC)"], ["m6", "3.2", "PLM"],
+      ["m7", "3.3", "LCM & comparison"], ["m8", "4", "PLM software: 6 concepts"]
+    ]
   }
 ];

@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Product Design & Life Cycle · studypotato</title>
+<meta name="description" content="EG2A55 revision notes: manufacturing processes, the process selection matrix, PLC, PLM, LCM and PLM software, with calculators, quizzes and flashcards.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-module="eg2a55">
+<div class="topbar"><div class="topbar-in gutter">
+  <button class="iconbtn only-sm" id="navBtn" type="button" aria-label="Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../../"><span class="dot"></span><span class="hide-sm">studypotato</span></a>
+  <span class="crumb hide-sm">/ Product Design &amp; Life Cycle</span>
+  <span class="spacer"></span>
+  <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search notes  ( / )" aria-label="Search notes" autocomplete="off"><span class="hitcount" id="hitCount" hidden></span></div>
+  <button class="iconbtn" id="recallBtn" type="button" aria-pressed="false" title="Recall mode: hide worked answers until you tap them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="hide-sm">Recall</span></button>
+  <button class="iconbtn" id="themeBtn" type="button" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  <span class="progressline"></span>
+</div></div>
+<div class="scrim"></div>
+<div class="wrap gutter">
+<nav class="rail" id="rail" aria-label="Topics"></nav>
+<main>
+<header class="top">
+  <div class="eyebrow">EG2A55 · Sustainable Product Design &amp; Life Cycle Management · Topics 1 to 4</div>
+  <h1>Product Design &amp; Life Cycle</h1>
+  <p class="sub">Manufacturing processes, the process selection matrix, PLC, PLM, LCM and PLM software, condensed from your four topic notes. Use the <b>Try it</b> boxes to build selection matrices and roll up BOM costs.</p>
+  <div class="facts">
+    <span class="chip count" id="examCount" hidden></span>
+    <span class="chip"><b>4 topics</b></span>
+    <span class="chip">Weighted score = <b>weight × rating</b></span>
+  </div>
+  <div class="toolrow">
+    <a class="iconbtn" href="#practice">Practice questions</a>
+    <a class="iconbtn" href="#flashcards">Flashcards</a>
+    <a class="iconbtn" href="#cheat">Summary sheet</a>
+  </div>
+</header>
+
+<!-- ================= PLAN ================= -->
+<section id="plan" data-group="Start here" data-num="00" data-short="How to use this" data-noprogress>
+  <h2><span class="tn">00</span>How to study this module</h2>
+  <h3>How the topics fit together</h3>
+  <p class="sub">Tap a topic to jump to it. Topics you mark as revised turn green.</p>
+  <div class="tmap-stage"><span class="lab">Topic 1 · How things are made</span><div class="tmap"><a href="#m1">Manufacturing vs production<small>what & how much</small></a><span class="arr">→</span><a href="#m2">6 processes<small>cast, mold, form, cut, join, print</small></a><span class="arr">→</span><a href="#m3">Selection factors<small>10 things to check</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Topic 2 · Choosing a process</span><div class="tmap"><a href="#m4">Selection matrix<small>weight × rating</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Topic 3 · Managing the product's life</span><div class="tmap"><a href="#m5">PLC<small>market stages</small></a><span class="arr">→</span><a href="#m6">PLM<small>information & changes</small></a><span class="arr">→</span><a href="#m7">LCM<small>whole-life impact</small></a></div></div>
+  <div class="tmap-stage"><span class="lab">Topic 4 · PLM in practice</span><div class="tmap"><a href="#m8">PLM software<small>Part → … → ECO</small></a></div></div>
+
+  <div class="plan">
+    <div><h4>1 · Learn the lists</h4><ul>
+      <li>6 process categories and one example each</li>
+      <li>10 selection factors</li>
+      <li>4 PLC stages, 5 PLM stages, 5 LCM stages</li>
+      <li>6 PLM software concepts</li></ul></div>
+    <div><h4>2 · Practise the matrix</h4><ul>
+      <li>Build a weighted selection matrix by hand</li>
+      <li>Check it with the calculator in Topic 2</li>
+      <li>Always finish with recommendation, trade-off, final decision</li></ul></div>
+    <div><h4>3 · Know the differences</h4><ul>
+      <li>Manufacturing vs production</li>
+      <li>PLC vs PLM vs LCM</li>
+      <li>PLM vs PDM, Part vs CAD file, ECO vs Revision</li></ul></div>
+  </div>
+  <div class="trap"><div class="k">The questions this module keeps asking</div>
+    <p>“Which process, and <b>why</b>?” Justify every choice against the factors (volume, cost, accuracy, material, finish, lead time), then name one <b>trade-off</b> and one <b>sustainability</b> point.</p></div>
+</section>
+
+<!-- ================= 1 MANUFACTURING VS PRODUCTION ================= -->
+<section id="m1" data-group="Topic 1 · Manufacturing processes" data-num="1.1" data-short="Manufacturing vs production">
+  <h2><span class="tn">Topic 1.1</span>Manufacturing vs Production</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Manufacturing is making the thing. Production is everything needed to get enough of it to customers: planning, buying, making, checking, packing and delivering.</p><dl><dt>Remember</dt><dd><ul><li>Manufacturing transforms raw materials into finished or semi-finished products by physical, chemical or mechanical processes</li><li>Production is broader: planning, procurement, manufacturing, assembly, inspection, packaging, storage and delivery</li><li>Production systems: job (unit), batch, mass, continuous (process)</li></ul></dd><dt>Think of it as</dt><dd>A bakery: baking the bread is manufacturing. Ordering flour, scheduling bakers, checking quality, bagging and delivering to shops is production.</dd><dt>In the test</dt><dd><ul><li>Define and differentiate manufacturing and production</li><li>Name and match the 4 production systems to examples</li></ul></dd></dl></div>
+  <div class="grid">
+    <div class="f" style="margin:0"><div class="k">Manufacturing</div><p style="color:var(--fg)">Transforming raw materials or components into finished or semi-finished products using <b>physical, chemical or mechanical</b> processes.</p><p>e.g. CNC machining an aluminium block, casting an engine housing, forming a car panel, 3D printing a plastic part.</p></div>
+    <div class="f" style="margin:0"><div class="k">Production</div><p style="color:var(--fg)">The <b>broader</b> process of creating goods or services to meet customer or market demand.</p><p>Planning · material procurement · manufacturing · assembly · inspection · packaging · storage · delivery.</p></div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th></th><th>Asks</th></tr>
+    <tr><td><b>Manufacturing</b></td><td>“How do we <b>make</b> the product?”</td></tr>
+    <tr><td><b>Production</b></td><td>“How do we produce the <b>required quantity</b> efficiently and deliver it to the customer?”</td></tr>
+  </table></div>
+  <div class="trap"><div class="k">Key relationship</div><p>Manufacturing is <b>one part of</b> production. Production also covers planning, buying materials, inspection, packaging, storage and delivery.</p></div>
+  <h3>Types of production systems (by volume)</h3>
+  <div class="tbl"><table>
+    <tr><th>System</th><th>Volume</th><th>Example</th></tr>
+    <tr><td><b>Job (unit) production</b></td><td>One-off or very small quantities, often custom</td><td>Custom prosthetic hand, a bridge, a prototype</td></tr>
+    <tr><td><b>Batch production</b></td><td>Groups of identical items, then switch to the next batch</td><td>Bakery, a run of 500 brackets</td></tr>
+    <tr><td><b>Mass production</b></td><td>Very large quantities of standard items</td><td>Bottle caps, cars, phone casings</td></tr>
+    <tr><td><b>Continuous (process) production</b></td><td>Non-stop flow, 24/7</td><td>Oil refining, chemicals, steel, paper</td></tr>
+  </table></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m1-1" data-answer="1"><p class="qtext">Inspection and packaging belong to:</p><ol class="choices"><li>Manufacturing only</li><li>Production</li><li>Neither</li><li>Casting</li></ol><p class="explain">Production includes inspection, packaging, storage and delivery.</p></div><div class="mcq" id="qc-m1-2" data-answer="1"><p class="qtext">Making 500 identical brackets, then switching to another product, is:</p><ol class="choices"><li>Job production</li><li>Batch production</li><li>Mass production</li><li>Continuous production</li></ol><p class="explain">Groups of identical items = batch.</p></div></div>
+</section>
+
+<!-- ================= 2 SIX PROCESSES ================= -->
+<section id="m2" data-group="Topic 1 · Manufacturing processes" data-num="1.2" data-short="The six process categories">
+  <h2><span class="tn">Topic 1.2</span>The Six Main Manufacturing Process Categories</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">There are six families of ways to make things: pour it (casting), inject it (molding), bend or squash it (forming), cut it (machining), connect it (joining), or build it layer by layer (additive).</p><dl><dt>Remember</dt><dd><ul><li>Casting: molten material poured into a mold (sand, die, investment)</li><li>Molding: thermoplastic injected under high pressure; very low unit cost only at high volume</li><li>Forming: deforms solid material, no material removed (forging, extrusion, rolling)</li><li>Machining: subtractive, removes material; high accuracy (±0.01 mm) but creates swarf</li><li>Joining: temporary or permanent joints (welding, soldering, brazing, adhesives, fasteners)</li><li>Additive: layer by layer from a 3D model; geometric freedom, no tooling, slow and costly at volume</li></ul></dd><dt>Think of it as</dt><dd>Making a shape out of clay: pour it into a mould, press it into a mould, squeeze it into shape, carve it from a block, glue pieces together, or stack thin layers.</dd><dt>In the test</dt><dd><ul><li>Describe each process with an example</li><li>Give one advantage and one limitation of each</li><li>Contrast forming vs machining and casting vs molding</li></ul></dd></dl></div>
+  <p>Manufacturing processes = methods of converting raw materials into finished products.</p>
+  <div class="tbl"><table>
+    <tr><th>Process</th><th>How it works</th><th>Examples</th><th>Main advantage</th><th>Main limitation</th></tr>
+    <tr><td><b>Casting</b></td><td>Molten material poured into a mold, cools and solidifies to the mold's shape</td><td>Sand, die, investment casting</td><td>Complex shapes, less machining needed, medium–high volume</td><td>Harder to control dimensional accuracy and surface quality; defects</td></tr>
+    <tr><td><b>Molding</b></td><td>Thermoplastic heated until fluid, <b>injected under high pressure</b> into a cavity, cools solid</td><td>Injection, blow, extrusion, compression, rotational molding</td><td>Very low unit cost at high volume</td><td>High mold cost; poor choice for small batches or prototypes; design changes need mold modification</td></tr>
+    <tr><td><b>Forming</b></td><td>Force <b>deforms</b> solid material into a new shape; no material intentionally removed</td><td>Forging, extrusion, rolling, stamping, bending</td><td>Good material utilisation, good mechanical properties, high productivity</td><td>Tooling cost; geometric constraints (material must be able to flow)</td></tr>
+    <tr><td><b>Machining</b></td><td>Start with extra material and <b>remove</b> the excess with cutting tools (subtractive)</td><td>Milling, turning, grinding, drilling</td><td>High accuracy (±0.01 mm), excellent finish, flexible</td><td>Swarf (waste), longer cycle times, higher unit cost at large volume</td></tr>
+    <tr><td><b>Joining</b></td><td>Connects two or more components: temporary or permanent joints</td><td>Welding, soldering, brazing, adhesive bonding, mechanical fastening</td><td>Enables multi-part assemblies (fuselages, frames, PCBs, pipework)</td><td>Joint strength/quality issues; permanent joints make repair and recycling harder</td></tr>
+    <tr><td><b>Additive (3D printing)</b></td><td>Builds the part <b>layer by layer</b> from a digital 3D model</td><td>SLA, FDM, SLS, DMLS, metal powder-bed fusion</td><td>Geometric freedom (internal channels, lattices), no mold, fast design iteration</td><td>Long build times, high cost per part at volume, material/surface limits</td></tr>
+  </table></div>
+  <div class="trap"><div class="k">Pairs the notes contrast</div><ul>
+    <li><b>Casting and molding</b> share a principle: a <b>cavity defines the shape</b>. Efficient at scale, but consider melting energy, mold life, scrap and recyclability.</li>
+    <li><b>Forming</b> prioritises <b>productivity and material efficiency</b>; <b>machining</b> prioritises <b>precision and flexibility</b>.</li>
+    <li>Additive manufacturing <b>does not replace</b> traditional manufacturing. It expands the options: prototypes, personalised products, complex low-volume parts, aerospace and medical.</li>
+  </ul></div>
+  <h3>Comparison table (Table 1.2)</h3>
+  <div class="tbl"><table>
+    <tr><th>Process</th><th>Best for</th><th>Common materials</th><th>Volume</th><th>Tolerance</th><th>Relative cost</th></tr>
+    <tr><td>Casting</td><td>Complex shapes, internal geometries</td><td>Aluminium, iron, steel, zinc</td><td>Medium–High</td><td>Moderate</td><td>Low–Medium per unit</td></tr>
+    <tr><td>Molding</td><td>High-volume plastic parts</td><td>Plastics, rubber, silicone</td><td>High–Very high</td><td>Moderate–Good</td><td>Very low per unit (high tooling)</td></tr>
+    <tr><td>Forming</td><td>Sheet metal, structural components</td><td>Steel, aluminium, copper, titanium</td><td>Medium–High</td><td>Moderate</td><td>Low–Medium per unit</td></tr>
+    <tr><td>Machining</td><td>Precision parts, tight tolerances</td><td>Metals, plastics, composites</td><td>Low–High</td><td>Tight (±0.01 mm)</td><td>Medium–High per unit</td></tr>
+    <tr><td>Joining</td><td>Multi-component assemblies</td><td>Metals, plastics, composites</td><td>Any</td><td>Depends on method</td><td>Varies</td></tr>
+    <tr><td>Additive</td><td>Prototyping, complex, low volume</td><td>Plastics, resins, metals</td><td>Low–Medium</td><td>Moderate</td><td>Low (no tooling)</td></tr>
+  </table></div>
+  <h3>Additive manufacturing: 6 process categories</h3>
+  <div class="tbl"><table>
+    <tr><th>Category</th><th>How</th><th>Examples</th></tr>
+    <tr><td>1. Vat photopolymerisation</td><td>UV light cures liquid resin layer by layer</td><td>SLA, DLP, LCD</td></tr>
+    <tr><td>2. Material extrusion</td><td>Melts and extrudes thermoplastic filament through a nozzle</td><td>FDM, FFF</td></tr>
+    <tr><td>3. Powder bed fusion</td><td>Laser or electron beam fuses powder layers</td><td>SLS, DMLS/SLM, EBM</td></tr>
+    <tr><td>4. Binder jetting</td><td>Liquid binder joins powder, then the part is sintered</td><td>MJF, BJ</td></tr>
+    <tr><td>5. Directed energy deposition</td><td>Melts powder or wire directly onto a substrate</td><td>LMD, WAAM</td></tr>
+    <tr><td>6. Sheet lamination</td><td>Bonds sheets of material and cuts the shape layer by layer</td><td>LOM</td></tr>
+  </table></div>
+  <p class="sub">Materials: polymers (PLA, ABS, PETG, nylon, TPU, PEEK), metals (316L stainless, Ti-6Al-4V, aluminium, Inconel), ceramics, composites (CFRP, GFRP). Applications: aerospace, automotive, medical (implants, surgical guides), tooling, consumer products, construction.</p>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m2-1" data-answer="2"><p class="qtext">Which process gives the tightest tolerance?</p><ol class="choices"><li>Casting</li><li>Forming</li><li>Machining</li><li>Molding</li></ol><p class="explain">Machining can hold about ±0.01 mm.</p></div><div class="mcq" id="qc-m2-2" data-answer="2"><p class="qtext">A key limitation of additive manufacturing is:</p><ol class="choices"><li>Can't make complex shapes</li><li>Needs an expensive mold</li><li>High cost per part at volume and long build times</li><li>Only works with metal</li></ol><p class="explain">No tooling, but slow and costly for mass production.</p></div></div>
+</section>
+
+<!-- ================= 3 FACTORS ================= -->
+<section id="m3" data-group="Topic 1 · Manufacturing processes" data-num="1.3" data-short="Selection factors & sustainability">
+  <h2><span class="tn">Topic 1.3–1.6</span>Factors Affecting Process Selection</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Choosing a process means checking it against what the product needs: material, shape, quantity, quality, cost, time, equipment, skills, sustainability and flexibility.</p><dl><dt>Remember</dt><dd><ul><li>10 factors: material, geometry, volume, quality, cost, time, equipment, labour, sustainability, flexibility</li><li>Low volume favours low tooling cost; high volume justifies dedicated tooling</li><li>Mass production: repeatability, cost efficiency, quality control; lean = less waste</li></ul></dd><dt>Think of it as</dt><dd>Choosing transport for a trip: a plane is fast but expensive, a bus is cheap but slow, a car is flexible. The right choice depends on the trip.</dd><dt>In the test</dt><dd><ul><li>List the 10 selection factors</li><li>Group factors as technical, economic or sustainability</li><li>Explain mass production and sustainability considerations</li></ul></dd></dl></div>
+  <div class="tbl"><table>
+    <tr><th>#</th><th>Factor</th><th>Question</th></tr>
+    <tr><td>1</td><td><b>Material</b></td><td>What material? (strength, hardness, melting point, ductility, corrosion resistance)</td></tr>
+    <tr><td>2</td><td><b>Product geometry</b></td><td>What shape and complexity? (thin walls, cavities, undercuts, curves)</td></tr>
+    <tr><td>3</td><td><b>Production volume</b></td><td>How many? (low volume favours low tooling cost; high volume justifies dedicated tooling)</td></tr>
+    <tr><td>4</td><td><b>Quality</b></td><td>What accuracy and surface finish?</td></tr>
+    <tr><td>5</td><td><b>Cost</b></td><td>What is the target unit cost? (material, labour, energy, tooling, equipment, maintenance, inspection, waste)</td></tr>
+    <tr><td>6</td><td><b>Time</b></td><td>How quickly? (lead time, setup time, cycle time)</td></tr>
+    <tr><td>7</td><td><b>Equipment &amp; technology</b></td><td>What machines and processes are available?</td></tr>
+    <tr><td>8</td><td><b>Labour &amp; skills</b></td><td>What level of expertise is needed?</td></tr>
+    <tr><td>9</td><td><b>Sustainability</b></td><td>Energy, waste, emissions, water use, recyclability</td></tr>
+    <tr><td>10</td><td><b>Flexibility</b></td><td>How easily can it adapt to design or volume changes?</td></tr>
+  </table></div>
+  <div class="f"><div class="k">Grouped (Topic 2)</div>
+    <div class="eq">Technical: geometry · material type · accuracy</div>
+    <div class="eq">Economic: production volume · tooling cost · labour cost</div>
+    <div class="eq">Sustainability: energy consumption · material waste · recyclability</div></div>
+  <h3>Mass production considerations</h3>
+  <ul><li>Key principles: <b>high repeatability and consistency</b>, <b>cost efficiency</b>, <b>quality control and process optimisation</b>.</li>
+  <li><b>Lean manufacturing</b>: waste reduction, energy efficiency, resource optimisation.</li>
+  <li>Example: injection molding for high-volume plastic components.</li></ul>
+  <h3>Sustainability in production</h3>
+  <ul><li>Reduce energy consumption · minimise waste and scrap · choose environmentally friendly processes.</li>
+  <li>Example: <b>laser cutting vs mechanical cutting</b>, compared on energy use and material efficiency.</li>
+  <li>Links to <b>Life Cycle Management (LCM)</b>: reduce environmental impact during the production stage.</li></ul>
+  <div class="widget" data-widget="finder"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m3-1" data-answer="1"><p class="qtext">Which is an economic factor?</p><ol class="choices"><li>Product geometry</li><li>Tooling cost</li><li>Recyclability</li><li>Accuracy</li></ol><p class="explain">Economic: volume, tooling cost, labour cost.</p></div><div class="mcq" id="qc-m3-2" data-answer="1"><p class="qtext">The “flexibility” factor asks:</p><ol class="choices"><li>How accurate is it?</li><li>How easily can it adapt to design or volume changes?</li><li>How much energy does it use?</li><li>What material is used?</li></ol><p class="explain">Flexibility = adapting without excessive retooling.</p></div></div>
+</section>
+
+<!-- ================= 4 SELECTION MATRIX ================= -->
+<section id="m4" data-group="Topic 2 · Selection matrix" data-num="2" data-short="Process selection matrix">
+  <h2><span class="tn">Topic 2</span>Manufacturing Process Selection Matrix</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">The selection matrix turns “which process?” into numbers: give each criterion a weight, rate each process 1–5, multiply, add up, and the highest total wins. Then justify it.</p><dl><dt>Remember</dt><dd><ul><li>Weighted score = weight × rating; total = sum of weighted scores</li><li>Weights add up to 1.00; ratings 1 (poor) to 5 (excellent)</li><li>Highest total is preferred, but always check the trade-offs</li><li>Framework: define requirements → identify candidates → evaluate → select → justify</li></ul></dd><dt>Think of it as</dt><dd>Rating phones before buying: battery matters most to you (big weight), the camera a bit (small weight). Score each phone, multiply by importance, add up.</dd><dt>In the test</dt><dd><ul><li>Build a weighted matrix and calculate totals</li><li>Choose weights that suit the product (medical vs consumer)</li><li>Write recommendation, key trade-off and final decision</li></ul></dd></dl></div>
+  <p>A <b>decision-making tool</b> to systematically compare processes and pick the most suitable one for a specific product, moving from “naming a process” to a <b>structured, evidence-based decision</b>.</p>
+  <div class="tbl"><table>
+    <tr><th>Criterion</th><th>Meaning</th></tr>
+    <tr><td>Production volume</td><td>Suitability for low, medium or mass production</td></tr>
+    <tr><td>Unit cost</td><td>Expected manufacturing cost per product</td></tr>
+    <tr><td>Dimensional accuracy</td><td>Ability to achieve the required dimensions and tolerances</td></tr>
+    <tr><td>Material compatibility</td><td>Suitability of the process for the required material</td></tr>
+    <tr><td>Surface finish</td><td>Quality and appearance of the finished product</td></tr>
+    <tr><td>Tooling lead time</td><td>Time to prepare tools, molds or equipment</td></tr>
+  </table></div>
+  <div class="f"><div class="k">How the matrix works</div>
+    <div class="eq">Weighted score = Weight × Rating</div>
+    <div class="eq">Total score = sum of weighted scores for that process</div>
+    <p>Weights show how important each criterion is for <b>this</b> product and must add up to <b>1.00</b>. Ratings are 1–5: 1 = poor / very unsuitable, 2 = below average, 3 = average, 4 = good, 5 = excellent / highly suitable. The <b>highest total</b> is generally preferred, but still check the trade-offs (tooling cost, volume, quality, material, sustainability, lead time).</p></div>
+  <h3>The 5-step process selection framework</h3>
+  <ol><li><b>Define product requirements</b>: material, volume, tolerance, surface finish, application, regulations, geometry, budget</li>
+  <li><b>Identify candidate processes</b> (and select criteria with weights)</li>
+  <li><b>Evaluate alternatives</b>: rate each process 1–5 per criterion</li>
+  <li><b>Select the optimal process</b>: highest total score</li>
+  <li><b>Justify the decision</b>: recommendation, key trade-off, final decision</li></ol>
+  <div class="trap"><div class="k">Weights change with the product</div><p>For a <b>medical device</b>, dimensional accuracy and material compatibility get the biggest weights; unit cost matters less, because low volume and high value justify a higher cost. For a <b>high-volume consumer product</b>, unit cost and volume suitability dominate.</p></div>
+
+  <h3>Process data reference (Table 2.1)</h3>
+  <div class="tbl"><table>
+    <tr><th>Factor</th><th>Die casting</th><th>Injection molding</th><th>Sheet metal forming</th><th>CNC machining</th><th>Joining</th><th>3D printing</th></tr>
+    <tr><td>Materials</td><td>Al, Zn, Mg alloys</td><td>Thermoplastics</td><td>Sheet metals</td><td>Exceptionally broad</td><td>Metals, plastics, composites</td><td>Limited / growing</td></tr>
+    <tr><td>Geometric complexity</td><td>High (net shape)</td><td>Very high (net)</td><td>Sheet-form only</td><td>High (external)</td><td>High (assembly)</td><td>Exceptionally high</td></tr>
+    <tr><td>Best volume</td><td>10,000+</td><td>1,000 – millions</td><td>50 – millions</td><td>1 – 5,000+</td><td>1 – 10,000+</td><td>1 – 500</td></tr>
+    <tr><td>Typical tolerance</td><td>±0.1–0.25 mm</td><td>±0.05–0.2 mm</td><td>±0.1–0.25 mm</td><td>±0.025 mm</td><td>±0.1–0.25 mm*</td><td>±0.1–0.3 mm</td></tr>
+    <tr><td>Surface finish</td><td>Good</td><td>Excellent (molded)</td><td>Good</td><td>Excellent</td><td>Good</td><td>Good to moderate</td></tr>
+    <tr><td>Tooling cost</td><td>$10,000–80,000+</td><td>$5,000–100,000+</td><td>$500–20,000+</td><td>None</td><td>Low–moderate</td><td>None</td></tr>
+    <tr><td>Per-part cost at volume</td><td>Very low</td><td>Very low</td><td>Low</td><td>Moderate to high</td><td>Low–moderate</td><td>Moderate</td></tr>
+    <tr><td>Lead time (first part)</td><td>6–12 weeks</td><td>2–12 weeks</td><td>1–5 days</td><td>1–5 days</td><td>1–10 days*</td><td>1–3 days</td></tr>
+  </table></div>
+  <p class="sub">* Joining varies most because it covers welding, brazing, soldering, adhesive bonding, riveting and fastening. All values are industry generalisations.</p>
+
+  <h3>Worked example · Plastic housing (Activity 2.0)</h3>
+  <p class="sub">ABS plastic, 50,000 units/year, ±0.1 mm, moderate tooling cost acceptable. The weights and ratings below are a sensible example answer; in class you justify your own.</p>
+  <div class="tbl"><table>
+    <tr><th>Criterion</th><th>Weight</th><th>Injection molding</th><th>CNC machining</th><th>3D printing</th></tr>
+    <tr><td>Production volume suitability</td><td>0.25</td><td>5 → 1.25</td><td>2 → 0.50</td><td>1 → 0.25</td></tr>
+    <tr><td>Unit cost at volume</td><td>0.25</td><td>5 → 1.25</td><td>2 → 0.50</td><td>1 → 0.25</td></tr>
+    <tr><td>Dimensional accuracy</td><td>0.15</td><td>4 → 0.60</td><td>5 → 0.75</td><td>3 → 0.45</td></tr>
+    <tr><td>Material compatibility (ABS)</td><td>0.15</td><td>5 → 0.75</td><td>4 → 0.60</td><td>3 → 0.45</td></tr>
+    <tr><td>Surface finish quality</td><td>0.10</td><td>5 → 0.50</td><td>4 → 0.40</td><td>2 → 0.20</td></tr>
+    <tr><td>Tooling lead time</td><td>0.10</td><td>2 → 0.20</td><td>5 → 0.50</td><td>5 → 0.50</td></tr>
+    <tr><td><b>Total</b></td><td><b>1.00</b></td><td><b>4.55</b></td><td><b>3.25</b></td><td><b>2.10</b></td></tr>
+  </table></div>
+  <div class="ex"><div class="k">Write-up</div>
+<div class="ln">Recommendation: Injection molding (4.55, highest total).
+Key trade-off: the mold costs $5,000–100,000+ and takes 2–12 weeks,
+              but at 50,000 units/year the unit cost becomes very low.
+Final decision: Injection molding. ±0.1 mm is within its ±0.05–0.2 mm range
+              and ABS is a thermoplastic. Use CNC or 3D printing only for prototypes.</div></div>
+  <div class="ex"><div class="k">How to calculate one cell</div>
+<div class="ln">Weighted score = weight × rating
+Injection molding, volume: 0.25 × 5 = 1.25
+Add all six: 1.25 + 1.25 + 0.60 + 0.75 + 0.50 + 0.20 = 4.55</div></div>
+  <div class="widget" data-widget="matrix"></div>
+  <h3>Practice cases from the notes</h3>
+  <ul>
+    <li><b>Exercise 2.1 · Reusable smart water bottle</b>: compare injection molding, CNC machining and additive manufacturing.</li>
+    <li><b>Exercise 2.2 · Titanium surgical instrument bracket</b>: tight tolerances, 500 units/year, high surface finish. Load the preset above: CNC machining wins.</li>
+    <li><b>Exercise 2.3 · Aluminium heat sink</b>: 10,000 units/year, moderate accuracy, good thermal conductivity, low unit cost. Load the preset above: extrusion (a forming process) wins, because heat-sink fins are a constant profile.</li>
+  </ul>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m4-1" data-answer="1"><p class="qtext">Weight 0.25, rating 5. Weighted score?</p><ol class="choices"><li>5.25</li><li>1.25</li><li>0.05</li><li>20</li></ol><p class="explain">0.25 × 5 = 1.25.</p></div><div class="mcq" id="qc-m4-2" data-answer="1"><p class="qtext">After picking the highest total, you should still:</p><ol class="choices"><li>Stop</li><li>State the key trade-off and justify the decision</li><li>Change the weights</li><li>Pick the lowest</li></ol><p class="explain">Recommendation → key trade-off → final decision.</p></div></div>
+</section>
+
+<!-- ================= 5 PLC ================= -->
+<section id="m5" data-group="Topic 3 · PLC, PLM, LCM" data-num="3.1" data-short="Product Life Cycle (PLC)">
+  <h2><span class="tn">Topic 3.1</span>Product Life Cycle (PLC)</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">Every product's sales follow a story: launch (introduction), take-off (growth), plateau (maturity) and fade (decline). Each stage needs different business and manufacturing decisions.</p><dl><dt>Remember</dt><dd><ul><li>PLC is a market model: introduction → growth → maturity → decline</li><li>Introduction: low sales, flexible small-batch production</li><li>Growth: sales rise fast, increase capacity</li><li>Maturity: sales high but slowing, cut unit cost and differentiate</li><li>Decline: sales fall; redesign, reposition, replace or discontinue</li></ul></dd><dt>Think of it as</dt><dd>A hit song: few people know it at first, then it goes viral, then everyone has heard it, then it fades as new songs come out.</dd><dt>In the test</dt><dd><ul><li>Name the 4 stages with sales pattern and focus</li><li>Match a scenario to its stage</li><li>State the manufacturing priority for each stage</li></ul></dd></dl></div>
+  <p><b>PLC</b> describes the stages a product passes through <b>in the marketplace</b>, from introduction to eventual decline and withdrawal. It shows how sales, demand, competition and profit change over time.</p>
+  <div class="f"><div class="k">The four stages</div><div class="eq">Introduction → Growth → Maturity → Decline</div></div>
+  <div class="tbl"><table>
+    <tr><th>Stage</th><th>Sales pattern</th><th>Business focus</th><th>Manufacturing priority</th><th>Water bottle example</th></tr>
+    <tr><td><b>Introduction</b></td><td>Low sales; awareness developing; profit low or negative</td><td>Build awareness, get feedback, test market demand</td><td>Flexible production, prototypes, small quantities, find problems early</td><td>New bottle with a temperature display; few buyers; collect reviews</td></tr>
+    <tr><td><b>Growth</b></td><td>Sales rise rapidly; competition increases</td><td>Increase capacity, keep quality, strengthen market position</td><td>Increase capacity, improve planning and supplier coordination, standardise, cut defects</td><td>Buy more equipment, order more stainless steel and seals</td></tr>
+    <tr><td><b>Maturity</b></td><td>Sales high but growth slows; market saturated</td><td>Stay competitive, differentiate, protect profit</td><td>Reduce unit cost, improve productivity, minimise defects and scrap</td><td>New colours and sizes, better insulation, less waste</td></tr>
+    <tr><td><b>Decline</b></td><td>Sales fall (new tech, changing tastes)</td><td>Decide: redesign, reposition, replace or discontinue</td><td>Reduce output, avoid overproduction, control inventory</td><td>Smart bottles take over; reduce production, clear stock</td></tr>
+  </table></div>
+  <div class="trap"><div class="k">Watch for</div><ul>
+    <li>PLC is a <b>market model</b>. Its stage doesn't automatically decide the manufacturing method; that also depends on design, volume, quality and cost.</li>
+    <li>Some products stay in maturity for years; a product's life can be <b>extended</b> by redesign, new features or new markets.</li>
+  </ul></div>
+  <div class="widget" data-widget="plcstage"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m5-1" data-answer="1"><p class="qtext">Which stage focuses on increasing production capacity?</p><ol class="choices"><li>Introduction</li><li>Growth</li><li>Maturity</li><li>Decline</li></ol><p class="explain">Sales rise rapidly in growth.</p></div><div class="mcq" id="qc-m5-2" data-answer="1"><p class="qtext">PLC is mainly a model of:</p><ol class="choices"><li>Product data</li><li>Market performance over time</li><li>Environmental impact</li><li>Manufacturing cost</li></ol><p class="explain">PLC is a market model.</p></div></div>
+</section>
+
+<!-- ================= 6 PLM ================= -->
+<section id="m6" data-group="Topic 3 · PLC, PLM, LCM" data-num="3.2" data-short="Product Lifecycle Mgmt (PLM)">
+  <h2><span class="tn">Topic 3.2</span>Product Lifecycle Management (PLM)</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">PLM keeps everyone working from the same, correct, up-to-date product information, from first idea to end of life, and controls how that information changes.</p><dl><dt>Remember</dt><dd><ul><li>PLM manages product information, processes and collaboration across the lifecycle</li><li>Key concepts: CAD, BOM, revision control, ECO, documents</li><li>PLM stages: conception → design → production & launch → service → end-of-life</li><li>PDM manages product data; PLM adds processes and collaboration (PDM is part of PLM)</li><li>PLM is not just a CAD system</li></ul></dd><dt>Think of it as</dt><dd>A shared cloud document with version history and approvals, instead of everyone emailing their own copy of a drawing.</dd><dt>In the test</dt><dd><ul><li>Define PLM and list its key concepts</li><li>Name the 5 PLM stages</li><li>Differentiate PLM and PDM</li></ul></dd></dl></div>
+  <p><b>PLM</b> is a systematic approach to managing product-related <b>information, processes and collaboration</b> throughout the product lifecycle, from concept and design to manufacturing, service and end-of-life. It ensures everyone uses <b>accurate, consistent and traceable</b> information.</p>
+  <p>Typical activities: CAD design, BOM management, revision control, engineering change orders, manufacturing coordination.</p>
+  <h3>Why PLM matters: every department needs different information</h3>
+  <div class="tbl"><table>
+    <tr><th>Department</th><th>Information needed</th></tr>
+    <tr><td>Design &amp; engineering</td><td>CAD models, drawings, product specifications</td></tr>
+    <tr><td>Manufacturing</td><td>Process plans, machine settings, assembly instructions</td></tr>
+    <tr><td>Purchasing</td><td>Material specifications, supplier details, component requirements</td></tr>
+    <tr><td>Quality assurance</td><td>Inspection criteria, test results, defect records</td></tr>
+    <tr><td>Sales &amp; marketing</td><td>Product features, approved specs, customer requirements</td></tr>
+    <tr><td>Service &amp; maintenance</td><td>Product configuration, replacement parts, repair instructions</td></tr>
+  </table></div>
+  <p>Without PLM, departments may use <b>outdated drawings</b>, order the <b>wrong components</b>, or make parts that don't match the approved design.</p>
+  <h3>Key PLM concepts</h3>
+  <ul>
+    <li><b>CAD</b>: models and drawings define geometry, dimensions and technical requirements.</li>
+    <li><b>BOM</b> (Bill of Materials): lists the components, parts and materials needed to make or assemble a product.</li>
+    <li><b>Revision control</b>: records changes so users can identify the correct approved version.</li>
+    <li><b>ECO</b> (Engineering Change Order): documents, reviews and approves a change before it is implemented.</li>
+    <li><b>Documents</b>: drawings, specifications, technical reports, manufacturing instructions.</li>
+  </ul>
+  <h3>The 5 PLM stages (engineering lens)</h3>
+  <div class="tbl"><table>
+    <tr><th>Stage</th><th>Main focus</th></tr>
+    <tr><td>1. Conception &amp; ideation</td><td>Identify customer needs, generate ideas, define requirements</td></tr>
+    <tr><td>2. Design &amp; development</td><td>Develop designs, select materials and components, test prototypes</td></tr>
+    <tr><td>3. Production &amp; launch</td><td>Manufacture the product and introduce it to the market</td></tr>
+    <tr><td>4. Service &amp; maintenance</td><td>Support, repair, maintenance and updates</td></tr>
+    <tr><td>5. End-of-life management</td><td>Reuse, refurbishment, recycling or responsible disposal</td></tr>
+  </table></div>
+  <p class="sub">The sequence is not strictly one-way: service data can trigger a redesign, and end-of-life findings can shape the next concept.</p>
+  <h3>PLM vs PDM</h3>
+  <div class="tbl"><table>
+    <tr><th></th><th>PDM (Product Data Management)</th><th>PLM (Product Lifecycle Management)</th></tr>
+    <tr><td>Focus</td><td>Product <b>data</b></td><td>The whole product <b>lifecycle</b></td></tr>
+    <tr><td>Scope</td><td>Product information and its controls</td><td>Information <b>+ processes + collaboration</b></td></tr>
+    <tr><td>Typical functions</td><td>CAD files, BOMs, documents, revision control</td><td>PDM + ECO workflows, approvals, cross-department coordination</td></tr>
+    <tr><td>Objective</td><td>Accurate, controlled product data</td><td>Manage product information and activities across the lifecycle</td></tr>
+  </table></div>
+  <div class="ex"><div class="k">Example · the cap design changes</div>
+<div class="ln">PDM: controls the updated CAD model, drawings, BOM and revision history.
+PLM: also runs the ECO, gets approvals, tells manufacturing and purchasing,
+     and manages the knock-on effects on production and product support.</div></div>
+  <h3>Benefits of PLM</h3>
+  <p>Improved quality (approved info) · fewer errors (no outdated drawings) · better collaboration · improved efficiency · better <b>traceability</b> (what changed, why, which versions).</p>
+  <div class="trap"><div class="k">Common trap</div><p><b>PLM is not just a CAD system.</b> CAD creates models and drawings; PLM manages product information and the workflows around it. PDM is usually <b>part of</b> PLM.</p></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m6-1" data-answer="1"><p class="qtext">Which is the broader scope?</p><ol class="choices"><li>PDM</li><li>PLM</li><li>CAD</li><li>BOM</li></ol><p class="explain">PLM includes PDM plus processes and collaboration.</p></div><div class="mcq" id="qc-m6-2" data-answer="0"><p class="qtext">Without PLM, a common problem is:</p><ol class="choices"><li>Departments using outdated drawings</li><li>Faster approvals</li><li>Lower material cost</li><li>Less inventory</li></ol><p class="explain">PLM keeps everyone on the approved version.</p></div></div>
+</section>
+
+<!-- ================= 7 LCM ================= -->
+<section id="m7" data-group="Topic 3 · PLC, PLM, LCM" data-num="3.3" data-short="Life Cycle Mgmt (LCM) & comparison">
+  <h2><span class="tn">Topic 3.3–3.4</span>Life Cycle Management (LCM) and Comparing PLC, PLM, LCM</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">LCM looks at a product's whole life (materials, making, shipping, use, disposal) and asks how to reduce its environmental, economic and social impacts.</p><dl><dt>Remember</dt><dd><ul><li>LCM manages environmental, economic and social impacts across the whole life cycle</li><li>Stages: raw materials → manufacturing → packaging & distribution → use → end-of-life</li><li>Less material isn't automatically more sustainable if the product fails sooner</li><li>PLC = market, PLM = information & changes, LCM = whole-life impacts</li></ul></dd><dt>Think of it as</dt><dd>Judging a car not just by its price, but by fuel use, repairs and resale value over its whole life.</dd><dt>In the test</dt><dd><ul><li>Name the 5 life-cycle stages with a sustainability action each</li><li>Name the 3 sustainability dimensions</li><li>Compare PLC, PLM and LCM</li></ul></dd></dl></div>
+  <p><b>LCM</b> manages a product's <b>environmental, economic and social</b> impacts across its whole life cycle, from raw material extraction to end-of-life. It looks beyond manufacturing cost or immediate performance.</p>
+  <p>Typical activities: material selection, energy and resource efficiency, <b>Life-Cycle Assessment (LCA)</b>, waste reduction, reuse and recycling. Example: is a recycled-aluminium bottle lower-impact overall than a plastic one?</p>
+  <h3>The 5 life cycle stages (sustainability view)</h3>
+  <div class="tbl"><table>
+    <tr><th>Stage</th><th>Sustainability focus</th><th>Water bottle improvement</th></tr>
+    <tr><td>1. Raw materials</td><td>Responsible sourcing, resource conservation, recycled content</td><td>Use suitable recycled stainless steel</td></tr>
+    <tr><td>2. Manufacturing</td><td>Energy/water use, emissions, scrap and defects</td><td>Reduce cutting offcuts and welding defects</td></tr>
+    <tr><td>3. Packaging &amp; distribution</td><td>Packaging use, protection, transport emissions</td><td>Recyclable cardboard inserts, consolidated deliveries</td></tr>
+    <tr><td>4. Product use</td><td>Durability, maintenance, service life</td><td>Replaceable silicone sealing ring</td></tr>
+    <tr><td>5. End-of-life</td><td>Repair, reuse, disassembly, recycling, responsible disposal</td><td>Design for easy disassembly; separate steel body from plastic cap</td></tr>
+  </table></div>
+  <h3>Three dimensions of sustainability</h3>
+  <div class="tbl"><table>
+    <tr><th>Dimension</th><th>Considers</th><th>Water bottle example</th></tr>
+    <tr><td><b>Environmental</b></td><td>Resources, energy, emissions, waste</td><td>Less material waste, better recyclability</td></tr>
+    <tr><td><b>Economic</b></td><td>Costs and long-term value</td><td>More durable, so replaced less often</td></tr>
+    <tr><td><b>Social</b></td><td>People, safety, working conditions</td><td>Safe materials, responsible manufacturing</td></tr>
+  </table></div>
+  <div class="trap"><div class="k">Key idea</div><p>Using recycled material or <b>less material</b> isn't automatically sustainable. If the bottle breaks easily and must be replaced often, it can be worse overall. Judge across the <b>whole</b> life cycle.</p></div>
+  <h3>PLC vs PLM vs LCM</h3>
+  <div class="tbl"><table>
+    <tr><th></th><th>PLC</th><th>PLM</th><th>LCM</th></tr>
+    <tr><td>Main focus</td><td>Market performance</td><td>Product information and processes</td><td>Whole-life impacts and sustainability</td></tr>
+    <tr><td>Key question</td><td>How is the product performing in the market?</td><td>How do we manage product information and changes?</td><td>How can we improve the product's whole-life impacts?</td></tr>
+    <tr><td>Typical information</td><td>Sales, demand, competition, market share</td><td>CAD, BOM, revisions, ECOs, specifications</td><td>Material use, energy, waste, costs, environmental impacts</td></tr>
+    <tr><td>Stages / scope</td><td>Introduction, growth, maturity, decline</td><td>Concept, design, production, service, end-of-life</td><td>Raw materials, manufacturing, distribution, use, end-of-life</td></tr>
+    <tr><td>Tools</td><td>Sales data, market analysis</td><td>PLM software, CAD/PDM, BOM, change management</td><td>LCA tools, sustainability indicators, life-cycle costing</td></tr>
+    <tr><td>Example</td><td>Improve or discontinue a declining product?</td><td>Control a revised bottle-cap design</td><td>Compare life-cycle impacts of bottle materials</td></tr>
+  </table></div>
+  <p>They work together and aren't one-way: LCM may find a material hard to recycle → engineers redesign through PLM → the change affects cost and competitiveness, which is judged with PLC information.</p>
+  <div class="widget" data-widget="whichone"></div>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m7-1" data-answer="2"><p class="qtext">Replacing plastic packaging with recyclable cardboard is in which LCM stage?</p><ol class="choices"><li>Raw materials</li><li>Manufacturing</li><li>Packaging & distribution</li><li>End-of-life</li></ol><p class="explain">Packaging and distribution.</p></div><div class="mcq" id="qc-m7-2" data-answer="2"><p class="qtext">Worker safety falls under which sustainability dimension?</p><ol class="choices"><li>Environmental</li><li>Economic</li><li>Social</li><li>Technical</li></ol><p class="explain">Social = people, safety and working conditions.</p></div></div>
+</section>
+
+<!-- ================= 8 PLM SOFTWARE ================= -->
+<section id="m8" data-group="Topic 4 · PLM software" data-num="4" data-short="PLM software: 6 concepts">
+  <h2><span class="tn">Topic 4</span>PLM Functions and Product Data Workflow</h2>
+  <div class="plain"><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>In plain English</div><p class="one">PLM software organises product data around six building blocks: the Part, its Documents, the BOM it belongs to, its Revision, its Cost and the ECOs that change it.</p><dl><dt>Remember</dt><dd><ul><li>Part identifies the item; Document describes it; BOM defines structure; Revision identifies version; Costing evaluates cost; ECO controls change</li><li>Single-level BOM: no subassemblies. Multi-level BOM: nested subassemblies</li><li>Cost hierarchy: Target < Estimated < Calculated < Actual; the highest set base overrides</li><li>An ECO doesn't mean approval; a revision is the resulting version</li></ul></dd><dt>Think of it as</dt><dd>A recipe book: each ingredient is a Part, the instructions are Documents, the ingredient list is the BOM, “version 2 with less sugar” is a Revision, the shopping bill is Costing, and asking the head chef to approve a change is an ECO.</dd><dt>In the test</dt><dd><ul><li>Explain each of the 6 concepts</li><li>Read a single- and multi-level BOM and roll up costs</li><li>Apply the cost hierarchy and the 7 ECO steps</li></ul></dd></dl></div>
+  <p>PLM organises product data and keeps the <b>relationships</b> between it, so authorised users get the right information. Why companies need it: <b>accurate data</b>, <b>traceability</b>, <b>collaboration across departments</b>, <b>controlled engineering changes</b>.</p>
+  <div class="tbl"><table>
+    <tr><th>#</th><th>Concept</th><th>Answers</th><th>In one line</th></tr>
+    <tr><td>1</td><td><b>Part</b></td><td>What is the product/component?</td><td>Identifies the engineering item</td></tr>
+    <tr><td>2</td><td><b>Document</b></td><td>What information describes it?</td><td>Provides information about the item</td></tr>
+    <tr><td>3</td><td><b>BOM</b></td><td>What is it made of?</td><td>Defines the product structure</td></tr>
+    <tr><td>4</td><td><b>Revision</b></td><td>Which version are we using?</td><td>Identifies the applicable version</td></tr>
+    <tr><td>5</td><td><b>Costing</b></td><td>How much does it cost?</td><td>Supports cost evaluation</td></tr>
+    <tr><td>6</td><td><b>ECO</b></td><td>What needs to change?</td><td>Controls review, approval and implementation of changes</td></tr>
+  </table></div>
+  <p class="sub">Workflow: Part → Document → BOM → Revision → Costing → ECO.</p>
+
+  <h3>1 · Part</h3>
+  <ul><li>An identifiable engineering item: component, manufactured item or whole assembly (brackets, shafts, gears, housings, fasteners).</li>
+  <li>Record contains a <b>part number</b>, name, description; linked to documents, revisions, BOM and cost.</li>
+  <li>Classification types: <b>Material</b> (used to make a component) · <b>Component</b> (used to make an assembly) · <b>Manufacturing</b> (used during production) · <b>Assembly</b> (used to make a larger assembly or finished product).</li>
+  <li><b>Assigned Creator</b> = the owner, responsible for designing the part (usually an engineer); may differ from whoever typed it in. <b>Designated User / Reviewer</b> = reviews the part before it's used or released.</li></ul>
+  <div class="trap"><div class="k">Part ≠ CAD file</div><p>The <b>Part</b> identifies the engineering item; the <b>CAD file</b> is a digital representation of its geometry. The part number tells apart components that look alike.</p></div>
+
+  <h3>2 · Document</h3>
+  <p>Information that describes, specifies or supports a product: drawings, specifications, design reports, inspection reports, manufacturing instructions, maintenance manuals. Linked to a Part (e.g. a bracket's drawing for dimensions and tolerances, plus a material specification). Managed with ID, revision history, lifecycle status and access permissions.</p>
+
+  <h3>3 · Bill of Materials (BOM)</h3>
+  <ul><li>A <b>structured list</b> of all parts, components, subassemblies and materials needed to make a product, showing <b>parent → child</b> relationships.</li>
+  <li><b>Hierarchical</b>: finished product at the top, then subassemblies, then components. Includes part numbers, descriptions, quantities, revisions (and possibly costs, drawing references).</li>
+  <li>Links design with purchasing, production planning and manufacturing. Errors cause <b>shortages, assembly problems, higher costs and delays</b>, so update the BOM after every approved change.</li></ul>
+  <div class="grid">
+    <div class="f" style="margin:0"><div class="k">Single-level BOM</div><p style="color:var(--fg)">Simple products with <b>no subassemblies</b>: one level of parts, listed in part-number order.</p></div>
+    <div class="f" style="margin:0"><div class="k">Multi-level BOM</div><p style="color:var(--fg)">Complex products: subassemblies broken down into further subassemblies. Every item links to a parent (except the top level).</p></div>
+  </div>
+  <div class="ex"><div class="k">Example · bracket assembly</div>
+<div class="ln">1 × bracket  @ $2.50 = $2.50
+4 × screw    @ $0.10 = $0.40
+4 × washer   @ $0.05 = $0.20
+4 × nut      @ $0.08 = $0.32
+Unit cost of the assembly (rolled up) = $3.42</div></div>
+  <div class="widget" data-widget="bom"></div>
+
+  <h3>4 · Revision</h3>
+  <ul><li>Manages and records changes to designs, drawings, specs and documents. Each revision (A, B, C…) is one version of a controlled definition.</li>
+  <li>Records changes, dates, responsible people and approval status. <b>Previous revisions are kept</b> to preserve history.</li></ul>
+  <div class="trap"><div class="k">Part number vs revision</div><p>The <b>part number</b> identifies the item; the <b>revision</b> identifies which version of its definition. Bracket <code>BRK-1001</code> Rev A → Rev B is the same part, updated.</p></div>
+
+  <h3>5 · Costing</h3>
+  <div class="tbl"><table>
+    <tr><th>Cost type</th><th>Meaning</th></tr>
+    <tr><td><b>Target</b></td><td>The desired cost level to achieve</td></tr>
+    <tr><td><b>Estimated</b></td><td>Forecast cost from available information and judgement</td></tr>
+    <tr><td><b>Calculated</b></td><td>System-generated: sum of the children's Estimated and/or Actual values</td></tr>
+    <tr><td><b>Actual</b></td><td>The cost actually incurred or recorded</td></tr>
+    <tr><td><b>Unit</b></td><td>Rolled-up cost of one assembly based on its BOM</td></tr>
+  </table></div>
+  <div class="f"><div class="k">Cost base hierarchy (low → high)</div>
+    <div class="eq">Target → Estimated → Calculated → Actual</div>
+    <p>If several are set, the <b>highest base overrides</b> the lower ones: Calculated overrides Estimated and Target; <b>Actual overrides all</b>. A parent's cost is acquired automatically from its BOM.</p></div>
+  <div class="widget" data-widget="costbase"></div>
+
+  <h3>6 · Engineering Change Order (ECO)</h3>
+  <p>A formal record that controls an engineering change through review, approval and implementation. Triggers: customer feedback, design improvements, quality problems, supplier changes, manufacturing difficulties, cost reduction, new requirements.</p>
+  <ol><li>Identify the problem or improvement opportunity</li><li>Describe the proposed change</li><li>Identify affected Parts, Documents and BOMs</li><li>Evaluate technical, cost, quality and production impacts</li><li>Review and approve</li><li>Update affected records and revisions</li><li>Implement and maintain traceability</li></ol>
+  <div class="trap"><div class="k">ECO vs revision</div><p>The <b>ECO controls the change process</b>; a <b>revision identifies the resulting version</b>. Creating an ECO does <b>not</b> mean the change is approved.</p></div>
+  <div class="widget" data-widget="order"></div>
+  <h3>How the six connect</h3>
+  <p>Changing one component can affect its documents, the assembly BOM, revision information and the rolled-up unit cost. The ECO makes sure all of these are evaluated and updated. PLM <b>connects</b> engineering information, product structure, cost and change control; it isn't just file storage.</p>
+
+  <div class="quick"><div class="k">Quick check</div><div class="mcq" id="qc-m8-1" data-answer="2"><p class="qtext">Which concept answers “Which version are we using?”</p><ol class="choices"><li>Part</li><li>BOM</li><li>Revision</li><li>ECO</li></ol><p class="explain">Revision identifies the version.</p></div><div class="mcq" id="qc-m8-2" data-answer="1"><p class="qtext">Estimated and Calculated costs are both set. Which applies?</p><ol class="choices"><li>Estimated</li><li>Calculated</li><li>Target</li><li>The lower one</li></ol><p class="explain">Calculated is higher in the hierarchy, so it overrides Estimated.</p></div></div>
+</section>
+
+<!-- ================= CHEAT ================= -->
+<section id="cheat" data-group="Revise" data-num="★" data-short="Summary sheet" data-noprogress>
+  <h2><span class="tn">★</span>Summary sheet</h2>
+  <div class="tbl"><table>
+    <tr><th>Topic</th><th>Remember</th></tr>
+    <tr><td>Manufacturing vs production</td><td>How do we make it? vs how do we produce enough and deliver it?</td></tr>
+    <tr><td>Production systems</td><td>Job (unit) · batch · mass · continuous (process)</td></tr>
+    <tr><td>6 processes</td><td>Casting · molding · forming · machining · joining · additive</td></tr>
+    <tr><td>Forming vs machining</td><td>Productivity + material efficiency vs precision + flexibility</td></tr>
+    <tr><td>10 selection factors</td><td>Material · geometry · volume · quality · cost · time · equipment · labour · sustainability · flexibility</td></tr>
+    <tr><td>Matrix</td><td>Weighted score = weight × rating; weights sum to 1.00; ratings 1–5; highest total wins, then justify</td></tr>
+    <tr><td>5-step framework</td><td>Define requirements → identify candidates → evaluate → select → justify</td></tr>
+    <tr><td>PLC</td><td>Introduction → growth → maturity → decline (market view)</td></tr>
+    <tr><td>PLM stages</td><td>Conception → design → production &amp; launch → service → end-of-life</td></tr>
+    <tr><td>LCM stages</td><td>Raw materials → manufacturing → packaging &amp; distribution → use → end-of-life</td></tr>
+    <tr><td>Sustainability dimensions</td><td>Environmental · economic · social</td></tr>
+    <tr><td>PDM ⊂ PLM</td><td>PDM = data; PLM = data + processes + collaboration</td></tr>
+    <tr><td>6 PLM concepts</td><td>Part · Document · BOM · Revision · Costing · ECO</td></tr>
+    <tr><td>Cost hierarchy</td><td>Target &lt; Estimated &lt; Calculated &lt; Actual (highest set overrides)</td></tr>
+    <tr><td>ECO steps</td><td>Identify → describe → affected items → evaluate → approve → update → implement</td></tr>
+  </table></div>
+</section>
+
+<!-- ================= PRACTICE ================= -->
+<section id="practice" data-group="Test yourself" data-num="?" data-short="Practice questions" data-noprogress>
+  <h2><span class="tn">?</span>Practice questions</h2>
+  <div class="scorebar" id="scorebar"><span>MCQ: <b id="mcqScore"></b></span><span>Written: <b id="selfScore"></b></span><span class="spacer"></span><button class="iconbtn" id="onlyMissed" type="button" aria-pressed="false">Hide ones I got right</button><button class="iconbtn" id="resetQuiz" type="button">Reset answers</button></div>
+  <h3>Multiple choice · 16</h3>
+  <div class="mcq" id="mcq-1" data-answer="1"><p class="qtext">1. Which statement best describes production?</p><ol class="choices"><li>Transforming raw material into a part using a machine</li><li>The broader process of creating goods to meet demand, including planning, procurement, inspection and delivery</li><li>Only the assembly stage</li><li>Designing the product in CAD</li></ol><p class="explain">Manufacturing is one part of production.</p></div>
+  <div class="mcq" id="mcq-2" data-answer="2"><p class="qtext">2. Oil refining 24/7 is an example of:</p><ol class="choices"><li>Job production</li><li>Batch production</li><li>Continuous (process) production</li><li>Unit production</li></ol><p class="explain">A non-stop flow process is continuous production.</p></div>
+  <div class="mcq" id="mcq-3" data-answer="3"><p class="qtext">3. Which process deforms solid material without intentionally removing any?</p><ol class="choices"><li>Machining</li><li>Casting</li><li>Additive manufacturing</li><li>Forming</li></ol><p class="explain">Forging, extrusion, rolling, stamping and bending reshape material.</p></div>
+  <div class="mcq" id="mcq-4" data-answer="0"><p class="qtext">4. Machining is also called:</p><ol class="choices"><li>Subtractive manufacturing</li><li>Net-shape manufacturing</li><li>Additive manufacturing</li><li>Continuous production</li></ol><p class="explain">It removes excess material with cutting tools, creating swarf.</p></div>
+  <div class="mcq" id="mcq-5" data-answer="1"><p class="qtext">5. Why is injection molding a poor choice for 20 prototypes?</p><ol class="choices"><li>It can't make plastic parts</li><li>The mold is expensive and slow to make, so unit cost is only low at high volume</li><li>Its tolerance is too loose</li><li>It produces swarf</li></ol><p class="explain">Tooling $5,000–100,000+ and 2–12 weeks lead time only pay off at volume.</p></div>
+  <div class="mcq" id="mcq-6" data-answer="2"><p class="qtext">6. FDM belongs to which additive category?</p><ol class="choices"><li>Vat photopolymerisation</li><li>Powder bed fusion</li><li>Material extrusion</li><li>Binder jetting</li></ol><p class="explain">FDM melts and extrudes filament through a nozzle.</p></div>
+  <div class="mcq" id="mcq-7" data-answer="0"><p class="qtext">7. In a selection matrix, weight 0.3 and rating 4 give a weighted score of:</p><ol class="choices"><li>1.2</li><li>4.3</li><li>0.75</li><li>7</li></ol><p class="explain">Weighted score = weight × rating = 0.3 × 4 = 1.2.</p></div>
+  <div class="mcq" id="mcq-8" data-answer="3"><p class="qtext">8. The weights in a selection matrix must add up to:</p><ol class="choices"><li>5</li><li>10</li><li>100</li><li>1.00</li></ol><p class="explain">The templates show a weight total of 1.00.</p></div>
+  <div class="mcq" id="mcq-9" data-answer="1"><p class="qtext">9. For a titanium medical bracket, which criterion should get the lowest weight?</p><ol class="choices"><li>Dimensional accuracy</li><li>Unit cost at volume</li><li>Material compatibility</li><li>Surface finish</li></ol><p class="explain">Low volume and high value justify a higher unit cost.</p></div>
+  <div class="mcq" id="mcq-10" data-answer="2"><p class="qtext">10. Sales are high but growth is slowing and competitors push prices down. Which PLC stage?</p><ol class="choices"><li>Introduction</li><li>Growth</li><li>Maturity</li><li>Decline</li></ol><p class="explain">Maturity: focus on cost, productivity and differentiation.</p></div>
+  <div class="mcq" id="mcq-11" data-answer="0"><p class="qtext">11. Which question does PLM answer?</p><ol class="choices"><li>How do we manage product information and changes?</li><li>How is the product selling?</li><li>What are the product's whole-life environmental impacts?</li><li>Which process has the lowest unit cost?</li></ol><p class="explain">PLC → market; PLM → information and changes; LCM → whole-life impacts.</p></div>
+  <div class="mcq" id="mcq-12" data-answer="3"><p class="qtext">12. Which statement about PDM and PLM is correct?</p><ol class="choices"><li>PDM is broader than PLM</li><li>They are the same thing</li><li>PLM is just a CAD system</li><li>PDM manages product data and is usually part of PLM</li></ol><p class="explain">PLM = PDM + processes, ECO workflows and collaboration.</p></div>
+  <div class="mcq" id="mcq-13" data-answer="2"><p class="qtext">13. Life-Cycle Assessment (LCA) is a typical tool of:</p><ol class="choices"><li>PLC</li><li>PDM</li><li>LCM</li><li>BOM</li></ol><p class="explain">LCM uses LCA tools and sustainability indicators.</p></div>
+  <div class="mcq" id="mcq-14" data-answer="1"><p class="qtext">14. A part has Target $5, Estimated $6 and Actual $6.40. Which cost applies?</p><ol class="choices"><li>Target</li><li>Actual</li><li>Estimated</li><li>The average</li></ol><p class="explain">The highest set base overrides; Actual overrides all.</p></div>
+  <div class="mcq" id="mcq-15" data-answer="0"><p class="qtext">15. What does the revision (A, B, C) identify?</p><ol class="choices"><li>Which version of the part's definition</li><li>Which engineering item it is</li><li>Who created the part</li><li>The part's cost</li></ol><p class="explain">The part number identifies the item; the revision identifies the version.</p></div>
+  <div class="mcq" id="mcq-16" data-answer="3"><p class="qtext">16. Creating an ECO means:</p><ol class="choices"><li>The change is approved</li><li>The revision letter changes automatically</li><li>The BOM is deleted</li><li>A proposed change is recorded and must still go through review and approval</li></ol><p class="explain">An ECO controls the process; it isn't automatic approval.</p></div>
+
+  <h3>Written · 8</h3>
+  <details class="q" id="w-1"><summary>1. Differentiate manufacturing and production, with one example each.</summary><div class="ans">Manufacturing transforms raw materials into products using physical, chemical or mechanical processes (e.g. casting an engine housing). Production is broader: everything needed to meet demand, including planning, procurement, manufacturing, assembly, inspection, packaging, storage and delivery (e.g. planning and delivering 10,000 water bottles a month).</div></details>
+  <details class="q" id="w-2"><summary>2. Compare forming and machining for a steel bracket made at 100,000 units/year.</summary><div class="ans">Forming (stamping and bending) suits high volume: good material utilisation, high productivity and low unit cost once tooling is paid. Machining gives better accuracy (±0.01 mm) and flexibility but creates swarf and has a higher unit cost and longer cycle times. For 100,000 brackets with moderate tolerances, choose forming; use machining only for features that need tight tolerances.</div></details>
+  <details class="q" id="w-3"><summary>3. Weights: volume 0.4, cost 0.3, accuracy 0.3. Process A rates 5, 4, 3; process B rates 3, 3, 5. Which wins?</summary><div class="ans">A = 0.4×5 + 0.3×4 + 0.3×3 = 2.0 + 1.2 + 0.9 = <b>4.1</b>. B = 0.4×3 + 0.3×3 + 0.3×5 = 1.2 + 0.9 + 1.5 = <b>3.6</b>. <b>A wins</b>, but still state the trade-off (B is more accurate).</div></details>
+  <details class="q" id="w-4"><summary>4. List the 5 steps of the process selection framework.</summary><div class="ans">Define product requirements → identify candidate processes → evaluate alternatives → select the optimal process → justify the decision.</div></details>
+  <details class="q" id="w-5"><summary>5. A new smart bottle has just launched. State its PLC stage and two manufacturing priorities.</summary><div class="ans">Introduction stage. Use flexible production with small quantities while demand is uncertain, and find design and manufacturing problems early using customer feedback.</div></details>
+  <details class="q" id="w-6"><summary>6. Explain the difference between PLC, PLM and LCM using a water bottle.</summary><div class="ans">PLC: how the bottle performs in the market (e.g. deciding whether to discontinue a declining model). PLM: managing its information and changes (e.g. controlling a revised cap design with an ECO). LCM: its whole-life impacts (e.g. comparing recycled aluminium vs plastic over the full life cycle).</div></details>
+  <details class="q" id="w-7"><summary>7. Give one sustainability action for each of the 5 LCM stages of a water bottle.</summary><div class="ans">Raw materials: recycled stainless steel. Manufacturing: reduce cutting offcuts and defects. Packaging and distribution: recyclable cardboard, consolidated deliveries. Use: replaceable sealing ring for a longer life. End-of-life: design for disassembly so steel and plastic can be separated and recycled.</div></details>
+  <details class="q" id="w-8"><summary>8. The screw supplier changes. Describe how PLM handles this using the six concepts.</summary><div class="ans">Raise an ECO describing the change; identify the affected Part (screw), Documents (specification), and the BOMs that use it; evaluate technical, cost and quality impact (Costing: the rolled-up unit cost changes); review and approve; issue a new Revision of the affected records; implement and keep traceability.</div></details>
+</section>
+
+<section id="flashcards" data-group="Test yourself" data-num="⇄" data-short="Flashcards" data-noprogress>
+  <h2><span class="tn">⇄</span>Flashcards</h2>
+  <p class="sub">Say the answer out loud before you flip.</p>
+  <div data-widget="flashcards"></div>
+</section>
+</main>
+</div>
+<script src="../../assets/modules.js"></script>
+<script src="glossary.js"></script>
+<script src="../../assets/site.js"></script>
+<script src="../../assets/study.js"></script>
+<script src="../../assets/widgets-core.js"></script>
+<script src="widgets.js"></script>
+<script>
+(function(){var m=(window.MODULES||[]).find(function(x){return x.slug==="eg2a55"});var c=document.getElementById("examCount");if(!m||!m.exam||!c)return;var d=Math.ceil((new Date(m.exam+"T09:00:00")-new Date())/864e5);if(d<0)return;c.hidden=false;c.innerHTML="<b>"+(d===0?"Test today":d+" day"+(d===1?"":"s")+" to the test")+"</b>";})();
+</script>
+</body>
+</html>

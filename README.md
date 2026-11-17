@@ -8,6 +8,7 @@ Interactive revision notes, one page per module. Plain HTML, CSS and JavaScript 
 | --- | --- |
 | EGT214 Applied Deep Learning | `modules/applied-deep-learning/` |
 | Natural Language Processing | `modules/nlp/` |
+| EG2A55 Sustainable Product Design & Life Cycle Management | `modules/eg2a55/` |
 
 ## Features
 
