@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>studypotato</title>
+<meta name="description" content="Interactive revision notes for my modules.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-in gutter">
+  <a class="brand" href="./"><span class="dot"></span><span>studypotato</span></a>
+  <span class="spacer"></span>
+  <button class="iconbtn" id="themeBtn" type="button" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+</div></div>
+<div class="home gutter">
+  <header class="hero">
+    <div class="eyebrow">Revision notes</div>
+    <h1>studypotato</h1>
+    <p>Notes for each module, with worked examples, calculators to check your working, quizzes and flashcards. Progress is saved in this browser.</p>
+  </header>
+  <div class="cards" id="cards"></div>
+  <p class="foot">Pick a module to start. Inside a module, press <code>/</code> to search, and turn on <b>Recall</b> to hide worked answers until you tap them.</p>
+</div>
+<script src="assets/modules.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var S = window.SP.store, el = document.getElementById("cards");
+  var html = (window.MODULES || []).map(function (m) {
+    var done = (S.get("sp:" + m.slug + ":done", []) || []).length, total = S.get("sp:" + m.slug + ":total", 0) || 0;
+    var pct = total ? Math.round(100 * Math.min(done, total) / total) : 0;
+    var days = "";
+    if (m.exam) { var d = Math.ceil((new Date(m.exam + "T09:00:00") - new Date()) / 864e5); days = d < 0 ? "Exam done" : d === 0 ? "<b>Exam today</b>" : "<b>" + d + "</b> day" + (d === 1 ? "" : "s") + " to exam"; }
+    return '<a class="mcard" href="modules/' + m.slug + '/"><span class="code">' + m.code + '</span><h3>' + m.title + '</h3><p>' + m.desc + '</p>' +
+      '<div class="bar" aria-label="' + pct + '% revised"><span style="width:' + pct + '%"></span></div>' +
+      '<div class="meta"><span>' + (total ? "<b>" + Math.min(done, total) + "/" + total + "</b> topics revised" : "Not started") + '</span><span>' + days + '</span></div></a>';
+  }).join("");
+  html += '<div class="mcard soon"><span class="code">Coming soon</span><h3>More modules</h3><p>Send the slides for another module and it gets its own page here.</p></div>';
+  el.innerHTML = html;
+})();
+</script>
+</body>
+</html>

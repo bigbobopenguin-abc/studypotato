@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MODULE NAME · studypotato</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<!-- data-module must match the folder name and the slug in assets/modules.js -->
+<body data-module="MODULE-SLUG">
+<div class="topbar"><div class="topbar-in gutter">
+  <button class="iconbtn only-sm" id="navBtn" type="button" aria-label="Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../../"><span class="dot"></span><span class="hide-sm">studypotato</span></a>
+  <span class="crumb hide-sm">/ MODULE NAME</span>
+  <span class="spacer"></span>
+  <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search notes  ( / )" aria-label="Search notes" autocomplete="off"><span class="hitcount" id="hitCount" hidden></span></div>
+  <button class="iconbtn" id="recallBtn" type="button" aria-pressed="false"><span>Recall</span></button>
+  <button class="iconbtn" id="themeBtn" type="button" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  <span class="progressline"></span>
+</div></div>
+<div class="scrim"></div>
+<div class="wrap gutter">
+<nav class="rail" id="rail" aria-label="Topics"></nav>
+<main>
+<header class="top">
+  <div class="eyebrow">CODE · MODULE NAME</div>
+  <h1>MODULE NAME</h1>
+  <p class="sub">One-line description.</p>
+</header>
+
+<!-- One <section> per topic. The rail, search and "Mark revised" buttons are built from these automatically.
+     data-num = short number in the rail, data-short = rail label, data-group = rail heading.
+     Add data-noprogress to sections that shouldn't count toward progress. -->
+<section id="t1" data-group="Topics" data-num="1" data-short="First topic">
+  <h2><span class="tn">Topic 1</span>First topic</h2>
+  <p>Notes…</p>
+  <div class="f"><div class="k">Formula</div><div class="eq">y = mx + c</div><p>What each symbol means.</p></div>
+  <div class="ex"><div class="k">Worked example</div><div class="ln">Step-by-step working…</div></div>
+  <div class="trap"><div class="k">Exam trap</div><p>Common mistake.</p></div>
+</section>
+
+<section id="practice" data-group="Test yourself" data-num="?" data-short="Practice questions" data-noprogress>
+  <h2><span class="tn">?</span>Practice questions</h2>
+  <div class="scorebar" id="scorebar"><span>MCQ: <b id="mcqScore"></b></span><span>Written: <b id="selfScore"></b></span><span class="spacer"></span><button class="iconbtn" id="onlyMissed" type="button" aria-pressed="false">Hide ones I got right</button><button class="iconbtn" id="resetQuiz" type="button">Reset answers</button></div>
+  <!-- data-answer is the 0-based index of the correct option -->
+  <div class="mcq" id="mcq-1" data-answer="1"><p class="qtext">1. Question?</p><ol class="choices"><li>Option A</li><li>Option B</li><li>Option C</li></ol><p class="explain">Why B is right.</p></div>
+  <details class="q" id="w-1"><summary>2. Written question</summary><div class="ans">Answer.</div></details>
+</section>
+</main>
+</div>
+<script src="../../assets/modules.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
