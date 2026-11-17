@@ -7,6 +7,7 @@ Interactive revision notes, one page per module. Plain HTML, CSS and JavaScript 
 | Module | Page |
 | --- | --- |
 | EGT214 Applied Deep Learning | `modules/applied-deep-learning/` |
+| Natural Language Processing | `modules/nlp/` |
 
 ## Features
 
@@ -23,6 +24,7 @@ Interactive revision notes, one page per module. Plain HTML, CSS and JavaScript 
 1. Copy `modules/_template/` to `modules/<slug>/` (for example `modules/data-structures/`).
 2. Set `data-module="<slug>"` on its `<body>` and write the notes as `<section>` blocks.
 3. Add an entry to `assets/modules.js` so it shows on the home page.
+4. For calculators, load `assets/widgets-core.js` and register widgets with `SPW.add(...)` in the module's own `widgets.js` (see `modules/nlp/widgets.js`).
 
 ## Run locally
 

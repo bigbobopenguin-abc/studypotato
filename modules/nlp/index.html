@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Natural Language Processing · studypotato</title>
+<meta name="description" content="NLP revision notes: pre-processing, POS tagging, HMM, NER, vectorisation, TF-IDF, PPMI, Naive Bayes, logistic regression, CNN and Transformers, with calculators, quizzes and flashcards.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-module="nlp">
+<div class="topbar"><div class="topbar-in gutter">
+  <button class="iconbtn only-sm" id="navBtn" type="button" aria-label="Topics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../../"><span class="dot"></span><span class="hide-sm">studypotato</span></a>
+  <span class="crumb hide-sm">/ Natural Language Processing</span>
+  <span class="spacer"></span>
+  <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search notes  ( / )" aria-label="Search notes" autocomplete="off"><span class="hitcount" id="hitCount" hidden></span></div>
+  <button class="iconbtn" id="recallBtn" type="button" aria-pressed="false" title="Recall mode: hide worked answers until you tap them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="hide-sm">Recall</span></button>
+  <button class="iconbtn" id="themeBtn" type="button" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  <span class="progressline"></span>
+</div></div>
+<div class="scrim"></div>
+<div class="wrap gutter">
+<nav class="rail" id="rail" aria-label="Topics"></nav>
+<main>
+
+<header class="top">
+  <div class="eyebrow">Natural Language Processing · Mid-term test</div>
+  <h1>Natural Language Processing</h1>
+  <p class="sub">Covers the whole test scope, from introduction to Transformers. Every worked number has been recomputed. Use the <b>Try it</b> boxes to check your working.</p>
+  <div class="facts">
+    <span class="chip count" id="examCount" hidden></span>
+    <span class="chip"><b>15 MCQ · 7 written</b> (may have sub-parts)</span>
+    <span class="chip"><b>1 hour</b> · closed book</span>
+    <span class="chip">Brightspace · Respondus LockDown</span>
+    <span class="chip">Bring <b>laptop (Wi-Fi)</b> + <b>scientific calculator</b></span>
+  </div>
+  <div class="toolrow">
+    <a class="iconbtn" href="#practice">Practice questions</a>
+    <a class="iconbtn" href="#flashcards">Flashcards</a>
+    <a class="iconbtn" href="#cheat">Formula sheet</a>
+  </div>
+</header>
+
+<!-- ================= PLAN ================= -->
+<section id="plan" data-group="Start here" data-num="00" data-short="Exam plan" data-noprogress>
+  <h2><span class="tn">00</span>Two-week plan</h2>
+  <div class="trap"><div class="k">No equations given in the test for</div>
+    <ul><li><b>Hidden Markov Model</b> (emission, transition, multiply along the path)</li>
+    <li><b>Naive Bayes</b> (prior × likelihoods, add-1 smoothing)</li>
+    <li><b>Convolution and pooling</b></li></ul>
+    <p>Learn these by heart and practise them on paper until you can do them without looking.</p></div>
+  <div class="plan">
+    <div><h4>Days 1–5 · Learn</h4><ul>
+      <li>Read every topic once, marking each one revised</li>
+      <li>Learn the formula sheet, starting with the three above</li>
+      <li>Do the flashcards daily</li></ul></div>
+    <div><h4>Days 6–10 · Calculate</h4><ul>
+      <li>Redo every worked example on paper with your calculator</li>
+      <li>HMM, Naive Bayes, cosine, TF-IDF, PPMI, logistic regression, convolution, pooling, self-attention</li>
+      <li>Check yourself with the <b>Try it</b> boxes</li></ul></div>
+    <div><h4>Days 11–14 · Exam mode</h4><ul>
+      <li>All practice questions in 40 minutes</li>
+      <li>Turn on <b>Recall</b> and redo worked examples blind</li>
+      <li>Review your lab activity results (they're in scope)</li></ul></div>
+  </div>
+  <div class="trap"><div class="k">Calculator logs</div>
+    <p>TF and IDF use <b>log₁₀</b>. PPMI uses <b>log₂</b>: on most calculators, log₂(x) = log(x) ÷ log(2). Naive Bayes and logistic regression loss use natural log (<b>ln</b>) if a log is needed at all.</p></div>
+</section>
+
+<!-- ================= 1 INTRO ================= -->
+<section id="n1" data-group="Topics" data-num="1" data-short="Intro to NLP">
+  <h2><span class="tn">Topic 1</span>Introduction to NLP</h2>
+  <p><b>Natural Language Processing (NLP)</b> is the part of AI that lets computers understand, interpret and generate human language.</p>
+  <ul class="timeline">
+    <li><b>1950s</b>NLP begins</li>
+    <li><b>2013</b>Word2Vec: words become dense vectors that capture meaning</li>
+    <li><b>2017</b>Transformers ("Attention is all you need", Vaswani et al.): the basis of today's language models</li>
+    <li><b>Now</b>BERT, GPT, Gemini, Claude and other chatbots</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th>Use</th></tr>
+    <tr><td>Healthcare</td><td>Reading medical records to detect diseases early</td></tr>
+    <tr><td>Finance</td><td>Checking loan applications, fraud detection</td></tr>
+    <tr><td>Business</td><td>Analysing customer reviews</td></tr>
+    <tr><td>Everyday</td><td>Machine translation, chatbots, sentiment analysis</td></tr>
+  </table></div>
+  <h3>The big picture pipeline</h3>
+  <p>Raw text → clean and tokenise → understand grammar (POS, chunking, NER) → turn into numbers (one-hot, BoW, TDM/TTM, TF-IDF/PPMI, embeddings) → model (Naive Bayes, logistic regression, CNN, Transformer) → compare or classify.</p>
+</section>
+
+<!-- ================= 2 PREPROCESS ================= -->
+<section id="n2" data-group="Topics" data-num="2" data-short="Pre-processing & tokens">
+  <h2><span class="tn">Topic 2</span>Text Pre-processing and Tokenisation</h2>
+  <ul>
+    <li><b>Pre-processing</b> = cleaning messy text before a model uses it.</li>
+    <li><b>Tokenisation</b> = splitting text into pieces called <b>tokens</b>. All unique tokens make up the <b>vocabulary</b>.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Type</th><th>Example</th><th>Strength</th><th>Weakness</th></tr>
+    <tr><td><b>Word</b></td><td>"Tokenization is important!" → [Tokenization, is, important, !]</td><td>Simple</td><td>Can't handle <b>OOV</b> (out-of-vocabulary) words; huge vocabulary</td></tr>
+    <tr><td><b>Character</b></td><td>"Hello" → [H, e, l, l, o]</td><td>Tiny vocabulary, never meets an unknown token; suits Chinese, Thai</td><td>Very long sequences; harder to learn word relationships</td></tr>
+    <tr><td><b>Subword</b></td><td>"subterranean" → [sub, terra, nean]</td><td>Handles new words, small vocabulary</td><td>Best of both, which is why modern models use it</td></tr>
+    <tr><td><b>Sentence</b></td><td>Paragraph → list of sentences</td><td>Process each sentence separately</td><td></td></tr>
+  </table></div>
+  <h3>Byte Pair Encoding (BPE)</h3>
+  <p>The subword method used by Transformers.</p>
+  <ol><li>Split every word into single characters.</li><li>Start the vocabulary with those characters.</li><li>Find the <b>most frequent adjacent pair</b>.</li><li>Merge it into a new token and add it to the vocabulary.</li><li>Repeat 3–4 until the vocabulary reaches the target size.</li></ol>
+  <div class="widget" data-widget="bpe"></div>
+  <h3>Other cleaning steps</h3>
+  <div class="tbl"><table>
+    <tr><th>Step</th><th>What it does</th><th>Example</th></tr>
+    <tr><td><b>Stop-word removal</b></td><td>Removes common filler words with little meaning</td><td>the, and, is, a</td></tr>
+    <tr><td><b>Stemming</b></td><td>Crudely chops endings; result may <b>not</b> be a real word</td><td>running → run, flies → fli, cities → citi</td></tr>
+    <tr><td><b>Lemmatisation</b></td><td>Returns the dictionary form (<b>lemma</b>); always a real word</td><td>flies → fly, cities → city, mice → mouse</td></tr>
+  </table></div>
+  <div class="trap"><div class="k">Memory hook</div><p>Stemming is a rough haircut; lemmatisation is a proper barber. If the result isn't a dictionary word, it was stemming.</p></div>
+</section>
+
+<!-- ================= 3 POS / HMM ================= -->
+<section id="n3" data-group="Topics" data-num="3" data-short="POS tagging & HMM">
+  <h2><span class="tn">Topic 3</span>Part-of-Speech Tagging and HMM</h2>
+  <ul>
+    <li><b>POS tagging</b> labels every word with its grammatical role (noun, verb, adjective…).</li>
+    <li>It resolves ambiguity: "book" can be a noun or a verb; "Washington" can be a person or a place.</li>
+    <li>NLTK tags to know: <code>DT</code> determiner (the, a) · <code>JJ</code> adjective · <code>NN</code> noun · <code>VB</code> verb · <code>MD</code> modal (can, will).</li>
+    <li>Approaches: <b>statistical</b> (Hidden Markov Model: simple, no deep meaning) and <b>neural</b> (RNN, LSTM, Transformer: better context).</li>
+  </ul>
+  <h3>Hidden Markov Model (no equation given in the test)</h3>
+  <div class="f"><div class="k">Emission probability</div>
+    <div class="eq">P(word | tag) = count(word with tag) ÷ count(tag)</div>
+    <p>How likely a tag "emits" this word. Divide by the total for the <b>tag</b> (column total), not the word.</p></div>
+  <div class="f"><div class="k">Transition probability</div>
+    <div class="eq">P(tag₂ | tag₁) = count(tag₁ → tag₂) ÷ count(all transitions out of tag₁)</div>
+    <p>Add <code>&lt;S&gt;</code> at the start and <code>&lt;E&gt;</code> at the end of every sentence before counting pairs.</p></div>
+  <div class="f"><div class="k">Score of one tagging</div>
+    <div class="eq">P = Π  P(tagᵢ | tagᵢ₋₁) × P(wordᵢ | tagᵢ)   (including &lt;S&gt; → first and last → &lt;E&gt;)</div>
+    <p>Multiply every transition and emission along the path. Highest score wins. Any zero makes the whole path 0.</p></div>
+  <h3>Worked example · "Will can spot Mary"</h3>
+  <p class="sub">Training corpus (N = noun, M = modal, V = verb):</p>
+  <div class="tbl"><table>
+    <tr><th>Sentence</th><th>Tags</th></tr>
+    <tr><td>Mary Jane can see Will</td><td>N N M V N</td></tr>
+    <tr><td>Spot will see Mary</td><td>N M V N</td></tr>
+    <tr><td>Will Jane spot Mary</td><td>M N V N</td></tr>
+    <tr><td>Mary will pat Spot</td><td>N M V N</td></tr>
+  </table></div>
+  <div class="grid">
+    <div class="tbl"><table>
+      <tr><th>Emission</th><th>N (9)</th><th>M (4)</th><th>V (4)</th></tr>
+      <tr><td>Mary</td><td>4/9</td><td>0</td><td>0</td></tr>
+      <tr><td>Jane</td><td>2/9</td><td>0</td><td>0</td></tr>
+      <tr><td>Will / will</td><td>1/9</td><td>3/4</td><td>0</td></tr>
+      <tr><td>Spot / spot</td><td>2/9</td><td>0</td><td>1/4</td></tr>
+      <tr><td>can</td><td>0</td><td>1/4</td><td>0</td></tr>
+      <tr><td>see</td><td>0</td><td>0</td><td>2/4</td></tr>
+      <tr><td>pat</td><td>0</td><td>0</td><td>1/4</td></tr>
+    </table></div>
+    <div class="tbl"><table>
+      <tr><th>Transition</th><th>→N</th><th>→M</th><th>→V</th><th>→&lt;E&gt;</th></tr>
+      <tr><td>&lt;S&gt; (4)</td><td>3/4</td><td>1/4</td><td>0</td><td>0</td></tr>
+      <tr><td>N (9)</td><td>1/9</td><td>3/9</td><td>1/9</td><td>4/9</td></tr>
+      <tr><td>M (4)</td><td>1/4</td><td>0</td><td>3/4</td><td>0</td></tr>
+      <tr><td>V (4)</td><td>4/4</td><td>0</td><td>0</td><td>0</td></tr>
+    </table></div>
+  </div>
+  <div class="ex"><div class="k">Correct tagging N M V N</div>
+<div class="ln">&lt;S&gt;→N  Will|N   N→M   can|M   M→V   spot|V   V→N   Mary|N   N→&lt;E&gt;
+ 3/4  × 1/9  × 3/9 × 1/4  × 3/4 × 1/4  × 4/4 × 4/9  × 4/9
+= 0.000257 ≈ 0.00026</div></div>
+  <div class="ex"><div class="k">A wrong tagging N N N N</div>
+<div class="ln">can|N = 0  → the whole product is 0. This path is impossible.</div></div>
+  <div class="widget" data-widget="hmm"></div>
+  <div class="trap"><div class="k">Common slips</div><ul>
+    <li>Emission divides by the <b>tag</b> count (9 nouns), not by how often the word appears.</li>
+    <li>Treat "Will" and "will" as the same word.</li>
+    <li>Don't forget the <code>&lt;S&gt;</code> and <code>&lt;E&gt;</code> transitions.</li>
+  </ul></div>
+</section>
+
+<!-- ================= 4 NER ================= -->
+<section id="n4" data-group="Topics" data-num="4" data-short="NER & chunking">
+  <h2><span class="tn">Topic 4</span>Named Entity Recognition and Chunking</h2>
+  <h3>NER</h3>
+  <p>Finds and labels the proper names in text.</p>
+  <div class="tbl"><table>
+    <tr><th>Entity</th><th>Examples</th></tr>
+    <tr><td>Person</td><td>John Smith, Harry Potter, The Beatles</td></tr>
+    <tr><td>Organisation</td><td>Apple Inc., Harvard, United Nations</td></tr>
+    <tr><td>Location</td><td>France, Eiffel Tower, map coordinates</td></tr>
+    <tr><td>Date</td><td>January, 2023, Monday</td></tr>
+  </table></div>
+  <p>Uses: search engines (tag articles for faster search), recommendation systems (tags like "thriller"), sorting customer feedback by product or location.</p>
+  <h3>Chunking</h3>
+  <ul>
+    <li>POS tags single words, but some meaning only appears in groups: "United Kingdom". <b>Chunking groups words into phrases.</b></li>
+    <li>Pipeline: <b>Text → Tokenise → POS tag → Chunk</b>.</li>
+  </ul>
+  <div class="f"><div class="k">Noun-phrase grammar</div>
+    <div class="eq">NP: {&lt;DT&gt;?&lt;JJ&gt;*&lt;NN&gt;}</div>
+    <p><code>?</code> = optional (0 or 1) determiner · <code>*</code> = any number (0+) of adjectives · then one noun.</p></div>
+  <div class="ex"><div class="k">Example</div>
+<div class="ln">The/DT graceful/JJ gazelle/NN leaped/VBD through/IN the/DT savanna/NN
+NP chunks: [The graceful gazelle]  and  [the savanna]</div></div>
+  <div class="widget" data-widget="chunk"></div>
+</section>
+
+<!-- ================= 5 SEMANTICS ================= -->
+<section id="n5" data-group="Topics" data-num="5" data-short="Semantics & vectorisation">
+  <h2><span class="tn">Topic 5</span>Word Semantics and Text Vectorisation</h2>
+  <div class="tbl"><table>
+    <tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td>Lemma</td><td>Dictionary form; one lemma can have several senses</td><td>mouse (animal / device)</td></tr>
+    <tr><td>Synonyms</td><td>Swap without changing meaning</td><td>couch / sofa, car / automobile</td></tr>
+    <tr><td>Similar words</td><td>Related, not synonyms</td><td>cat / dog</td></tr>
+    <tr><td>Associated words</td><td>Go together</td><td>coffee / cup</td></tr>
+    <tr><td>Semantic field</td><td>Words about one topic</td><td>restaurant: menu, waiter, reservation</td></tr>
+    <tr><td>Vector semantics</td><td>Meaning as a vector, so closeness can be measured</td><td></td></tr>
+  </table></div>
+  <p><b>Text vectorisation</b> = turning text into numbers. From simplest to most advanced: <b>One-hot → Bag of Words → TDM/TTM → TF-IDF/PPMI → Word2Vec/GloVe/FastText</b>.</p>
+  <div class="grid">
+    <div class="f" style="margin:0"><div class="k">One-hot encoding</div><p style="color:var(--fg)">Each word = a vector of 0s with a single 1 at its own index. Vocabulary [cat, dog, fish]: dog = [0, 1, 0].</p></div>
+    <div class="f" style="margin:0"><div class="k">Bag of Words</div><p style="color:var(--fg)">Each sentence = word counts; <b>order ignored</b>. "dog bites dog" over [bites, cat, dog] = [1, 0, 2].</p></div>
+  </div>
+  <div class="trap"><div class="k">3 problems with one-hot and BoW</div><ol>
+    <li><b>Sparse and high-dimensional</b>: long vectors, mostly zeros, waste memory.</li>
+    <li><b>No meaning</b>: "cat" and "kitten" look unrelated (their dot product is 0).</li>
+    <li><b>Can't handle OOV words</b>.</li></ol></div>
+
+  <h3>Word embeddings: Word2Vec (skip-gram with negative sampling)</h3>
+  <ul>
+    <li>Embeddings are <b>short, dense, learned</b> vectors with almost no zeros.</li>
+    <li><b>Positive samples</b>: real (target, neighbour) pairs from a window. "…a tablespoon of <b>apricot</b> jam, a pinch…" gives (apricot, tablespoon), (apricot, of), (apricot, jam), (apricot, a).</li>
+    <li><b>Negative samples</b>: target paired with random words, e.g. (apricot, aardvark); several per positive pair.</li>
+    <li>Train a binary classifier to tell real from fake; the <b>learned weights become the word vectors</b>.</li>
+    <li>Every word has <b>two vectors</b>: one as target (W) and one as context (C). Start random; <b>SGD</b> pulls real neighbours together and pushes fake ones apart.</li>
+  </ul>
+  <div class="f"><div class="k">Skip-gram probability</div>
+    <div class="eq">P(+ | w, c) = σ(w·c) = 1 / (1 + e^(−w·c))      P(− | w, c) = 1 − σ(w·c) = 1 / (1 + e^(w·c))</div></div>
+  <div class="ex"><div class="k">Worked example</div>
+<div class="ln">w = [1, 2], c = [0.5, 1]  →  w·c = 0.5 + 2 = 2.5
+P(+) = 1/(1 + e^−2.5) = 0.924     P(−) = 1 − 0.924 = 0.076</div></div>
+  <div class="widget" data-widget="skipgram"></div>
+  <ul>
+    <li><b>Window size</b> (1–10 each side): <b>small</b> window → syntactic similarity (same part of speech); <b>large</b> window → topical similarity.</li>
+    <li>Analogies: <b>king − man + woman ≈ queen</b>, <b>Paris − France + Italy ≈ Rome</b>.</li>
+    <li>Evaluation: <b>extrinsic</b> (performance on real NLP tasks) and <b>intrinsic</b> (compare with human similarity ratings, e.g. <b>WordSim-353</b>: 353 pairs rated 0–10; (plane, car) = 5.77).</li>
+    <li><b>GloVe</b>: vectors from global co-occurrence statistics, no labelled data. <b>FastText</b>: Facebook AI library for embeddings and text classification (uses subwords, so it handles OOV words).</li>
+  </ul>
+</section>
+
+<!-- ================= 6 TDM TTM ================= -->
+<section id="n6" data-group="Topics" data-num="6" data-short="TDM, TTM & cosine">
+  <h2><span class="tn">Topic 6</span>Term-Document and Term-Term Matrices</h2>
+  <p>Both are <b>co-occurrence matrices</b> (tables of counts).</p>
+  <h3>Term-Document Matrix (TDM)</h3>
+  <ul><li>Rows = words, columns = documents; each cell = count of the word in the document.</li>
+  <li><b>Column = document vector</b>; <b>row = word vector</b>.</li>
+  <li>Used for document classification and information retrieval (search).</li></ul>
+  <div class="tbl"><table>
+    <tr><th></th><th>As You Like It</th><th>Twelfth Night</th><th>Julius Caesar</th><th>Henry V</th></tr>
+    <tr><td>battle</td><td>1</td><td>0</td><td>7</td><td>13</td></tr>
+    <tr><td>good</td><td>114</td><td>80</td><td>62</td><td>89</td></tr>
+    <tr><td>fool</td><td>36</td><td>58</td><td>1</td><td>4</td></tr>
+    <tr><td>wit</td><td>20</td><td>15</td><td>2</td><td>3</td></tr>
+  </table></div>
+  <p class="sub">"As You Like It" vector = [1, 114, 36, 20]. "battle" vector = [1, 0, 7, 13]. Comedies have lots of fool and wit; histories have more battle.</p>
+  <h3>Term-Term Matrix (TTM)</h3>
+  <ul><li>Square: |V| × |V|. Each cell counts how often two words appear within a <b>context window</b> (about ±4 words).</li>
+  <li>Words in similar contexts get similar vectors. Also called a word-word or word-context matrix.</li></ul>
+  <div class="tbl"><table>
+    <tr><th></th><th>aardvark</th><th>computer</th><th>data</th><th>result</th><th>pie</th><th>sugar</th></tr>
+    <tr><td>cherry</td><td>0</td><td>2</td><td>8</td><td>9</td><td>442</td><td>25</td></tr>
+    <tr><td>strawberry</td><td>0</td><td>0</td><td>0</td><td>1</td><td>60</td><td>19</td></tr>
+    <tr><td>digital</td><td>0</td><td>1670</td><td>1683</td><td>85</td><td>5</td><td>4</td></tr>
+    <tr><td>information</td><td>0</td><td>3325</td><td>3982</td><td>378</td><td>5</td><td>13</td></tr>
+  </table></div>
+  <h3>Similarity</h3>
+  <div class="f"><div class="k">Dot product and cosine similarity</div>
+    <div class="eq">v·w = Σ vᵢwᵢ        |v| = √(Σ vᵢ²)        cos θ = (v·w) / (|v| |w|)</div>
+    <p>The dot product favours frequent words (long vectors). Cosine divides by the lengths to fix that. For count vectors it runs 0 (unrelated) to 1 (same direction).</p></div>
+  <div class="ex"><div class="k">Worked example · dot product</div>
+<div class="ln">[1,2,3,4,5]·[7,8,9,10,11] = 7 + 16 + 27 + 40 + 55 = 145</div></div>
+  <div class="ex"><div class="k">Worked example · cosine (dimensions pie, data, computer)</div>
+<div class="ln">cherry = [442, 8, 2]   digital = [5, 1683, 1670]   information = [5, 3982, 3325]
+digital·information = 25 + 6,701,706 + 5,552,750 = 12,254,481
+|digital| = 2371.0   |information| = 5187.6
+cos(digital, information) = 12,254,481 / (2371.0 × 5187.6) = 0.996   → very similar
+cherry·information = 2210 + 31,856 + 6650 = 40,716
+|cherry| = 442.08
+cos(cherry, information) = 40,716 / (442.08 × 5187.6) = 0.018   → unrelated</div></div>
+  <div class="trap"><div class="k">Correction</div><p>My earlier summary said cos(cherry, information) = 0.081. The correct value from these counts is <b>0.018</b> (the digits were swapped). Check against your lecture slide.</p></div>
+  <div class="widget" data-widget="cosine"></div>
+</section>
+
+<!-- ================= 7 TFIDF PPMI ================= -->
+<section id="n7" data-group="Topics" data-num="7" data-short="TF-IDF & PPMI">
+  <h2><span class="tn">Topic 7</span>TF-IDF and PPMI</h2>
+  <p>Raw counts overrate frequent but uninformative words ("the", "good"). Both methods re-weight counts.</p>
+  <div class="tbl"><table><tr><th></th><th>Used with</th><th>Asks</th></tr>
+    <tr><td><b>TF-IDF</b></td><td>TDM (words × documents)</td><td>Is this word frequent here but rare elsewhere?</td></tr>
+    <tr><td><b>PPMI</b></td><td>TTM (words × words)</td><td>Do these two words co-occur more than chance?</td></tr></table></div>
+  <h3>TF-IDF</h3>
+  <div class="f"><div class="k">Formulas (log base 10)</div>
+    <div class="eq">TF = log₁₀(count + 1)</div>
+    <div class="eq">IDF = log₁₀(N / df)      N = total documents, df = documents containing the word</div>
+    <div class="eq">TF-IDF = TF × IDF</div>
+    <p>A word in <b>every</b> document has IDF = log₁₀(1) = 0, so it gets weight 0. "Romeo" (1 play) has a high IDF; "sweet" (most plays) a low one.</p></div>
+  <div class="ex"><div class="k">Worked example · "battle" in As You Like It</div>
+<div class="ln">count = 1, appears in 21 of 37 plays
+TF  = log₁₀(1 + 1)  = 0.301
+IDF = log₁₀(37/21)  = log₁₀(1.762) = 0.246
+TF-IDF = 0.301 × 0.246 = 0.074</div></div>
+  <div class="widget" data-widget="tfidf"></div>
+  <h3>PPMI</h3>
+  <div class="f"><div class="k">Formula (log base 2)</div>
+    <div class="eq">PMI(w, c) = log₂ [ P(w, c) / (P(w) P(c)) ]        PPMI = max(PMI, 0)</div>
+    <div class="eq">P(w, c) = f(w,c) / N     P(w) = row total / N     P(c) = column total / N</div>
+    <p>Numerator = how often they actually co-occur; denominator = how often by chance if independent. Negative values become 0 (the "positive" in PPMI), because negative PMI is unreliable on small counts.</p></div>
+  <div class="ex"><div class="k">Worked example · PPMI(information, data)</div>
+<div class="ln">P(information, data) = 3982 / 11716 = 0.3399
+P(information) = 0.6575      P(data) = 0.4842
+PPMI = log₂(0.3399 / (0.6575 × 0.4842)) = log₂(0.3399 / 0.3184) = log₂(1.0677) = 0.0944</div></div>
+  <div class="widget" data-widget="ppmi"></div>
+  <div class="f"><div class="k">Centroid (document vector)</div>
+    <div class="eq">d = (w₁ + w₂ + … + wₖ) / k</div>
+    <p>Average of the document's word vectors. Example: [1, 3] and [3, 5] → [2, 4].</p></div>
+</section>
+
+<!-- ================= 8 NAIVE BAYES ================= -->
+<section id="n8" data-group="Topics" data-num="8" data-short="Naive Bayes">
+  <h2><span class="tn">Topic 8</span>Naive Bayes</h2>
+  <h3>Text classification</h3>
+  <ul>
+    <li><b>Text classification</b> groups text into categories (spam vs non-spam). Models learn from <b>labelled examples</b>.</li>
+    <li><b>Binary</b>: two categories (spam / not spam). <b>Multi-class</b>: more than two (negative / neutral / positive).</li>
+  </ul>
+  <ol><li>Prepare a labelled dataset</li><li>Split into training and test sets</li><li>Convert text into numerical feature vectors</li><li>Train the model on training data and labels</li><li>Evaluate with a suitable metric</li><li>Deploy for real-world use</li></ol>
+  <h3>Probability basics</h3>
+  <div class="tbl"><table>
+    <tr><th>Term</th><th>Meaning</th><th>Example (one dice roll)</th></tr>
+    <tr><td>Sample space</td><td>All possible outcomes</td><td>{1, 2, 3, 4, 5, 6}</td></tr>
+    <tr><td>Event</td><td>A subset of outcomes</td><td>"even" = {2, 4, 6}</td></tr>
+    <tr><td>Probability</td><td>favourable ÷ total outcomes, between 0 and 1</td><td>P(even) = 3/6 = 0.5</td></tr>
+    <tr><td>Independent events</td><td>One doesn't affect the other: <span class="m">P(A and B) = P(A) × P(B)</span></td><td>Two coin flips: P(H, H) = 0.25</td></tr>
+    <tr><td>Mutually exclusive</td><td>Can't happen together: <span class="m">P(A and B) = 0</span>, <span class="m">P(A or B) = P(A) + P(B)</span></td><td>Rolling 1 and 6 in one roll</td></tr>
+  </table></div>
+  <p class="sub">The slides you sent don't include the pages on these basics or on the confusion matrix, though both are in the learning outcomes. These rows and the confusion-matrix part below are standard definitions.</p>
+
+  <h3>Naive Bayes (no equation given in the test)</h3>
+  <ul>
+    <li>Uses <b>Bayes' theorem</b> to calculate the probability of each class and picks the most likely one.</li>
+    <li>Treats a document as a <b>bag of words</b>: order ignored, only frequency counts.</li>
+    <li><b>Naive assumption</b>: each word is <b>independent</b> of the others, so a sentence's probability is the product of its word probabilities. Without it, any sentence not seen exactly in training gets probability 0.</li>
+  </ul>
+  <div class="f"><div class="k">Bayes' theorem for a class</div>
+    <div class="eq">P(class | text) = P(text | class) × P(class) / P(text)</div>
+    <div class="eq">P(text | class) = P(w₁ | class) × P(w₂ | class) × …</div>
+    <p>P(text) is the same for both classes, so <b>ignore the denominator</b> and compare P(class) × Π P(wᵢ | class).</p></div>
+  <div class="f"><div class="k">Prior and Laplace (add-1) smoothing</div>
+    <div class="eq">P(class) = documents in class ÷ total documents</div>
+    <div class="eq">P(word | class) = (count of word in class + 1) ÷ (total words in class + vocabulary size)</div>
+    <p>A word that never appears in a class would give 0 and wipe out the product. Add 1 to every count, and add the vocabulary size to the denominator so the probabilities still sum to 1.</p></div>
+
+  <div class="tbl"><table>
+    <tr><th>Text</th><th>Class</th><th>Words</th></tr>
+    <tr><td>i loved this movie</td><td>Positive</td><td>4</td></tr>
+    <tr><td>acting was superb</td><td>Positive</td><td>3</td></tr>
+    <tr><td>impressive plot twist</td><td>Positive</td><td>3</td></tr>
+    <tr><td>movie did not live up to expectation</td><td>Negative</td><td>7</td></tr>
+    <tr><td>very disappointed with plot</td><td>Negative</td><td>4</td></tr>
+  </table></div>
+  <div class="ex"><div class="k">Worked example · "very impressive movie" (slides)</div>
+<div class="ln">Priors:  P(Positive) = 3/5     P(Negative) = 2/5
+Words in Positive = 10     words in Negative = 11     vocabulary size = 19
+
+Word         P(word | Positive)       P(word | Negative)
+very         (0+1)/(10+19) = 1/29     (1+1)/(11+19) = 2/30
+impressive   (1+1)/(10+19) = 2/29     (0+1)/(11+19) = 1/30
+movie        (1+1)/(10+19) = 2/29     (1+1)/(11+19) = 2/30
+
+P(text | Positive) = 1/29 × 2/29 × 2/29 = 1.64 × 10⁻⁴
+P(text | Negative) = 2/30 × 1/30 × 2/30 = 1.48 × 10⁻⁴
+Positive: 3/5 × 1.64 × 10⁻⁴ = 9.84 × 10⁻⁵
+Negative: 2/5 × 1.48 × 10⁻⁴ = 5.93 × 10⁻⁵   → POSITIVE</div></div>
+  <div class="widget" data-widget="nb"></div>
+  <div class="trap"><div class="k">Common slips</div><ul>
+    <li>The denominator is (words in <b>that class</b> + vocabulary size of the <b>whole</b> training set): 10 + 19 and 11 + 19.</li>
+    <li>The vocabulary is 19 because it includes "i". Count every unique word across both classes.</li>
+    <li>Don't forget to multiply by the prior at the end.</li>
+    <li>The final numbers are scores to compare, not true probabilities (they don't sum to 1, since P(text) was dropped).</li>
+  </ul></div>
+
+  <h3>Confusion matrix</h3>
+  <div class="tbl"><table>
+    <tr><th></th><th>Predicted positive</th><th>Predicted negative</th></tr>
+    <tr><td><b>Actual positive</b></td><td>TP (true positive)</td><td>FN (false negative)</td></tr>
+    <tr><td><b>Actual negative</b></td><td>FP (false positive)</td><td>TN (true negative)</td></tr>
+  </table></div>
+  <div class="f"><div class="k">Metrics</div>
+    <div class="eq">Accuracy = (TP + TN) / total</div>
+    <div class="eq">Precision = TP / (TP + FP)      of those predicted positive, how many really are</div>
+    <div class="eq">Recall = TP / (TP + FN)         of the real positives, how many we found</div>
+    <div class="eq">F1 = 2 × Precision × Recall / (Precision + Recall)</div></div>
+  <div class="ex"><div class="k">Worked example</div>
+<div class="ln">TP = 40, FN = 10, FP = 5, TN = 45   (total 100)
+Accuracy = 85/100 = 0.85    Precision = 40/45 = 0.889
+Recall = 40/50 = 0.80       F1 = 2(0.889)(0.80)/(1.689) = 0.842</div></div>
+  <div class="widget" data-widget="confusion"></div>
+</section>
+
+<!-- ================= 9 LOGISTIC REGRESSION ================= -->
+<section id="n9" data-group="Topics" data-num="9" data-short="Logistic regression">
+  <h2><span class="tn">Topic 9</span>Binary Logistic Regression</h2>
+  <ul>
+    <li>Predicts a <b>binary output (0 or 1)</b> from a feature vector <b>x = [x₁, …, xₖ]</b>.</li>
+    <li>Features can be <b>word counts</b>, <b>word embeddings</b> or <b>N-grams</b>.</li>
+    <li><b>N-grams</b> = sequences of N consecutive items. Unigrams: "The", "quick", "brown", "fox". Bigrams: "The quick", "quick brown", "brown fox".</li>
+    <li>The model learns <b>weights</b> and a <b>bias b</b>. Each weight is a feature's influence: positive words like "awesome" get large positive weights, negative words like "abysmal" large negative ones.</li>
+  </ul>
+  <div class="f"><div class="k">The model</div>
+    <div class="eq">z = Σ wᵢxᵢ + b = w·x + b</div>
+    <div class="eq">σ(z) = 1 / (1 + e^−z) = 1 / (1 + e^−(w·x + b))       = P(y = 1 | x)</div>
+    <div class="eq">decision(x) = 1 if P(y = 1 | x) &gt; 0.5, otherwise 0</div>
+    <p>The decision threshold is 0.5, which is the same as z &gt; 0. σ(0) = 0.5.</p></div>
+  <h3>The slides' movie-review model</h3>
+  <p>Same five reviews as Naive Bayes, turned into a bag-of-words (TDM) vector over 18 terms, in alphabetical order:</p>
+  <div class="tbl"><table>
+    <tr><th>Term</th><th>Weight</th><th>Term</th><th>Weight</th><th>Term</th><th>Weight</th></tr>
+    <tr><td>acting</td><td>0.000</td><td>live</td><td>−0.246</td><td>this</td><td>0.283</td></tr>
+    <tr><td>did</td><td>−0.246</td><td>loved</td><td>0.283</td><td>to</td><td>−0.246</td></tr>
+    <tr><td>disappointed</td><td>−0.331</td><td>movie</td><td>0.037</td><td>twist</td><td>0.294</td></tr>
+    <tr><td>expectation</td><td>−0.246</td><td>not</td><td>−0.246</td><td>up</td><td>−0.246</td></tr>
+    <tr><td>impressive</td><td>0.294</td><td>plot</td><td>−0.037</td><td>very</td><td>−0.331</td></tr>
+    <tr><td></td><td></td><td>superb</td><td>0.000</td><td>was</td><td>0.000</td></tr>
+    <tr><td></td><td></td><td></td><td></td><td>with</td><td>−0.331</td></tr>
+  </table></div>
+  <p class="sub">Bias b = 0.325. "i" is not a feature: the vectoriser drops single-letter tokens, so there are 18 terms here but 19 in the Naive Bayes vocabulary.</p>
+  <div class="tbl"><table>
+    <tr><th>Review</th><th>z = w·x + b</th><th>σ(z)</th><th>Class</th></tr>
+    <tr><td>i loved this movie</td><td>0.283 + 0.037 + 0.283 + 0.325 = 0.928</td><td>0.717</td><td>1 (positive)</td></tr>
+    <tr><td>acting was superb</td><td>0 + 0 + 0 + 0.325 = 0.325</td><td>0.580</td><td>1</td></tr>
+    <tr><td>impressive plot twist</td><td>0.294 − 0.037 + 0.294 + 0.325 = 0.876</td><td>0.706</td><td>1</td></tr>
+    <tr><td>movie did not live up to expectation</td><td>−1.117</td><td>0.246</td><td>0 (negative)</td></tr>
+    <tr><td>very disappointed with plot</td><td>−0.331 − 0.331 − 0.331 − 0.037 + 0.325 = −0.704</td><td>0.331</td><td>0</td></tr>
+  </table></div>
+  <div class="ex"><div class="k">Worked example · new review "very impressive movie"</div>
+<div class="ln">z = very (−0.331) + impressive (0.294) + movie (0.037) + b (0.325) = 0.325
+σ(0.325) = 1/(1 + e^−0.325) = 0.580 &gt; 0.5 → POSITIVE   (agrees with Naive Bayes)</div></div>
+  <div class="widget" data-widget="lrreview"></div>
+  <div class="trap"><div class="k">Exam technique</div><ul>
+    <li>Only the words in the review contribute (x = 1 for them, 0 elsewhere). Add their weights, then add the bias. Words not in the vocabulary are ignored.</li>
+    <li>A word that appears twice has x = 2, so its weight counts twice.</li>
+    <li>Use the <code>e^x</code> key: σ(z) = 1 ÷ (1 + e^(−z)). Watch the sign when z is negative.</li>
+  </ul></div>
+  <div class="widget" data-widget="logreg"></div>
+  <h3>Training (beyond the slides)</h3>
+  <p class="sub">The slides show a model that has already been trained. For context, this is how the weights are learned (textbook, Jurafsky &amp; Martin ch. 5).</p>
+  <div class="f"><div class="k">Cross-entropy loss and gradient descent</div>
+    <div class="eq">L = −[ y ln ŷ + (1 − y) ln(1 − ŷ) ]</div>
+    <div class="eq">w ← w − η (ŷ − y) x          b ← b − η (ŷ − y)</div></div>
+  <div class="tbl"><table>
+    <tr><th></th><th>Naive Bayes</th><th>Logistic regression</th></tr>
+    <tr><td>Type</td><td>Generative: uses P(text | class) × P(class)</td><td>Discriminative: models P(class | x) directly</td></tr>
+    <tr><td>Features</td><td>Assumes words are independent</td><td>Copes better with correlated features</td></tr>
+    <tr><td>Training</td><td>Counting</td><td>Learn weights and bias by gradient descent</td></tr>
+    <tr><td>Output</td><td>Compare class scores</td><td>σ(z) &gt; 0.5 → class 1</td></tr>
+  </table></div>
+</section>
+
+<!-- ================= 10 CNN ================= -->
+<section id="n10" data-group="Topics" data-num="10" data-short="CNN">
+  <h2><span class="tn">Topic 10</span>Convolutional Neural Network</h2>
+  <ul>
+    <li>A deep network designed for visual data (image classification, face recognition, object detection), also used for NLP: <b>text classification, sentiment analysis</b>.</li>
+    <li>Two parts: <b>feature extraction</b> (convolution, activation, pooling, repeated) and <b>classification</b> (fully connected network).</li>
+    <li><b>Convolution</b>: a filter (kernel) slides across the input, taking a dot product at each position. The results form a <b>feature map</b> (activation map).</li>
+    <li><b>Filter size</b> sets the neuron's <b>receptive field</b>; <b>stride</b> sets how far the filter moves. Both are <b>hyperparameters</b>.</li>
+    <li>For text: the input is a <b>sentence matrix</b> (one row per word embedding, e.g. 7 words × d = 5). Filters span the full embedding width and cover 2, 3 or 4 words (region sizes); <b>1-max pooling</b> takes the largest value per feature map; the results are concatenated and fed to softmax.</li>
+  </ul>
+  <h3>Convolution (no equation given in the test)</h3>
+  <div class="ex"><div class="k">Worked example · 5×5 input, 3×3 kernel, stride 1</div>
+  <div class="matrow">
+    <div class="mat" style="grid-template-columns:repeat(5,auto)">
+      <span class="hl">1</span><span class="hl">1</span><span class="hl">1</span><span>0</span><span>0</span>
+      <span class="hl">0</span><span class="hl">1</span><span class="hl">1</span><span>1</span><span>0</span>
+      <span class="hl">0</span><span class="hl">0</span><span class="hl">1</span><span>1</span><span>1</span>
+      <span>0</span><span>0</span><span>1</span><span>1</span><span>0</span>
+      <span>0</span><span>1</span><span>1</span><span>0</span><span>0</span>
+    </div><span>∗</span>
+    <div class="mat" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>0</span><span>1</span><span>0</span><span>1</span><span>0</span><span>1</span><span>0</span><span>1</span></div><span>=</span>
+    <div class="mat" style="grid-template-columns:repeat(3,auto)"><span class="hl">4</span><span>3</span><span>4</span><span>2</span><span>4</span><span>3</span><span>2</span><span>3</span><span>4</span></div>
+  </div>
+<div class="ln">F(0,0) = 1×1 + 1×0 + 1×1 + 0×0 + 1×1 + 1×0 + 0×1 + 0×0 + 1×1 = 4
+Output size = (5 − 3)/1 + 1 = 3 → 3×3
+Shortcut: this kernel just adds the 4 corners and the centre of each 3×3 window.</div></div>
+  <div class="widget" data-widget="conv"></div>
+  <h3>Activation</h3>
+  <p>Lets the model learn non-linear patterns. <b>ReLU</b> = max(0, x): negatives become 0, positives unchanged.</p>
+  <h3>Pooling (no equation given in the test)</h3>
+  <p>Shrinks the feature map to improve efficiency. <b>Max pooling</b> keeps the largest value per window; <b>average pooling</b> takes the mean.</p>
+  <div class="ex"><div class="k">Worked example · 2×2 window on a 4×4 map</div>
+  <div class="matrow">
+    <div class="mat" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>1</span><span>2</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>3</span><span>2</span><span>1</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+    <span>max →</span><div class="mat" style="grid-template-columns:repeat(2,auto)"><span>6</span><span>8</span><span>3</span><span>4</span></div>
+    <span>avg →</span><div class="mat" style="grid-template-columns:repeat(2,auto)"><span>3.25</span><span>5.25</span><span>2</span><span>2</span></div>
+  </div>
+<div class="ln">Top-left {1,1,5,6}: max 6, avg 13/4 = 3.25     Top-right {2,4,7,8}: max 8, avg 21/4 = 5.25
+Bottom-left {3,2,1,2}: max 3, avg 2             Bottom-right {1,0,3,4}: max 4, avg 2</div></div>
+  <div class="widget" data-widget="pool"></div>
+  <div class="trap"><div class="k">Slide inconsistency: stride</div>
+    <p>The slide says "2×2 kernel, stride <b>1</b>", but its 2×2 answers only come from stride <b>2</b> (non-overlapping windows). With stride 1 the output is 3×3: max = [[6,7,8],[6,7,8],[3,3,4]], avg = [[3.25,4,5.25],[4,4,4],[2,2,2]]. In the test, use the stride the question gives, and check the output size with (n − k)/s + 1.</p></div>
+  <h3>Dropout and the classifier</h3>
+  <ul>
+    <li><b>Overfitting</b>: good on training data, poor on unseen data.</li>
+    <li><b>Dropout</b> randomly disables neurons during training so the model generalises better.</li>
+    <li>The feature maps are <b>flattened</b> into a 1D vector and fed to a <b>fully connected</b> network. The number of hidden layers is a hyperparameter.</li>
+  </ul>
+</section>
+
+<!-- ================= 11 TRANSFORMER ================= -->
+<section id="n11" data-group="Topics" data-num="11" data-short="Transformers">
+  <h2><span class="tn">Topic 11</span>Transformer Architecture</h2>
+  <ul>
+    <li>Original Transformer ("Attention is all you need", Vaswani et al., 2017): <b>encoder–decoder</b>, built for <b>translation</b>.</li>
+    <li><b>Encoder</b>: turns input tokens into contextual embedding vectors. <b>Decoder</b>: uses the encoder's output to generate output tokens <b>one at a time</b>.</li>
+    <li>Processes the sequence <b>in parallel</b> (not word by word like an RNN), so it trains efficiently on GPUs/TPUs.</li>
+  </ul>
+  <div class="tbl"><table>
+    <tr><th>Type</th><th>Does</th><th>Tasks</th><th>Examples</th></tr>
+    <tr><td><b>Encoder-only</b></td><td>Text → numerical representation</td><td>Text classification, NER</td><td>BERT, RoBERTa, DistilBERT</td></tr>
+    <tr><td><b>Decoder-only</b></td><td>Predicts the next token step by step</td><td>Text generation ("The solar system has …")</td><td>GPT</td></tr>
+    <tr><td><b>Encoder–decoder</b></td><td>Sequence → sequence</td><td>Translation, summarisation</td><td>BART, T5</td></tr>
+  </table></div>
+  <h3>Self-attention</h3>
+  <ul>
+    <li>Helps the model understand a word through its context. In "<b>book</b> a plane ticket", "book" attends to "plane" and "ticket", which shows it's a verb.</li>
+    <li>Key strength: capturing <b>long-range relationships</b>.</li>
+    <li>Maps inputs (x₁…xₙ) to outputs (y₁…yₙ). For y₃: score x₃ against x₁, x₂, x₃ with dot products → softmax → weighted sum.</li>
+  </ul>
+  <div class="f"><div class="k">Simple version (no weights)</div>
+    <div class="eq">scoreᵢ = x₃·xᵢ      αᵢ = e^scoreᵢ / Σⱼ e^scoreⱼ      y₃ = α₁x₁ + α₂x₂ + α₃x₃</div></div>
+  <div class="f"><div class="k">With query, key and value</div>
+    <div class="eq">Q = X·W_Q     K = X·W_K     V = X·W_V</div>
+    <div class="eq">Attention(Q, K, V) = softmax( QKᵀ / √d_k ) V</div>
+    <p><b>Query</b> = the current token asking. <b>Key</b> = what each token is compared against. <b>Value</b> = what gets mixed into the output. √d_k (key dimension) keeps the dot products from getting too large.</p></div>
+  <h3>Worked example (slides, d_k assumed 1)</h3>
+  <div class="ex"><div class="k">Step 1 · Q, K, V</div>
+<div class="ln">X  = [[1,0,1,0], [0,2,0,2], [1,1,1,1]]     (inputs #1, #2, #3)
+K = X·W_K = [[0,1,1], [4,4,0], [2,3,1]]
+V = X·W_V = [[1,2,3], [2,8,0], [2,6,3]]
+Q = X·W_Q = [[1,0,2], [2,2,2], [2,1,3]]</div></div>
+  <div class="ex"><div class="k">Step 2 · output #1 (query q₁ = [1, 0, 2])</div>
+<div class="ln">scores = q₁·k₁, q₁·k₂, q₁·k₃ = [0+0+2, 4+0+0, 2+0+2] = [2, 4, 4]
+softmax: e² = 7.39, e⁴ = 54.60, e⁴ = 54.60, sum = 116.59
+       = [0.063, 0.468, 0.468]  (slides round to [0, 0.5, 0.5])
+weighted values (rounded): 0×[1,2,3] + 0.5×[2,8,0] + 0.5×[2,6,3]
+                         = [0,0,0] + [1,4,0] + [1,3,1.5] = [2.0, 7.0, 1.5]
+exact: [1.94, 6.68, 1.60]</div></div>
+  <div class="ex"><div class="k">Outputs #2 and #3 (slides)</div>
+<div class="ln">#2: q₂ = [2,2,2] → scores [4, 16, 12] → softmax ≈ [0, 1, 0]   → y₂ ≈ [2.0, 8.0, 0.0]
+#3: q₃ = [2,1,3] → scores [4, 12, 10] → softmax ≈ [0, 0.9, 0.1] → y₃ ≈ [2.0, 7.8, 0.3]</div></div>
+  <div class="trap"><div class="k">Watch for</div><ul>
+    <li>Scores use the <b>query</b> of the current token and the <b>keys</b> of all tokens (including itself). The output mixes the <b>values</b>.</li>
+    <li>The slides skip √d_k (treat it as 1). If a question gives d_k, divide the scores by √d_k <b>before</b> softmax.</li>
+    <li>Say whether you rounded the softmax. The slides round to 1 decimal place and drop very small weights to 0 (0.063 → 0), which is why their y₁ = [2.0, 7.0, 1.5] differs from the exact [1.94, 6.68, 1.60].</li>
+  </ul></div>
+  <div class="widget" data-widget="attention"></div>
+</section>
+
+<!-- ================= CHEAT ================= -->
+<section id="cheat" data-group="Revise" data-num="★" data-short="Formula sheet" data-noprogress>
+  <h2><span class="tn">★</span>Formula sheet to memorise</h2>
+  <div class="tbl"><table>
+    <tr><th>What</th><th>Formula</th></tr>
+    <tr><td>HMM emission</td><td><span class="m">P(w|t) = count(w as t) / count(t)</span></td></tr>
+    <tr><td>HMM transition</td><td><span class="m">P(t₂|t₁) = count(t₁→t₂) / count(t₁→anything)</span></td></tr>
+    <tr><td>HMM path score</td><td>product of all transitions × emissions, &lt;S&gt; to &lt;E&gt;</td></tr>
+    <tr><td>NP chunk</td><td><span class="m">{&lt;DT&gt;?&lt;JJ&gt;*&lt;NN&gt;}</span></td></tr>
+    <tr><td>Dot product / length</td><td><span class="m">Σ vᵢwᵢ</span> · <span class="m">√(Σ vᵢ²)</span></td></tr>
+    <tr><td>Cosine</td><td><span class="m">v·w / (|v||w|)</span></td></tr>
+    <tr><td>TF / IDF</td><td><span class="m">log₁₀(count+1)</span> · <span class="m">log₁₀(N/df)</span></td></tr>
+    <tr><td>PPMI</td><td><span class="m">max(log₂[P(w,c) / (P(w)P(c))], 0)</span></td></tr>
+    <tr><td>Centroid</td><td><span class="m">(w₁ + … + wₖ) / k</span></td></tr>
+    <tr><td>Skip-gram</td><td><span class="m">P(+) = σ(w·c)</span>, <span class="m">P(−) = 1 − σ(w·c)</span></td></tr>
+    <tr><td>Sigmoid</td><td><span class="m">1 / (1 + e^−z)</span></td></tr>
+    <tr><td>Naive Bayes</td><td><span class="m">argmax P(c) Π P(wᵢ|c)</span></td></tr>
+    <tr><td>NB prior</td><td><span class="m">docs in class / total docs</span></td></tr>
+    <tr><td>NB add-1</td><td><span class="m">(count(w,c) + 1) / (words in c + |V|)</span></td></tr>
+    <tr><td>Logistic regression</td><td><span class="m">ŷ = σ(w·x + b)</span></td></tr>
+    <tr><td>LR decision</td><td>class 1 if <span class="m">σ(z) &gt; 0.5</span> (i.e. z &gt; 0)</td></tr>
+    <tr><td>Precision / recall</td><td><span class="m">TP/(TP+FP)</span> · <span class="m">TP/(TP+FN)</span></td></tr>
+    <tr><td>Accuracy / F1</td><td><span class="m">(TP+TN)/total</span> · <span class="m">2PR/(P+R)</span></td></tr>
+    <tr><td>Conv / pool output size</td><td><span class="m">(n − k)/s + 1</span></td></tr>
+    <tr><td>Self-attention</td><td><span class="m">softmax(QKᵀ/√d_k) V</span>, with <span class="m">Q = XW_Q</span> etc.</td></tr>
+    <tr><td>Softmax</td><td><span class="m">e^sᵢ / Σ e^sⱼ</span></td></tr>
+  </table></div>
+</section>
+
+<!-- ================= PRACTICE ================= -->
+<section id="practice" data-group="Test yourself" data-num="?" data-short="Practice questions" data-noprogress>
+  <h2><span class="tn">?</span>Practice questions</h2>
+  <p class="sub">The test has 15 MCQs and 7 written questions. Tap an option to answer the MCQs. For written ones, work on paper, open the answer, then mark yourself.</p>
+  <div class="scorebar" id="scorebar"><span>MCQ: <b id="mcqScore"></b></span><span>Written: <b id="selfScore"></b></span><span class="spacer"></span><button class="iconbtn" id="onlyMissed" type="button" aria-pressed="false">Hide ones I got right</button><button class="iconbtn" id="resetQuiz" type="button">Reset answers</button></div>
+  <h3>Multiple choice · 22</h3>
+  <div class="mcq" id="mcq-1" data-answer="2"><p class="qtext">1. Which tokenisation method do modern Transformers mainly use?</p><ol class="choices"><li>Word</li><li>Character</li><li>Subword (e.g. BPE)</li><li>Sentence</li></ol><p class="explain">Subword tokenisation handles unseen words while keeping the vocabulary small.</p></div>
+  <div class="mcq" id="mcq-2" data-answer="1"><p class="qtext">2. "studies" → "studi" is an example of:</p><ol class="choices"><li>Lemmatisation</li><li>Stemming</li><li>Tokenisation</li><li>Chunking</li></ol><p class="explain">"studi" isn't a real word, so it's stemming. Lemmatisation would give "study".</p></div>
+  <div class="mcq" id="mcq-3" data-answer="3"><p class="qtext">3. In BPE, which pair is merged at each step?</p><ol class="choices"><li>The rarest pair</li><li>The first two characters of each word</li><li>A random pair</li><li>The most frequent adjacent pair</li></ol><p class="explain">BPE repeatedly merges the most frequent adjacent pair of symbols.</p></div>
+  <div class="mcq" id="mcq-4" data-answer="0"><p class="qtext">4. In an HMM POS tagger, P(word | tag) is called the:</p><ol class="choices"><li>Emission probability</li><li>Transition probability</li><li>Prior probability</li><li>Posterior probability</li></ol><p class="explain">Emission = probability that a tag produces a word. Transition = tag followed by tag.</p></div>
+  <div class="mcq" id="mcq-5" data-answer="2"><p class="qtext">5. Which phrase matches NP: {&lt;DT&gt;?&lt;JJ&gt;*&lt;NN&gt;}?</p><ol class="choices"><li>runs/VB quickly/RB</li><li>the/DT very/RB</li><li>big/JJ red/JJ ball/NN</li><li>the/DT the/DT dog/NN</li></ol><p class="explain">DT is optional and JJ can repeat, so JJ JJ NN matches. Two DTs don't match (? allows at most one).</p></div>
+  <div class="mcq" id="mcq-6" data-answer="1"><p class="qtext">6. "Apple Inc." would be labelled by NER as a:</p><ol class="choices"><li>Person</li><li>Organisation</li><li>Location</li><li>Date</li></ol><p class="explain">Companies, universities and the UN are organisations.</p></div>
+  <div class="mcq" id="mcq-7" data-answer="3"><p class="qtext">7. Which is NOT a problem with one-hot encoding?</p><ol class="choices"><li>Sparse vectors</li><li>No notion of similarity between words</li><li>Cannot represent out-of-vocabulary words</li><li>Vectors are too short to store a large vocabulary</li></ol><p class="explain">One-hot vectors are as long as the vocabulary, so they're too long, not too short.</p></div>
+  <div class="mcq" id="mcq-8" data-answer="0"><p class="qtext">8. In a term-document matrix, a column represents:</p><ol class="choices"><li>A document vector</li><li>A word vector</li><li>A context window</li><li>A vocabulary</li></ol><p class="explain">Rows are words, columns are documents.</p></div>
+  <div class="mcq" id="mcq-9" data-answer="2"><p class="qtext">9. Why is cosine similarity preferred over the raw dot product?</p><ol class="choices"><li>It is faster</li><li>It can be negative</li><li>It normalises for vector length, so frequent words aren't favoured</li><li>It ignores zeros</li></ol><p class="explain">The dot product grows with vector length. Cosine divides by both lengths.</p></div>
+  <div class="mcq" id="mcq-10" data-answer="1"><p class="qtext">10. A word that appears in every document has IDF equal to:</p><ol class="choices"><li>1</li><li>0</li><li>N</li><li>log₁₀(N)</li></ol><p class="explain">IDF = log₁₀(N/N) = log₁₀(1) = 0.</p></div>
+  <div class="mcq" id="mcq-11" data-answer="3"><p class="qtext">11. PPMI is normally computed on:</p><ol class="choices"><li>A term-document matrix</li><li>A one-hot matrix</li><li>A bag-of-words vector</li><li>A term-term (word-context) matrix</li></ol><p class="explain">TF-IDF pairs with TDM; PPMI pairs with TTM.</p></div>
+  <div class="mcq" id="mcq-12" data-answer="0"><p class="qtext">12. In skip-gram with negative sampling, a negative sample is:</p><ol class="choices"><li>The target word paired with a random word from the vocabulary</li><li>A word with a negative sentiment</li><li>A word removed as a stop word</li><li>A pair with a negative dot product</li></ol><p class="explain">Negative samples are fake (target, random word) pairs.</p></div>
+  <div class="mcq" id="mcq-13" data-answer="2"><p class="qtext">13. The "naive" assumption in Naive Bayes is that:</p><ol class="choices"><li>All classes are equally likely</li><li>Word order matters</li><li>Each word is independent of the others (given the class)</li><li>The vocabulary is fixed</li></ol><p class="explain">That's what lets us multiply P(wᵢ | c) for each word.</p></div>
+  <div class="mcq" id="mcq-14" data-answer="1"><p class="qtext">14. Why use add-1 (Laplace) smoothing in Naive Bayes?</p><ol class="choices"><li>To speed up training</li><li>To avoid zero probabilities for words unseen in a class</li><li>To remove stop words</li><li>To normalise document length</li></ol><p class="explain">One zero likelihood would make the whole product zero.</p></div>
+  <div class="mcq" id="mcq-15" data-answer="3"><p class="qtext">15. Logistic regression outputs a probability by applying which function to w·x + b?</p><ol class="choices"><li>ReLU</li><li>Softmax over words</li><li>tanh</li><li>Sigmoid</li></ol><p class="explain">σ(z) = 1/(1 + e^−z) maps any z to a probability between 0 and 1.</p></div>
+  <div class="mcq" id="mcq-16" data-answer="0"><p class="qtext">16. What does dropout do in a CNN?</p><ol class="choices"><li>Randomly disables neurons during training to reduce overfitting</li><li>Removes stop words</li><li>Shrinks the feature map</li><li>Sets negative values to zero</li></ol><p class="explain">Pooling shrinks maps; ReLU zeroes negatives; dropout fights overfitting.</p></div>
+  <div class="mcq" id="mcq-17" data-answer="2"><p class="qtext">17. Which model is decoder-only?</p><ol class="choices"><li>BERT</li><li>T5</li><li>GPT</li><li>RoBERTa</li></ol><p class="explain">BERT and RoBERTa are encoders; T5 and BART are encoder–decoder.</p></div>
+  <div class="mcq" id="mcq-18" data-answer="1"><p class="qtext">18. In self-attention, the output for a token is a weighted sum of the:</p><ol class="choices"><li>Queries</li><li>Values</li><li>Keys</li><li>Attention scores</li></ol><p class="explain">Scores come from Q·K; softmax weights then mix the V vectors.</p></div>
+
+  <div class="mcq" id="mcq-19" data-answer="2"><p class="qtext">19. In the logistic regression slides, a review is classified positive when:</p><ol class="choices"><li>z &gt; 0.5</li><li>w·x &gt; b</li><li>σ(z) &gt; 0.5</li><li>σ(z) &gt; 1</li></ol><p class="explain">The decision threshold is on the probability σ(z). Note that σ(z) &gt; 0.5 is the same as z &gt; 0, not z &gt; 0.5.</p></div>
+  <div class="mcq" id="mcq-20" data-answer="1"><p class="qtext">20. "brown fox" is an example of a:</p><ol class="choices"><li>Unigram</li><li>Bigram</li><li>Lemma</li><li>Named entity</li></ol><p class="explain">Two consecutive words = bigram (2-gram).</p></div>
+  <div class="mcq" id="mcq-21" data-answer="3"><p class="qtext">21. Precision is:</p><ol class="choices"><li>(TP + TN) / total</li><li>TP / (TP + FN)</li><li>TN / (TN + FP)</li><li>TP / (TP + FP)</li></ol><p class="explain">Precision = of everything predicted positive, the share that really is positive. TP / (TP + FN) is recall.</p></div>
+  <div class="mcq" id="mcq-22" data-answer="0"><p class="qtext">22. Two events are mutually exclusive when:</p><ol class="choices"><li>They cannot happen at the same time</li><li>One does not affect the other</li><li>They have equal probability</li><li>Their probabilities sum to 1</li></ol><p class="explain">Mutually exclusive: P(A and B) = 0. Independent means P(A and B) = P(A)P(B).</p></div>
+
+  <h3>Written · 12</h3>
+  <details class="q" id="w-1"><summary>1. Compare stemming and lemmatisation, with one example each.</summary><div class="ans">Stemming chops word endings with rules; the result may not be a real word (flies → fli). Lemmatisation uses a dictionary to return the base form, which is always a real word (flies → fly). Lemmatisation is more accurate; stemming is faster.</div></details>
+  <details class="q" id="w-2"><summary>2. Using the "Will can spot Mary" corpus, compute the probability of tagging "Mary will see Jane" as N M V N.</summary><div class="ans">&lt;S&gt;→N 3/4 × Mary|N 4/9 × N→M 3/9 × will|M 3/4 × M→V 3/4 × see|V 2/4 × V→N 1 × Jane|N 2/9 × N→&lt;E&gt; 4/9 = <b>0.00309</b>.</div></details>
+  <details class="q" id="w-3"><summary>3. Compute the cosine similarity of [1, 2, 0] and [2, 1, 2].</summary><div class="ans">Dot = 2 + 2 + 0 = 4. |a| = √5 = 2.236, |b| = √9 = 3. cos = 4 / 6.708 = <b>0.596</b>.</div></details>
+  <details class="q" id="w-4"><summary>4. A word appears 9 times in a document and in 10 of 1000 documents. Compute its TF-IDF.</summary><div class="ans">TF = log₁₀(10) = 1. IDF = log₁₀(1000/10) = 2. TF-IDF = <b>2</b>.</div></details>
+  <details class="q" id="w-5"><summary>5. Given P(w,c) = 0.1, P(w) = 0.2, P(c) = 0.25, compute PPMI. What if P(w,c) = 0.02?</summary><div class="ans">0.1 / 0.05 = 2 → log₂ 2 = <b>1</b>. With 0.02: 0.02/0.05 = 0.4 → log₂ 0.4 = −1.32 → PPMI = <b>0</b>.</div></details>
+  <details class="q" id="w-6"><summary>6. Naive Bayes with the slides' movie-review data: classify "disappointed movie".</summary><div class="ans">Positive: P(disappointed|+) = 1/29, P(movie|+) = 2/29 → 3/5 × 1/29 × 2/29 = <b>1.43 × 10⁻³</b>. Negative: P(disappointed|−) = 2/30, P(movie|−) = 2/30 → 2/5 × 2/30 × 2/30 = <b>1.78 × 10⁻³</b>. Predict <b>negative</b>.</div></details>
+  <details class="q" id="w-7"><summary>7. Using the slides' logistic regression weights, classify "disappointed movie". Does it agree with Naive Bayes?</summary><div class="ans">z = −0.331 + 0.037 + 0.325 = <b>0.031</b> → σ = <b>0.508</b> &gt; 0.5 → <b>positive</b>. It disagrees with Naive Bayes (negative). The bias pushes towards positive, and "movie" has a slightly positive weight. Both models are trained on only five reviews, so they're unreliable on borderline text.</div></details>
+  <details class="q" id="w-8"><summary>8. Logistic regression: x = [1, 2], w = [0.5, −0.25], b = 0.5. Find z, σ(z) and the class.</summary><div class="ans">z = 0.5 − 0.5 + 0.5 = <b>0.5</b> → σ = 1/(1 + e^−0.5) = <b>0.622</b> &gt; 0.5 → class <b>1</b>.</div></details>
+  <details class="q" id="w-9"><summary>9. A spam filter gives TP = 30, FP = 10, FN = 20, TN = 140. Compute accuracy, precision, recall and F1.</summary><div class="ans">Accuracy = 170/200 = <b>0.85</b>. Precision = 30/40 = <b>0.75</b>. Recall = 30/50 = <b>0.60</b>. F1 = 2(0.75)(0.60)/1.35 = <b>0.667</b>.</div></details>
+  <details class="q" id="w-10"><summary>10. Simple self-attention with x₁ = [1, 0], x₂ = [0, 1], x₃ = [1, 1]. Compute y₃ (no weight matrices).</summary><div class="ans">Scores: x₃·x₁ = 1, x₃·x₂ = 1, x₃·x₃ = 2. e¹ = 2.718, e¹ = 2.718, e² = 7.389, sum = 12.825 → α = [0.212, 0.212, 0.576]. y₃ = 0.212[1,0] + 0.212[0,1] + 0.576[1,1] = <b>[0.788, 0.788]</b>.</div></details>
+  <details class="q" id="w-11"><summary>11. Apply 2×2 max and average pooling with stride 2 to [[2,4,1,0],[6,8,3,1],[0,1,5,7],[2,3,9,4]].</summary><div class="ans">Max: <b>[[8, 3], [3, 9]]</b>. Average: [[20/4, 5/4], [6/4, 25/4]] = <b>[[5, 1.25], [1.5, 6.25]]</b>.</div></details>
+  <details class="q" id="w-12"><summary>12. Compare encoder-only, decoder-only and encoder–decoder Transformers, with one example model and task each.</summary><div class="ans">Encoder-only (BERT): builds representations for classification or NER. Decoder-only (GPT): generates text one token at a time. Encoder–decoder (T5, BART): sequence-to-sequence tasks such as translation and summarisation.</div></details>
+</section>
+
+<section id="flashcards" data-group="Test yourself" data-num="⇄" data-short="Flashcards" data-noprogress>
+  <h2><span class="tn">⇄</span>Flashcards</h2>
+  <p class="sub">Say the answer out loud before you flip.</p>
+  <div data-widget="flashcards"></div>
+</section>
+</main>
+</div>
+<script src="../../assets/modules.js"></script>
+<script src="../../assets/site.js"></script>
+<script src="../../assets/widgets-core.js"></script>
+<script src="widgets.js"></script>
+<script>
+(function(){var m=(window.MODULES||[]).find(function(x){return x.slug==="nlp"});var c=document.getElementById("examCount");if(!m||!m.exam||!c)return;var d=Math.ceil((new Date(m.exam+"T09:00:00")-new Date())/864e5);if(d<0)return;c.hidden=false;c.innerHTML="<b>"+(d===0?"Test today":d+" day"+(d===1?"":"s")+" to the test")+"</b>";})();
+</script>
+</body>
+</html>
